@@ -1,0 +1,140 @@
+[0.015s] Invoking command in '/home/wilson/saurcon_ws/build/wiimote': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/wilson/saurcon_ws/src/joystick_drivers/wiimote -DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/install/wiimote
+[0.088s] -- The C compiler identification is GNU 13.3.0
+[0.158s] -- The CXX compiler identification is GNU 13.3.0
+[0.180s] -- Detecting C compiler ABI info
+[0.284s] -- Detecting C compiler ABI info - done
+[0.294s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.295s] -- Detecting C compile features
+[0.296s] -- Detecting C compile features - done
+[0.307s] -- Detecting CXX compiler ABI info
+[0.418s] -- Detecting CXX compiler ABI info - done
+[0.429s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.429s] -- Detecting CXX compile features
+[0.430s] -- Detecting CXX compile features - done
+[0.477s] -- Found bluetooth library.
+[0.477s] -- Found bluetooth header.
+[0.480s] -- Found cwiid library.
+[0.480s] -- Found cwiid header.
+[0.483s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.680s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.829s] -- Found geometry_msgs: 5.3.5 (/opt/ros/jazzy/share/geometry_msgs/cmake)
+[0.918s] -- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.948s] -- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.004s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.035s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.129s] -- Found rclcpp: 28.1.6 (/opt/ros/jazzy/share/rclcpp/cmake)
+[1.313s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.325s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.427s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[1.452s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[1.478s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.597s] -- Found rclcpp_components: 28.1.6 (/opt/ros/jazzy/share/rclcpp_components/cmake)
+[1.660s] -- Found rclcpp_lifecycle: 28.1.6 (/opt/ros/jazzy/share/rclcpp_lifecycle/cmake)
+[1.714s] -- Found sensor_msgs: 5.3.5 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[1.753s] -- Found std_srvs: 5.3.5 (/opt/ros/jazzy/share/std_srvs/cmake)
+[1.781s] -- Found wiimote_msgs: 3.3.0 (/home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake)
+[1.812s] -- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[1.953s] -- Added test 'copyright' to check source files copyright and LICENSE
+[1.958s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.958s] -- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/include>
+[1.959s] -- Configured cppcheck exclude dirs and/or files: 
+[1.961s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[1.961s] -- Configured cpplint exclude dirs and/or files: 
+[1.962s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.962s] -- Configured 'flake8' exclude dirs and/or files: 
+[1.963s] -- Added test 'lint_cmake' to check CMake code style
+[1.963s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.966s] -- Added test 'uncrustify' to check C / C++ code style
+[1.966s] -- Configured uncrustify additional arguments: 
+[1.966s] -- Added test 'xmllint' to check XML markup files
+[1.969s] -- Configuring done (1.9s)
+[2.003s] -- Generating done (0.0s)
+[2.012s] -- Build files have been written to: /home/wilson/saurcon_ws/build/wiimote
+[2.025s] Invoked command in '/home/wilson/saurcon_ws/build/wiimote' returned '0': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake /home/wilson/saurcon_ws/src/joystick_drivers/wiimote -DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/install/wiimote
+[2.026s] Invoking command in '/home/wilson/saurcon_ws/build/wiimote': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/wilson/saurcon_ws/build/wiimote -- -j4 -l4
+[2.084s] [ 11%] [32mBuilding CXX object CMakeFiles/wiimote_lib.dir/src/wiimote_controller.cpp.o[0m
+[16.310s] [ 22%] [32mBuilding CXX object CMakeFiles/wiimote_lib.dir/src/stat_vector_3d.cpp.o[0m
+[16.763s] [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:[m[K In member function ‘[01m[KTVectorDouble StatVector3d::[01;32m[KgetMeanScaled[m[K(double)[m[K’:
+[16.763s] [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:91:57:[m[K [01;35m[Kwarning: [m[K‘[01m[Kstd::binder1st<_Operation> std::[01;32m[Kbind1st[m[K(const _Operation&, const _Tp&) [35m[K[with _Operation = multiplies<double>; _Tp = double][m[K[m[K’ is deprecated: use 'std::bind' instead [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+[16.764s]    91 |     mean.begin(), mean.end(), mean.begin(), [01;35m[Kstd::bind1st(std::multiplies<double>(), scale)[m[K);
+[16.764s]       |                                             [01;35m[K~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[16.764s] In file included from [01m[K/usr/include/c++/13/bits/stl_function.h:1438[m[K,
+[16.764s]                  from [01m[K/usr/include/c++/13/bits/refwrap.h:39[m[K,
+[16.764s]                  from [01m[K/usr/include/c++/13/vector:68[m[K,
+[16.764s]                  from [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/include/wiimote/stat_vector_3d.hpp:32[m[K,
+[16.764s]                  from [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:28[m[K:
+[16.764s] [01m[K/usr/include/c++/13/backward/binders.h:136:5:[m[K [01;36m[Knote: [m[Kdeclared here
+[16.764s]   136 |     [01;36m[Kbind1st[m[K(const _Operation& __fn, const _Tp& __x)
+[16.764s]       |     [01;36m[K^~~~~~~[m[K
+[16.765s] [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:[m[K In member function ‘[01m[KTVectorDouble StatVector3d::[01;32m[KgetVarianceScaled[m[K(double)[m[K’:
+[16.765s] [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:139:17:[m[K [01;35m[Kwarning: [m[K‘[01m[Kstd::binder1st<_Operation> std::[01;32m[Kbind1st[m[K(const _Operation&, const _Tp&) [35m[K[with _Operation = multiplies<double>; _Tp = double][m[K[m[K’ is deprecated: use 'std::bind' instead [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+[16.765s]   139 |     [01;35m[Kstd::bind1st(std::multiplies<double>(), scale)[m[K);
+[16.765s]       |     [01;35m[K~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[16.765s] [01m[K/usr/include/c++/13/backward/binders.h:136:5:[m[K [01;36m[Knote: [m[Kdeclared here
+[16.765s]   136 |     [01;36m[Kbind1st[m[K(const _Operation& __fn, const _Tp& __x)
+[16.765s]       |     [01;36m[K^~~~~~~[m[K
+[16.765s] [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:[m[K In member function ‘[01m[KTVectorDouble StatVector3d::[01;32m[KgetStandardDeviationScaled[m[K(double)[m[K’:
+[16.766s] [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:162:63:[m[K [01;35m[Kwarning: [m[K‘[01m[Kstd::binder1st<_Operation> std::[01;32m[Kbind1st[m[K(const _Operation&, const _Tp&) [35m[K[with _Operation = multiplies<double>; _Tp = double][m[K[m[K’ is deprecated: use 'std::bind' instead [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+[16.766s]   162 |     stddev.begin(), stddev.end(), stddev.begin(), [01;35m[Kstd::bind1st(std::multiplies<double>(), scale)[m[K);
+[16.766s]       |                                                   [01;35m[K~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[16.766s] [01m[K/usr/include/c++/13/backward/binders.h:136:5:[m[K [01;36m[Knote: [m[Kdeclared here
+[16.766s]   136 |     [01;36m[Kbind1st[m[K(const _Operation& __fn, const _Tp& __x)
+[16.766s]       |     [01;36m[K^~~~~~~[m[K
+[16.945s] [ 33%] [32m[1mLinking CXX shared library libwiimote_lib.so[0m
+[17.551s] [ 33%] Built target wiimote_lib
+[17.578s] [ 44%] [32mBuilding CXX object CMakeFiles/teleop_wiimote.dir/src/teleop_wiimote.cpp.o[0m
+[17.579s] [ 55%] [32mBuilding CXX object CMakeFiles/teleop_wiimote_node.dir/rclcpp_components/node_main_teleop_wiimote_node.cpp.o[0m
+[17.581s] [ 66%] [32mBuilding CXX object CMakeFiles/wiimote_node.dir/rclcpp_components/node_main_wiimote_node.cpp.o[0m
+[21.715s] [ 77%] [32m[1mLinking CXX executable teleop_wiimote_node[0m
+[21.962s] [ 77%] Built target teleop_wiimote_node
+[23.075s] [ 88%] [32m[1mLinking CXX executable wiimote_node[0m
+[23.246s] [ 88%] Built target wiimote_node
+[32.941s] [100%] [32m[1mLinking CXX shared library libteleop_wiimote.so[0m
+[33.458s] [100%] Built target teleop_wiimote
+[33.471s] Invoked command in '/home/wilson/saurcon_ws/build/wiimote' returned '0': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/wilson/saurcon_ws/build/wiimote -- -j4 -l4
+[33.473s] Invoking command in '/home/wilson/saurcon_ws/build/wiimote': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/wilson/saurcon_ws/build/wiimote
+[33.481s] -- Install configuration: ""
+[33.481s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/lib/wiimote/wiimote_node
+[33.482s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote/lib/wiimote/wiimote_node" to ""
+[33.482s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/lib/wiimote/teleop_wiimote_node
+[33.482s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote/lib/wiimote/teleop_wiimote_node" to ""
+[33.482s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/lib/libwiimote_lib.so
+[33.490s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote/lib/libwiimote_lib.so" to ""
+[33.490s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/lib/libteleop_wiimote.so
+[33.498s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote/lib/libteleop_wiimote.so" to ""
+[33.498s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/include/wiimote
+[33.498s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/include/wiimote/wiimote
+[33.498s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/include/wiimote/wiimote/teleop_wiimote.hpp
+[33.498s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/include/wiimote/wiimote/stat_vector_3d.hpp
+[33.498s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/include/wiimote/wiimote/wiimote_controller.hpp
+[33.498s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/launch
+[33.499s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/launch/turtlesim.launch.py
+[33.499s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/launch/feedback_test.launch.py
+[33.499s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/launch/wiimote_lifecycle.launch.py
+[33.499s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/config
+[33.499s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/config/wiimote_params.yaml
+[33.500s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/config/teleop_wiimote_params.yaml
+[33.502s] -- Up-to-date: /home/wilson/saurcon_ws/install/wiimote/lib/wiimote/wiimote_node
+[33.502s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/lib/wiimote/feedback_tester.py
+[33.502s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/ament_index/resource_index/package_run_dependencies/wiimote
+[33.502s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/ament_index/resource_index/parent_prefix_path/wiimote
+[33.503s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/environment/ament_prefix_path.sh
+[33.503s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/environment/ament_prefix_path.dsv
+[33.503s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/environment/path.sh
+[33.503s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/environment/path.dsv
+[33.503s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/local_setup.bash
+[33.503s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/local_setup.sh
+[33.503s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/local_setup.zsh
+[33.504s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/local_setup.dsv
+[33.504s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/package.dsv
+[33.504s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/ament_index/resource_index/packages/wiimote
+[33.504s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/ament_index/resource_index/rclcpp_components/wiimote
+[33.504s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/cmake/export_wiimoteExport.cmake
+[33.504s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/cmake/export_wiimoteExport-noconfig.cmake
+[33.505s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/cmake/wiimote-extras.cmake
+[33.505s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/cmake/ament_cmake_export_targets-extras.cmake
+[33.505s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/cmake/ament_cmake_export_dependencies-extras.cmake
+[33.505s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/cmake/wiimoteConfig.cmake
+[33.505s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/cmake/wiimoteConfig-version.cmake
+[33.505s] -- Installing: /home/wilson/saurcon_ws/install/wiimote/share/wiimote/package.xml
+[33.508s] Invoked command in '/home/wilson/saurcon_ws/build/wiimote' returned '0': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/cmake --install /home/wilson/saurcon_ws/build/wiimote

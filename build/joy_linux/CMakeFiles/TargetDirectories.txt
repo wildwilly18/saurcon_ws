@@ -1,0 +1,10 @@
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/uninstall.dir
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/joy_linux_uninstall.dir
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/joy_linux_node.dir
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/test.dir
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/edit_cache.dir
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/rebuild_cache.dir
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/list_install_components.dir
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/install.dir
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/install/local.dir
+/home/wilson/saurcon_ws/build/joy_linux/CMakeFiles/install/strip.dir

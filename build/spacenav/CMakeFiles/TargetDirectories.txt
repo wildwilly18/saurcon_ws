@@ -1,0 +1,11 @@
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/uninstall.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/spacenav_uninstall.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/spacenav.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/spacenav_node.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/test.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/edit_cache.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/rebuild_cache.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/list_install_components.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/install.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/install/local.dir
+/home/wilson/saurcon_ws/build/spacenav/CMakeFiles/install/strip.dir

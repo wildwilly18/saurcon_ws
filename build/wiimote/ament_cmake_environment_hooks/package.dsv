@@ -1,0 +1,4 @@
+source;share/wiimote/local_setup.bash
+source;share/wiimote/local_setup.dsv
+source;share/wiimote/local_setup.sh
+source;share/wiimote/local_setup.zsh

@@ -1,0 +1,294 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Found ament_cmake_auto: 2.5.3 (/opt/ros/jazzy/share/ament_cmake_auto/cmake)
+-- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rosidl_adapter: 4.6.5 (/opt/ros/jazzy/share/rosidl_adapter/cmake)
+-- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+-- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)
+-- Found PythonExtra: /usr/bin/python3  
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed 
+-- Added test 'copyright' to check source files copyright and LICENSE
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done (11.1s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/wilson/saurcon_ws/build/wiimote_msgs
+[  1%] [34m[1mGenerating type hashes for ROS interfaces[0m
+[  1%] Built target ament_cmake_python_copy_wiimote_msgs
+running egg_info
+creating wiimote_msgs.egg-info
+writing wiimote_msgs.egg-info/PKG-INFO
+writing dependency_links to wiimote_msgs.egg-info/dependency_links.txt
+writing top-level names to wiimote_msgs.egg-info/top_level.txt
+writing manifest file 'wiimote_msgs.egg-info/SOURCES.txt'
+reading manifest file 'wiimote_msgs.egg-info/SOURCES.txt'
+writing manifest file 'wiimote_msgs.egg-info/SOURCES.txt'
+[  1%] Built target ament_cmake_python_build_wiimote_msgs_egg
+[  1%] Built target wiimote_msgs__rosidl_generator_type_description
+[  3%] [34m[1mGenerating C code for ROS interfaces[0m
+[  5%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[  5%] Built target wiimote_msgs__cpp
+[  7%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_c.dir/rosidl_generator_c/wiimote_msgs/msg/detail/ir_source_info__functions.c.o[0m
+[  9%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_c.dir/rosidl_generator_c/wiimote_msgs/msg/detail/ir_source_info__description.c.o[0m
+[ 11%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_c.dir/rosidl_generator_c/wiimote_msgs/msg/detail/ir_source_info__type_support.c.o[0m
+[ 12%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_c.dir/rosidl_generator_c/wiimote_msgs/msg/detail/state__description.c.o[0m
+[ 14%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_c.dir/rosidl_generator_c/wiimote_msgs/msg/detail/state__functions.c.o[0m
+[ 16%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_c.dir/rosidl_generator_c/wiimote_msgs/msg/detail/state__type_support.c.o[0m
+[ 18%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_c.dir/rosidl_generator_c/wiimote_msgs/msg/detail/timed_switch__description.c.o[0m
+[ 20%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_c.dir/rosidl_generator_c/wiimote_msgs/msg/detail/timed_switch__functions.c.o[0m
+[ 22%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_c.dir/rosidl_generator_c/wiimote_msgs/msg/detail/timed_switch__type_support.c.o[0m
+[ 24%] [32m[1mLinking C shared library libwiimote_msgs__rosidl_generator_c.so[0m
+[ 24%] Built target wiimote_msgs__rosidl_generator_c
+[ 25%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[ 27%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[ 29%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[ 31%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wiimote_msgs/msg/ir_source_info__type_support.cpp.o[0m
+[ 35%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wiimote_msgs/msg/detail/ir_source_info__type_support.c.o[0m
+[ 37%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wiimote_msgs/msg/detail/state__type_support.c.o[0m
+[ 38%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wiimote_msgs/msg/detail/timed_switch__type_support.c.o[0m
+[ 40%] [32m[1mLinking C shared library libwiimote_msgs__rosidl_typesupport_introspection_c.so[0m
+[ 40%] Built target wiimote_msgs__rosidl_typesupport_introspection_c
+[ 42%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[ 44%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wiimote_msgs/msg/detail/dds_fastrtps/ir_source_info__type_support.cpp.o[0m
+[ 46%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wiimote_msgs/msg/detail/ir_source_info__type_support_c.cpp.o[0m
+[ 48%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wiimote_msgs/msg/state__type_support.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wiimote_msgs/msg/detail/state__type_support_c.cpp.o[0m
+[ 51%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wiimote_msgs/msg/detail/dds_fastrtps/state__type_support.cpp.o[0m
+[ 53%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wiimote_msgs/msg/timed_switch__type_support.cpp.o[0m
+[ 55%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wiimote_msgs/msg/ir_source_info__type_support.cpp.o[0m
+[ 57%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wiimote_msgs/msg/state__type_support.cpp.o[0m
+[ 59%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wiimote_msgs/msg/timed_switch__type_support.cpp.o[0m
+[ 61%] [32m[1mLinking CXX shared library libwiimote_msgs__rosidl_typesupport_c.so[0m
+[ 61%] Built target wiimote_msgs__rosidl_typesupport_c
+[ 62%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wiimote_msgs/msg/detail/timed_switch__type_support_c.cpp.o[0m
+[ 64%] [32m[1mLinking CXX shared library libwiimote_msgs__rosidl_typesupport_cpp.so[0m
+[ 64%] Built target wiimote_msgs__rosidl_typesupport_cpp
+[ 66%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[ 68%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wiimote_msgs/msg/detail/dds_fastrtps/timed_switch__type_support.cpp.o[0m
+[ 70%] [32m[1mLinking CXX shared library libwiimote_msgs__rosidl_typesupport_fastrtps_c.so[0m
+[ 70%] Built target wiimote_msgs__rosidl_typesupport_fastrtps_c
+[ 72%] [32m[1mLinking CXX shared library libwiimote_msgs__rosidl_typesupport_fastrtps_cpp.so[0m
+[ 72%] Built target wiimote_msgs__rosidl_typesupport_fastrtps_cpp
+[ 74%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wiimote_msgs/msg/detail/ir_source_info__type_support.cpp.o[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wiimote_msgs/msg/detail/timed_switch__type_support.cpp.o[0m
+[ 77%] [32mBuilding CXX object CMakeFiles/wiimote_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wiimote_msgs/msg/detail/state__type_support.cpp.o[0m
+[ 79%] [32m[1mLinking CXX shared library libwiimote_msgs__rosidl_typesupport_introspection_cpp.so[0m
+[ 79%] Built target wiimote_msgs__rosidl_typesupport_introspection_cpp
+[ 79%] Built target wiimote_msgs
+[ 81%] [34m[1mGenerating Python code for ROS interfaces[0m
+[ 81%] Built target wiimote_msgs__py
+[ 83%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_py.dir/rosidl_generator_py/wiimote_msgs/msg/_ir_source_info_s.c.o[0m
+[ 85%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_py.dir/rosidl_generator_py/wiimote_msgs/msg/_timed_switch_s.c.o[0m
+[ 87%] [32mBuilding C object CMakeFiles/wiimote_msgs__rosidl_generator_py.dir/rosidl_generator_py/wiimote_msgs/msg/_state_s.c.o[0m
+[ 88%] [32m[1mLinking C shared library libwiimote_msgs__rosidl_generator_py.so[0m
+[ 88%] Built target wiimote_msgs__rosidl_generator_py
+[ 90%] [32mBuilding C object CMakeFiles/wiimote_msgs_s__rosidl_typesupport_fastrtps_c.dir/rosidl_generator_py/wiimote_msgs/_wiimote_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[ 92%] [32m[1mLinking C shared module rosidl_generator_py/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_fastrtps_c.so[0m
+[ 92%] Built target wiimote_msgs_s__rosidl_typesupport_fastrtps_c
+[ 94%] [32mBuilding C object CMakeFiles/wiimote_msgs_s__rosidl_typesupport_c.dir/rosidl_generator_py/wiimote_msgs/_wiimote_msgs_s.ep.rosidl_typesupport_c.c.o[0m
+[ 96%] [32m[1mLinking C shared module rosidl_generator_py/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_c.so[0m
+[ 96%] Built target wiimote_msgs_s__rosidl_typesupport_c
+[ 98%] [32mBuilding C object CMakeFiles/wiimote_msgs_s__rosidl_typesupport_introspection_c.dir/rosidl_generator_py/wiimote_msgs/_wiimote_msgs_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[100%] [32m[1mLinking C shared module rosidl_generator_py/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_introspection_c.so[0m
+[100%] Built target wiimote_msgs_s__rosidl_typesupport_introspection_c
+-- Install configuration: ""
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/ament_index/resource_index/rosidl_interfaces/wiimote_msgs
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/msg/IrSourceInfo.json
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/msg/State.json
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/msg/TimedSwitch.json
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/rosidl_generator_c__visibility_control.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/timed_switch.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/state.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/ir_source_info.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__type_support.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__type_support.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__description.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__type_support.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__type_support.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__type_support.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__type_support.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__functions.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__functions.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__description.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__struct.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__struct.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__functions.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__functions.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__functions.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__struct.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__functions.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__description.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/environment/library_path.sh
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/environment/library_path.dsv
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_generator_c.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_generator_c.so" to ""
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__rosidl_typesupport_fastrtps_c.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__rosidl_typesupport_fastrtps_c.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__rosidl_typesupport_fastrtps_c.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_fastrtps_c.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_fastrtps_c.so" to ""
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/timed_switch.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/state.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/ir_source_info.hpp
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__traits.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__traits.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__struct.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__builder.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__builder.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__struct.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__traits.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__type_support.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__type_support.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__struct.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__builder.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__type_support.hpp
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/dds_fastrtps
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_fastrtps_cpp.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__type_support.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__type_support.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__type_support.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__rosidl_typesupport_introspection_c.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__rosidl_typesupport_introspection_c.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__rosidl_typesupport_introspection_c.h
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_introspection_c.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_c.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_c.so" to ""
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg
+-- Up-to-date: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__type_support.cpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__type_support.cpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/ir_source_info__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/timed_switch__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/include/wiimote_msgs/wiimote_msgs/msg/detail/state__type_support.cpp
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_introspection_cpp.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_introspection_cpp.so" to ""
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_cpp.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_typesupport_cpp.so" to ""
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/environment/pythonpath.sh
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/environment/pythonpath.dsv
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs-3.3.0-py3.12.egg-info
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs-3.3.0-py3.12.egg-info/SOURCES.txt
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs-3.3.0-py3.12.egg-info/PKG-INFO
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs-3.3.0-py3.12.egg-info/dependency_links.txt
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs-3.3.0-py3.12.egg-info/top_level.txt
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_c.so
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/_wiimote_msgs_s.ep.rosidl_typesupport_introspection_c.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_introspection_c.so
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/_wiimote_msgs_s.ep.rosidl_typesupport_c.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_fastrtps_c.so
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/__init__.py
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/_wiimote_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/_state_s.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/_state.py
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/_ir_source_info_s.c
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/_timed_switch.py
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/_ir_source_info.py
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/__init__.py
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/_timed_switch_s.c
+Listing '/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs'...
+Compiling '/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/__init__.py'...
+Listing '/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg'...
+Compiling '/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/__init__.py'...
+Compiling '/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/_ir_source_info.py'...
+Compiling '/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/_state.py'...
+Compiling '/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/msg/_timed_switch.py'...
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_fastrtps_c.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_fastrtps_c.so" to ""
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_introspection_c.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_c.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/python3.12/site-packages/wiimote_msgs/wiimote_msgs_s__rosidl_typesupport_c.so" to ""
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_generator_py.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/wiimote_msgs/lib/libwiimote_msgs__rosidl_generator_py.so" to ""
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/msg/IrSourceInfo.idl
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/msg/State.idl
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/msg/TimedSwitch.idl
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/msg/IrSourceInfo.msg
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/msg/State.msg
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/msg/TimedSwitch.msg
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/ament_index/resource_index/package_run_dependencies/wiimote_msgs
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/ament_index/resource_index/parent_prefix_path/wiimote_msgs
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/environment/ament_prefix_path.sh
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/environment/ament_prefix_path.dsv
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/environment/path.sh
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/environment/path.dsv
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/local_setup.bash
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/local_setup.sh
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/local_setup.zsh
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/local_setup.dsv
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/package.dsv
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/ament_index/resource_index/packages/wiimote_msgs
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/export_wiimote_msgs__rosidl_generator_cExport.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/export_wiimote_msgs__rosidl_generator_cExport-noconfig.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/export_wiimote_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/export_wiimote_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/export_wiimote_msgs__rosidl_generator_cppExport.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/export_wiimote_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/export_wiimote_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgs__rosidl_typesupport_introspection_cExport.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgs__rosidl_typesupport_cExport.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgs__rosidl_typesupport_cExport-noconfig.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgs__rosidl_typesupport_introspection_cppExport.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgs__rosidl_typesupport_cppExport.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/export_wiimote_msgs__rosidl_generator_pyExport.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/export_wiimote_msgs__rosidl_generator_pyExport-noconfig.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/rosidl_cmake-extras.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgsConfig.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/cmake/wiimote_msgsConfig-version.cmake
+-- Installing: /home/wilson/saurcon_ws/install/wiimote_msgs/share/wiimote_msgs/package.xml

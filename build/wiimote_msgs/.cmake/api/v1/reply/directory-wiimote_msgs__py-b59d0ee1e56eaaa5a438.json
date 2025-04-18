@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "wiimote_msgs__py",
+		"source" : "/home/wilson/saurcon_ws/build/wiimote_msgs/wiimote_msgs__py"
+	}
+}

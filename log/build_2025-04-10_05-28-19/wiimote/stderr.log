@@ -1,0 +1,26 @@
+[01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:[m[K In member function ‘[01m[KTVectorDouble StatVector3d::[01;32m[KgetMeanScaled[m[K(double)[m[K’:
+[01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:91:57:[m[K [01;35m[Kwarning: [m[K‘[01m[Kstd::binder1st<_Operation> std::[01;32m[Kbind1st[m[K(const _Operation&, const _Tp&) [35m[K[with _Operation = multiplies<double>; _Tp = double][m[K[m[K’ is deprecated: use 'std::bind' instead [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+   91 |     mean.begin(), mean.end(), mean.begin(), [01;35m[Kstd::bind1st(std::multiplies<double>(), scale)[m[K);
+      |                                             [01;35m[K~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/usr/include/c++/13/bits/stl_function.h:1438[m[K,
+                 from [01m[K/usr/include/c++/13/bits/refwrap.h:39[m[K,
+                 from [01m[K/usr/include/c++/13/vector:68[m[K,
+                 from [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/include/wiimote/stat_vector_3d.hpp:32[m[K,
+                 from [01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:28[m[K:
+[01m[K/usr/include/c++/13/backward/binders.h:136:5:[m[K [01;36m[Knote: [m[Kdeclared here
+  136 |     [01;36m[Kbind1st[m[K(const _Operation& __fn, const _Tp& __x)
+      |     [01;36m[K^~~~~~~[m[K
+[01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:[m[K In member function ‘[01m[KTVectorDouble StatVector3d::[01;32m[KgetVarianceScaled[m[K(double)[m[K’:
+[01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:139:17:[m[K [01;35m[Kwarning: [m[K‘[01m[Kstd::binder1st<_Operation> std::[01;32m[Kbind1st[m[K(const _Operation&, const _Tp&) [35m[K[with _Operation = multiplies<double>; _Tp = double][m[K[m[K’ is deprecated: use 'std::bind' instead [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  139 |     [01;35m[Kstd::bind1st(std::multiplies<double>(), scale)[m[K);
+      |     [01;35m[K~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/usr/include/c++/13/backward/binders.h:136:5:[m[K [01;36m[Knote: [m[Kdeclared here
+  136 |     [01;36m[Kbind1st[m[K(const _Operation& __fn, const _Tp& __x)
+      |     [01;36m[K^~~~~~~[m[K
+[01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:[m[K In member function ‘[01m[KTVectorDouble StatVector3d::[01;32m[KgetStandardDeviationScaled[m[K(double)[m[K’:
+[01m[K/home/wilson/saurcon_ws/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp:162:63:[m[K [01;35m[Kwarning: [m[K‘[01m[Kstd::binder1st<_Operation> std::[01;32m[Kbind1st[m[K(const _Operation&, const _Tp&) [35m[K[with _Operation = multiplies<double>; _Tp = double][m[K[m[K’ is deprecated: use 'std::bind' instead [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  162 |     stddev.begin(), stddev.end(), stddev.begin(), [01;35m[Kstd::bind1st(std::multiplies<double>(), scale)[m[K);
+      |                                                   [01;35m[K~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/usr/include/c++/13/backward/binders.h:136:5:[m[K [01;36m[Knote: [m[Kdeclared here
+  136 |     [01;36m[Kbind1st[m[K(const _Operation& __fn, const _Tp& __x)
+      |     [01;36m[K^~~~~~~[m[K

@@ -1,0 +1,27 @@
+[0.018s] Invoking command in '/home/wilson/saurcon_ws/build/control_rc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/control_rc -- -j4 -l4
+[0.101s] [ 50%] Built target talker
+[0.112s] [ 75%] [32mBuilding CXX object CMakeFiles/xbox_ctrl_sub.dir/src/sub_xbox_ctrl.cpp.o[0m
+[8.946s] [100%] [32m[1mLinking CXX executable xbox_ctrl_sub[0m
+[9.345s] [100%] Built target xbox_ctrl_sub
+[9.362s] Invoked command in '/home/wilson/saurcon_ws/build/control_rc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/control_rc -- -j4 -l4
+[9.378s] Invoking command in '/home/wilson/saurcon_ws/build/control_rc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/control_rc
+[9.391s] -- Install configuration: ""
+[9.391s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/lib/control_rc/talker
+[9.392s] -- Installing: /home/wilson/saurcon_ws/install/control_rc/lib/control_rc/xbox_ctrl_sub
+[9.397s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/control_rc/lib/control_rc/xbox_ctrl_sub" to ""
+[9.398s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/package_run_dependencies/control_rc
+[9.398s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/parent_prefix_path/control_rc
+[9.398s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/ament_prefix_path.sh
+[9.399s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/ament_prefix_path.dsv
+[9.399s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/path.sh
+[9.399s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/path.dsv
+[9.399s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.bash
+[9.400s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.sh
+[9.400s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.zsh
+[9.401s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.dsv
+[9.401s] -- Installing: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.dsv
+[9.402s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/packages/control_rc
+[9.402s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/cmake/control_rcConfig.cmake
+[9.402s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/cmake/control_rcConfig-version.cmake
+[9.402s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.xml
+[9.403s] Invoked command in '/home/wilson/saurcon_ws/build/control_rc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/control_rc

@@ -1,0 +1,14 @@
+{
+  "package_name": "wiimote_msgs",
+  "output_dir": "/home/wilson/saurcon_ws/build/wiimote_msgs/rosidl_generator_type_description/wiimote_msgs",
+  "idl_tuples": [
+    "/home/wilson/saurcon_ws/build/wiimote_msgs/rosidl_adapter/wiimote_msgs:msg/IrSourceInfo.idl",
+    "/home/wilson/saurcon_ws/build/wiimote_msgs/rosidl_adapter/wiimote_msgs:msg/State.idl",
+    "/home/wilson/saurcon_ws/build/wiimote_msgs/rosidl_adapter/wiimote_msgs:msg/TimedSwitch.idl"
+  ],
+  "include_paths": [
+    "geometry_msgs:/opt/ros/jazzy/share/geometry_msgs",
+    "std_msgs:/opt/ros/jazzy/share/std_msgs",
+    "builtin_interfaces:/opt/ros/jazzy/share/builtin_interfaces"
+  ]
+}

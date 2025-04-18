@@ -1,0 +1,60 @@
+[0.017s] Invoking command in '/home/wilson/saurcon_ws/build/control_rc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/control_rc -- -j4 -l4
+[0.101s] [ 50%] Built target talker
+[0.104s] [ 75%] [32mBuilding CXX object CMakeFiles/xbox_ctrl_sub.dir/src/sub_xbox_ctrl.cpp.o[0m
+[2.948s] In file included from [01m[K/opt/ros/jazzy/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+[2.948s]                  from [01m[K/opt/ros/jazzy/include/rclcpp/rclcpp/copy_all_parameter_values.hpp:27[m[K,
+[2.948s]                  from [01m[K/opt/ros/jazzy/include/rclcpp/rclcpp/rclcpp.hpp:171[m[K,
+[2.948s]                  from [01m[K/home/wilson/saurcon_ws/src/control_rc/src/sub_xbox_ctrl.cpp:1[m[K:
+[2.949s] [01m[K/home/wilson/saurcon_ws/src/control_rc/src/sub_xbox_ctrl.cpp:[m[K In member function ‘[01m[Kvoid JoySubscriber::[01;32m[Kjoy_callback[m[K(sensor_msgs::msg::Joy_<std::allocator<void> >::SharedPtr)[m[K’:
+[2.949s] [01m[K/home/wilson/saurcon_ws/src/control_rc/src/sub_xbox_ctrl.cpp:20:37:[m[K [01;35m[Kwarning: [m[Kformat ‘[01m[K%f[m[K’ expects argument of type ‘[01m[Kdouble[m[K’, but argument 5 has type ‘[01m[Kint[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wformat=-Wformat=]8;;[m[K]
+[2.949s]    20 |     RCLCPP_INFO(this->get_logger(), [01;35m[K"  Throttle = %.2f"[m[K, [32m[K1[m[K, msg->axes[1]);
+[2.949s]       |                                     [01;35m[K^~~~~~~~~~~~~~~~~~~[m[K  [32m[K~[m[K
+[2.949s]       |                                                          [32m[K|[m[K
+[2.949s]       |                                                          [32m[Kint[m[K
+[2.949s] [01m[K/home/wilson/saurcon_ws/src/control_rc/src/sub_xbox_ctrl.cpp:20:54:[m[K [01;36m[Knote: [m[Kformat string is defined here
+[2.949s]    20 |     RCLCPP_INFO(this->get_logger(), "  Throttle = [01;36m[K%.2f[m[K", 1, msg->axes[1]);
+[2.950s]       |                                                   [01;36m[K~~~^[m[K
+[2.950s]       |                                                      [01;36m[K|[m[K
+[2.950s]       |                                                      [01;36m[Kdouble[m[K
+[2.950s]       |                                                   [32m[K%.2d[m[K
+[2.950s] [01m[K/home/wilson/saurcon_ws/src/control_rc/src/sub_xbox_ctrl.cpp:20:37:[m[K [01;35m[Kwarning: [m[Ktoo many arguments for format [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wformat-extra-args-Wformat-extra-args]8;;[m[K]
+[2.950s]    20 |     RCLCPP_INFO(this->get_logger(), [01;35m[K"  Throttle = %.2f"[m[K, 1, msg->axes[1]);
+[2.950s]       |                                     [01;35m[K^~~~~~~~~~~~~~~~~~~[m[K
+[2.950s] [01m[K/home/wilson/saurcon_ws/src/control_rc/src/sub_xbox_ctrl.cpp:21:37:[m[K [01;35m[Kwarning: [m[Kformat ‘[01m[K%f[m[K’ expects argument of type ‘[01m[Kdouble[m[K’, but argument 5 has type ‘[01m[Kint[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wformat=-Wformat=]8;;[m[K]
+[2.951s]    21 |     RCLCPP_INFO(this->get_logger(), [01;35m[K"  Steer    = %.2f"[m[K, [32m[K1[m[K, msg->axes[3]);
+[2.951s]       |                                     [01;35m[K^~~~~~~~~~~~~~~~~~~[m[K  [32m[K~[m[K
+[2.951s]       |                                                          [32m[K|[m[K
+[2.951s]       |                                                          [32m[Kint[m[K
+[2.951s] [01m[K/home/wilson/saurcon_ws/src/control_rc/src/sub_xbox_ctrl.cpp:21:54:[m[K [01;36m[Knote: [m[Kformat string is defined here
+[2.951s]    21 |     RCLCPP_INFO(this->get_logger(), "  Steer    = [01;36m[K%.2f[m[K", 1, msg->axes[3]);
+[2.951s]       |                                                   [01;36m[K~~~^[m[K
+[2.951s]       |                                                      [01;36m[K|[m[K
+[2.952s]       |                                                      [01;36m[Kdouble[m[K
+[2.952s]       |                                                   [32m[K%.2d[m[K
+[2.952s] [01m[K/home/wilson/saurcon_ws/src/control_rc/src/sub_xbox_ctrl.cpp:21:37:[m[K [01;35m[Kwarning: [m[Ktoo many arguments for format [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wformat-extra-args-Wformat-extra-args]8;;[m[K]
+[2.952s]    21 |     RCLCPP_INFO(this->get_logger(), [01;35m[K"  Steer    = %.2f"[m[K, 1, msg->axes[3]);
+[2.952s]       |                                     [01;35m[K^~~~~~~~~~~~~~~~~~~[m[K
+[9.091s] [100%] [32m[1mLinking CXX executable xbox_ctrl_sub[0m
+[9.484s] [100%] Built target xbox_ctrl_sub
+[9.503s] Invoked command in '/home/wilson/saurcon_ws/build/control_rc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/control_rc -- -j4 -l4
+[9.517s] Invoking command in '/home/wilson/saurcon_ws/build/control_rc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/control_rc
+[9.531s] -- Install configuration: ""
+[9.531s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/lib/control_rc/talker
+[9.533s] -- Installing: /home/wilson/saurcon_ws/install/control_rc/lib/control_rc/xbox_ctrl_sub
+[9.540s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/control_rc/lib/control_rc/xbox_ctrl_sub" to ""
+[9.540s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/package_run_dependencies/control_rc
+[9.541s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/parent_prefix_path/control_rc
+[9.541s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/ament_prefix_path.sh
+[9.541s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/ament_prefix_path.dsv
+[9.541s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/path.sh
+[9.542s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/path.dsv
+[9.543s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.bash
+[9.543s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.sh
+[9.543s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.zsh
+[9.544s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.dsv
+[9.545s] -- Installing: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.dsv
+[9.546s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/packages/control_rc
+[9.546s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/cmake/control_rcConfig.cmake
+[9.546s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/cmake/control_rcConfig-version.cmake
+[9.547s] -- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.xml
+[9.547s] Invoked command in '/home/wilson/saurcon_ws/build/control_rc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/control_rc

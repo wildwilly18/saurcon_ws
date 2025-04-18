@@ -1,0 +1,2 @@
+WiimoteNode;lib/libwiimote_lib.so
+TeleopWiimote;lib/libteleop_wiimote.so
