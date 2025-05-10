@@ -1,6 +1,0 @@
-setup.py
-wiimote_msgs/__init__.py
-wiimote_msgs.egg-info/PKG-INFO
-wiimote_msgs.egg-info/SOURCES.txt
-wiimote_msgs.egg-info/dependency_links.txt
-wiimote_msgs.egg-info/top_level.txt
