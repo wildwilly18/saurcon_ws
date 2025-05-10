@@ -67,27 +67,27 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/xbox_ctrl_sub" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/xbox_ctrl_sub")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/ctrl_interface" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/ctrl_interface")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/xbox_ctrl_sub"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/ctrl_interface"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/control_rc" TYPE EXECUTABLE FILES "/home/wilson/saurcon_ws/build/control_rc/xbox_ctrl_sub")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/xbox_ctrl_sub" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/xbox_ctrl_sub")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/control_rc" TYPE EXECUTABLE FILES "/home/wilson/saurcon_ws/build/control_rc/ctrl_interface")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/ctrl_interface" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/ctrl_interface")
     file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/xbox_ctrl_sub"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/ctrl_interface"
          OLD_RPATH "/opt/ros/jazzy/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/xbox_ctrl_sub")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/control_rc/ctrl_interface")
     endif()
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/wilson/saurcon_ws/build/control_rc/CMakeFiles/xbox_ctrl_sub.dir/install-cxx-module-bmi-noconfig.cmake" OPTIONAL)
+  include("/home/wilson/saurcon_ws/build/control_rc/CMakeFiles/ctrl_interface.dir/install-cxx-module-bmi-noconfig.cmake" OPTIONAL)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)

@@ -1,0 +1,61 @@
+[0.019s] Invoking command in '/home/wilson/saurcon_ws/src/build/control_rc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/wilson/saurcon_ws/src/control_rc -DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/control_rc
+[0.217s] -- The C compiler identification is GNU 13.3.0
+[0.413s] -- The CXX compiler identification is GNU 13.3.0
+[0.446s] -- Detecting C compiler ABI info
+[0.610s] -- Detecting C compiler ABI info - done
+[0.629s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.637s] -- Detecting C compile features
+[0.639s] -- Detecting C compile features - done
+[0.657s] -- Detecting CXX compiler ABI info
+[0.830s] -- Detecting CXX compiler ABI info - done
+[0.850s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.852s] -- Detecting CXX compile features
+[0.852s] -- Detecting CXX compile features - done
+[0.864s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.140s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.352s] -- Found rclcpp: 28.1.6 (/opt/ros/jazzy/share/rclcpp/cmake)
+[1.445s] -- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[1.476s] -- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.518s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.558s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.756s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.764s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.961s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[2.003s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[2.052s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.229s] -- Found std_msgs: 5.3.5 (/opt/ros/jazzy/share/std_msgs/cmake)
+[2.267s] -- Found sensor_msgs: 5.3.5 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[2.522s] -- Configuring done (2.5s)
+[2.558s] -- Generating done (0.0s)
+[2.570s] -- Build files have been written to: /home/wilson/saurcon_ws/src/build/control_rc
+[2.589s] Invoked command in '/home/wilson/saurcon_ws/src/build/control_rc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/wilson/saurcon_ws/src/control_rc -DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/control_rc
+[2.590s] Invoking command in '/home/wilson/saurcon_ws/src/build/control_rc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/src/build/control_rc -- -j4 -l4
+[2.678s] [ 25%] [32mBuilding CXX object CMakeFiles/xbox_ctrl_sub.dir/src/sub_xbox_ctrl.cpp.o[0m
+[2.697s] [ 50%] [32mBuilding CXX object CMakeFiles/talker.dir/src/publisher_control_rc.cpp.o[0m
+[18.570s] [ 75%] [32m[1mLinking CXX executable talker[0m
+[19.369s] [ 75%] Built target talker
+[29.625s] [100%] [32m[1mLinking CXX executable xbox_ctrl_sub[0m
+[30.603s] [100%] Built target xbox_ctrl_sub
+[30.638s] Invoked command in '/home/wilson/saurcon_ws/src/build/control_rc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/src/build/control_rc -- -j4 -l4
+[30.639s] Invoking command in '/home/wilson/saurcon_ws/src/build/control_rc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/src/build/control_rc
+[30.663s] -- Install configuration: ""
+[30.664s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/talker
+[30.669s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/talker" to ""
+[30.670s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/xbox_ctrl_sub
+[30.681s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/xbox_ctrl_sub" to ""
+[30.682s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/ament_index/resource_index/package_run_dependencies/control_rc
+[30.684s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/ament_index/resource_index/parent_prefix_path/control_rc
+[30.684s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/ament_prefix_path.sh
+[30.685s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/ament_prefix_path.dsv
+[30.687s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/path.sh
+[30.688s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/path.dsv
+[30.688s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.bash
+[30.690s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.sh
+[30.691s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.zsh
+[30.691s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.dsv
+[30.693s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/package.dsv
+[30.693s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/ament_index/resource_index/packages/control_rc
+[30.694s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/cmake/control_rcConfig.cmake
+[30.696s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/cmake/control_rcConfig-version.cmake
+[30.696s] -- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/package.xml
+[30.702s] Invoked command in '/home/wilson/saurcon_ws/src/build/control_rc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/src/build/control_rc

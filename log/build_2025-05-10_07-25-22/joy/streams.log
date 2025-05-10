@@ -1,0 +1,46 @@
+[0.049s] Invoking command in '/home/wilson/saurcon_ws/build/joy': CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/sdl2_vendor:/home/wilson/saurcon_ws/install/wiimote:/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/saurcon_ws/install/spacenav:/home/wilson/saurcon_ws/install/joy:/home/wilson/saurcon_ws/install/joy_linux:/home/wilson/saurcon_ws/install/control_rc:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/joy -- -j4 -l4
+[0.484s] [ 20%] Built target joy_node
+[0.485s] [ 40%] Built target joy
+[0.485s] [ 60%] Built target game_controller
+[0.485s] [ 80%] Built target game_controller_node
+[0.535s] [100%] Built target joy_enumerate_devices
+[0.567s] Invoked command in '/home/wilson/saurcon_ws/build/joy' returned '0': CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/sdl2_vendor:/home/wilson/saurcon_ws/install/wiimote:/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/saurcon_ws/install/spacenav:/home/wilson/saurcon_ws/install/joy:/home/wilson/saurcon_ws/install/joy_linux:/home/wilson/saurcon_ws/install/control_rc:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/joy -- -j4 -l4
+[0.568s] Invoking command in '/home/wilson/saurcon_ws/build/joy': CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/sdl2_vendor:/home/wilson/saurcon_ws/install/wiimote:/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/saurcon_ws/install/spacenav:/home/wilson/saurcon_ws/install/joy:/home/wilson/saurcon_ws/install/joy_linux:/home/wilson/saurcon_ws/install/control_rc:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/joy
+[0.588s] -- Install configuration: ""
+[0.590s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/lib/libjoy.so
+[0.591s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/lib/joy/joy_node
+[0.599s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/lib/libgame_controller.so
+[0.600s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/lib/joy/game_controller_node
+[0.602s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/lib/joy/joy_enumerate_devices
+[0.603s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/include/joy
+[0.603s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/include/joy/joy
+[0.603s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/include/joy/joy/game_controller.hpp
+[0.605s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/include/joy/joy/joy.hpp
+[0.605s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/config
+[0.607s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/config/joy-params.yaml
+[0.607s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/launch
+[0.607s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/launch/joy-launch.py
+[0.607s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/launch/joy-composed-launch.py
+[0.609s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/ament_index/resource_index/package_run_dependencies/joy
+[0.610s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/ament_index/resource_index/parent_prefix_path/joy
+[0.610s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/environment/ament_prefix_path.sh
+[0.613s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/environment/ament_prefix_path.dsv
+[0.618s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/environment/path.sh
+[0.618s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/environment/path.dsv
+[0.618s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/local_setup.bash
+[0.619s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/local_setup.sh
+[0.619s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/local_setup.zsh
+[0.626s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/local_setup.dsv
+[0.631s] -- Installing: /home/wilson/saurcon_ws/install/joy/share/joy/package.dsv
+[0.631s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/ament_index/resource_index/packages/joy
+[0.631s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/ament_index/resource_index/rclcpp_components/joy
+[0.631s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/cmake/export_joyExport.cmake
+[0.633s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/cmake/export_joyExport-noconfig.cmake
+[0.633s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/cmake/export_game_controllerExport.cmake
+[0.633s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/cmake/export_game_controllerExport-noconfig.cmake
+[0.634s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/cmake/ament_cmake_export_targets-extras.cmake
+[0.637s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.637s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/cmake/joyConfig.cmake
+[0.638s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/cmake/joyConfig-version.cmake
+[0.638s] -- Up-to-date: /home/wilson/saurcon_ws/install/joy/share/joy/package.xml
+[0.651s] Invoked command in '/home/wilson/saurcon_ws/build/joy' returned '0': CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/sdl2_vendor:/home/wilson/saurcon_ws/install/wiimote:/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/saurcon_ws/install/spacenav:/home/wilson/saurcon_ws/install/joy:/home/wilson/saurcon_ws/install/joy_linux:/home/wilson/saurcon_ws/install/control_rc:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/joy

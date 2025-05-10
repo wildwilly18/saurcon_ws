@@ -682,5 +682,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/uninstall.dir/DependInfo.cmake"
   "CMakeFiles/control_rc_uninstall.dir/DependInfo.cmake"
   "CMakeFiles/talker.dir/DependInfo.cmake"
-  "CMakeFiles/xbox_ctrl_sub.dir/DependInfo.cmake"
+  "CMakeFiles/ctrl_interface.dir/DependInfo.cmake"
   )

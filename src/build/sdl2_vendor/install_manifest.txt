@@ -1,0 +1,17 @@
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake/Modules/Findsdl2_custom.cmake
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/ament_index/resource_index/package_run_dependencies/sdl2_vendor
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/ament_index/resource_index/parent_prefix_path/sdl2_vendor
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/environment/ament_prefix_path.sh
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/environment/ament_prefix_path.dsv
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/environment/path.sh
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/environment/path.dsv
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/local_setup.bash
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/local_setup.sh
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/local_setup.zsh
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/local_setup.dsv
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/package.dsv
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/ament_index/resource_index/packages/sdl2_vendor
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake/sdl2_vendor-extras.cmake
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake/sdl2_vendorConfig.cmake
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake/sdl2_vendorConfig-version.cmake
+/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/package.xml

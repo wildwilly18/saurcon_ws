@@ -1,0 +1,37 @@
+[ 25%] [32mBuilding CXX object CMakeFiles/spacenav.dir/src/spacenav.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/spacenav_node.dir/rclcpp_components/node_main_spacenav_node.cpp.o[0m
+[ 75%] [32m[1mLinking CXX executable spacenav_node[0m
+[ 75%] Built target spacenav_node
+[100%] [32m[1mLinking CXX shared library libspacenav.so[0m
+[100%] Built target spacenav
+-- Install configuration: ""
+-- Installing: /home/wilson/saurcon_ws/install/spacenav/lib/libspacenav.so
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/spacenav/lib/libspacenav.so" to ""
+-- Installing: /home/wilson/saurcon_ws/install/spacenav/lib/spacenav/spacenav_node
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/spacenav/lib/spacenav/spacenav_node" to ""
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/include/spacenav
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/include/spacenav/spacenav
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/include/spacenav/spacenav/spacenav.hpp
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav//launch
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav//launch/no_deadband-launch.py
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav//launch/classic-launch.py
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav//launch/static_deadband-launch.py
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/ament_index/resource_index/package_run_dependencies/spacenav
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/ament_index/resource_index/parent_prefix_path/spacenav
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/environment/ament_prefix_path.sh
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/environment/path.sh
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/environment/path.dsv
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/local_setup.bash
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/local_setup.sh
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/local_setup.zsh
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/local_setup.dsv
+-- Installing: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.dsv
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/ament_index/resource_index/packages/spacenav
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/ament_index/resource_index/rclcpp_components/spacenav
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/cmake/export_spacenavExport.cmake
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/cmake/export_spacenavExport-noconfig.cmake
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/cmake/ament_cmake_export_targets-extras.cmake
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/cmake/spacenavConfig.cmake
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/cmake/spacenavConfig-version.cmake
+-- Up-to-date: /home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.xml

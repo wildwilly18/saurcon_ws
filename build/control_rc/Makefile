@@ -211,17 +211,41 @@ talker/fast:
 .PHONY : talker/fast
 
 #=============================================================================
-# Target rules for targets named xbox_ctrl_sub
+# Target rules for targets named ctrl_interface
 
 # Build rule for target.
-xbox_ctrl_sub: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 xbox_ctrl_sub
-.PHONY : xbox_ctrl_sub
+ctrl_interface: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ctrl_interface
+.PHONY : ctrl_interface
 
 # fast build rule for target.
-xbox_ctrl_sub/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/xbox_ctrl_sub.dir/build.make CMakeFiles/xbox_ctrl_sub.dir/build
-.PHONY : xbox_ctrl_sub/fast
+ctrl_interface/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_interface.dir/build.make CMakeFiles/ctrl_interface.dir/build
+.PHONY : ctrl_interface/fast
+
+src/ctrl_interface.o: src/ctrl_interface.cpp.o
+.PHONY : src/ctrl_interface.o
+
+# target to build an object file
+src/ctrl_interface.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_interface.dir/build.make CMakeFiles/ctrl_interface.dir/src/ctrl_interface.cpp.o
+.PHONY : src/ctrl_interface.cpp.o
+
+src/ctrl_interface.i: src/ctrl_interface.cpp.i
+.PHONY : src/ctrl_interface.i
+
+# target to preprocess a source file
+src/ctrl_interface.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_interface.dir/build.make CMakeFiles/ctrl_interface.dir/src/ctrl_interface.cpp.i
+.PHONY : src/ctrl_interface.cpp.i
+
+src/ctrl_interface.s: src/ctrl_interface.cpp.s
+.PHONY : src/ctrl_interface.s
+
+# target to generate assembly for a file
+src/ctrl_interface.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_interface.dir/build.make CMakeFiles/ctrl_interface.dir/src/ctrl_interface.cpp.s
+.PHONY : src/ctrl_interface.cpp.s
 
 src/publisher_control_rc.o: src/publisher_control_rc.cpp.o
 .PHONY : src/publisher_control_rc.o
@@ -247,30 +271,6 @@ src/publisher_control_rc.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/talker.dir/build.make CMakeFiles/talker.dir/src/publisher_control_rc.cpp.s
 .PHONY : src/publisher_control_rc.cpp.s
 
-src/sub_xbox_ctrl.o: src/sub_xbox_ctrl.cpp.o
-.PHONY : src/sub_xbox_ctrl.o
-
-# target to build an object file
-src/sub_xbox_ctrl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/xbox_ctrl_sub.dir/build.make CMakeFiles/xbox_ctrl_sub.dir/src/sub_xbox_ctrl.cpp.o
-.PHONY : src/sub_xbox_ctrl.cpp.o
-
-src/sub_xbox_ctrl.i: src/sub_xbox_ctrl.cpp.i
-.PHONY : src/sub_xbox_ctrl.i
-
-# target to preprocess a source file
-src/sub_xbox_ctrl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/xbox_ctrl_sub.dir/build.make CMakeFiles/xbox_ctrl_sub.dir/src/sub_xbox_ctrl.cpp.i
-.PHONY : src/sub_xbox_ctrl.cpp.i
-
-src/sub_xbox_ctrl.s: src/sub_xbox_ctrl.cpp.s
-.PHONY : src/sub_xbox_ctrl.s
-
-# target to generate assembly for a file
-src/sub_xbox_ctrl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/xbox_ctrl_sub.dir/build.make CMakeFiles/xbox_ctrl_sub.dir/src/sub_xbox_ctrl.cpp.s
-.PHONY : src/sub_xbox_ctrl.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -286,14 +286,14 @@ help:
 	@echo "... test"
 	@echo "... control_rc_uninstall"
 	@echo "... uninstall"
+	@echo "... ctrl_interface"
 	@echo "... talker"
-	@echo "... xbox_ctrl_sub"
+	@echo "... src/ctrl_interface.o"
+	@echo "... src/ctrl_interface.i"
+	@echo "... src/ctrl_interface.s"
 	@echo "... src/publisher_control_rc.o"
 	@echo "... src/publisher_control_rc.i"
 	@echo "... src/publisher_control_rc.s"
-	@echo "... src/sub_xbox_ctrl.o"
-	@echo "... src/sub_xbox_ctrl.i"
-	@echo "... src/sub_xbox_ctrl.s"
 .PHONY : help
 
 

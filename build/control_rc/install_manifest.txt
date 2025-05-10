@@ -1,5 +1,5 @@
 /home/wilson/saurcon_ws/install/control_rc/lib/control_rc/talker
-/home/wilson/saurcon_ws/install/control_rc/lib/control_rc/xbox_ctrl_sub
+/home/wilson/saurcon_ws/install/control_rc/lib/control_rc/ctrl_interface
 /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/package_run_dependencies/control_rc
 /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/parent_prefix_path/control_rc
 /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/ament_prefix_path.sh

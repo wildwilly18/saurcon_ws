@@ -1,7 +1,7 @@
 /home/wilson/saurcon_ws/build/control_rc/CMakeFiles/uninstall.dir
 /home/wilson/saurcon_ws/build/control_rc/CMakeFiles/control_rc_uninstall.dir
 /home/wilson/saurcon_ws/build/control_rc/CMakeFiles/talker.dir
-/home/wilson/saurcon_ws/build/control_rc/CMakeFiles/xbox_ctrl_sub.dir
+/home/wilson/saurcon_ws/build/control_rc/CMakeFiles/ctrl_interface.dir
 /home/wilson/saurcon_ws/build/control_rc/CMakeFiles/test.dir
 /home/wilson/saurcon_ws/build/control_rc/CMakeFiles/edit_cache.dir
 /home/wilson/saurcon_ws/build/control_rc/CMakeFiles/rebuild_cache.dir

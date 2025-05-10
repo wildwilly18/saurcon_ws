@@ -20,13 +20,13 @@ find_package(sensor_msgs REQUIRED)
 # find_package(<dependency> REQUIRED)
 
 add_executable(talker src/publisher_control_rc.cpp)
-add_executable(xbox_ctrl_sub src/sub_xbox_ctrl.cpp)
+add_executable(ctrl_interface src/ctrl_interface.cpp)
 ament_target_dependencies(talker rclcpp std_msgs)
-ament_target_dependencies(xbox_ctrl_sub rclcpp sensor_msgs geometry_msgs)
+ament_target_dependencies(ctrl_interface rclcpp sensor_msgs geometry_msgs)
 
 install(TARGETS
   talker
-  xbox_ctrl_sub
+  ctrl_interface
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

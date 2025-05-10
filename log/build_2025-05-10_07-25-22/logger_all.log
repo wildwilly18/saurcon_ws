@@ -1,0 +1,465 @@
+[0.147s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.147s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7bc927473ec0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7bc927473bc0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7bc927473bc0>>, mixin_verb=('build',))
+[0.245s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.245s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.245s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.245s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.245s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.245s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.245s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/wilson/saurcon_ws'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.306s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.306s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.306s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.306s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.306s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.306s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.308s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.308s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.308s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.308s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.308s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.308s] Level 1:colcon.colcon_core.package_identification:_identify(src/build) by extensions ['ignore', 'ignore_ament_install']
+[0.309s] Level 1:colcon.colcon_core.package_identification:_identify(src/build) by extension 'ignore'
+[0.309s] Level 1:colcon.colcon_core.package_identification:_identify(src/build) ignored
+[0.309s] Level 1:colcon.colcon_core.package_identification:_identify(src/control_rc) by extensions ['ignore', 'ignore_ament_install']
+[0.309s] Level 1:colcon.colcon_core.package_identification:_identify(src/control_rc) by extension 'ignore'
+[0.309s] Level 1:colcon.colcon_core.package_identification:_identify(src/control_rc) by extension 'ignore_ament_install'
+[0.309s] Level 1:colcon.colcon_core.package_identification:_identify(src/control_rc) by extensions ['colcon_pkg']
+[0.309s] Level 1:colcon.colcon_core.package_identification:_identify(src/control_rc) by extension 'colcon_pkg'
+[0.309s] Level 1:colcon.colcon_core.package_identification:_identify(src/control_rc) by extensions ['colcon_meta']
+[0.309s] Level 1:colcon.colcon_core.package_identification:_identify(src/control_rc) by extension 'colcon_meta'
+[0.310s] Level 1:colcon.colcon_core.package_identification:_identify(src/control_rc) by extensions ['ros']
+[0.310s] Level 1:colcon.colcon_core.package_identification:_identify(src/control_rc) by extension 'ros'
+[0.314s] DEBUG:colcon.colcon_core.package_identification:Package 'src/control_rc' with type 'ros.ament_cmake' and name 'control_rc'
+[0.314s] Level 1:colcon.colcon_core.package_identification:_identify(src/install) by extensions ['ignore', 'ignore_ament_install']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/install) by extension 'ignore'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/install) ignored
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extensions ['ignore', 'ignore_ament_install']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extension 'ignore'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extension 'ignore_ament_install'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extensions ['colcon_pkg']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extension 'colcon_pkg'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extensions ['colcon_meta']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extension 'colcon_meta'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extensions ['ros']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extension 'ros'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extensions ['cmake', 'python']
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extension 'cmake'
+[0.315s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extension 'python'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extensions ['python_setup_py']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers) by extension 'python_setup_py'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy) by extensions ['ignore', 'ignore_ament_install']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy) by extension 'ignore'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy) by extension 'ignore_ament_install'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy) by extensions ['colcon_pkg']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy) by extension 'colcon_pkg'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy) by extensions ['colcon_meta']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy) by extension 'colcon_meta'
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy) by extensions ['ros']
+[0.316s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy) by extension 'ros'
+[0.317s] DEBUG:colcon.colcon_core.package_identification:Package 'src/joystick_drivers/joy' with type 'ros.ament_cmake' and name 'joy'
+[0.317s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy_linux) by extensions ['ignore', 'ignore_ament_install']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy_linux) by extension 'ignore'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy_linux) by extension 'ignore_ament_install'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy_linux) by extensions ['colcon_pkg']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy_linux) by extension 'colcon_pkg'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy_linux) by extensions ['colcon_meta']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy_linux) by extension 'colcon_meta'
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy_linux) by extensions ['ros']
+[0.318s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joy_linux) by extension 'ros'
+[0.319s] DEBUG:colcon.colcon_core.package_identification:Package 'src/joystick_drivers/joy_linux' with type 'ros.ament_cmake' and name 'joy_linux'
+[0.319s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) by extensions ['ignore', 'ignore_ament_install']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) by extension 'ignore'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) by extension 'ignore_ament_install'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) by extensions ['colcon_pkg']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) by extension 'colcon_pkg'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) by extensions ['colcon_meta']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) by extension 'colcon_meta'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) by extensions ['ros']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) by extension 'ros'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/joystick_drivers) ignored
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) by extensions ['ignore', 'ignore_ament_install']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) by extension 'ignore'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) by extension 'ignore_ament_install'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) by extensions ['colcon_pkg']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) by extension 'colcon_pkg'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) by extensions ['colcon_meta']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) by extension 'colcon_meta'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) by extensions ['ros']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) by extension 'ros'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/ps3joy) ignored
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/sdl2_vendor) by extensions ['ignore', 'ignore_ament_install']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/sdl2_vendor) by extension 'ignore'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/sdl2_vendor) by extension 'ignore_ament_install'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/sdl2_vendor) by extensions ['colcon_pkg']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/sdl2_vendor) by extension 'colcon_pkg'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/sdl2_vendor) by extensions ['colcon_meta']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/sdl2_vendor) by extension 'colcon_meta'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/sdl2_vendor) by extensions ['ros']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/sdl2_vendor) by extension 'ros'
+[0.323s] DEBUG:colcon.colcon_core.package_identification:Package 'src/joystick_drivers/sdl2_vendor' with type 'ros.ament_cmake' and name 'sdl2_vendor'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/spacenav) by extensions ['ignore', 'ignore_ament_install']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/spacenav) by extension 'ignore'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/spacenav) by extension 'ignore_ament_install'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/spacenav) by extensions ['colcon_pkg']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/spacenav) by extension 'colcon_pkg'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/spacenav) by extensions ['colcon_meta']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/spacenav) by extension 'colcon_meta'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/spacenav) by extensions ['ros']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(src/joystick_drivers/spacenav) by extension 'ros'
+[0.326s] DEBUG:colcon.colcon_core.package_identification:Package 'src/joystick_drivers/spacenav' with type 'ros.ament_cmake' and name 'spacenav'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/log) by extensions ['ignore', 'ignore_ament_install']
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/log) by extension 'ignore'
+[0.327s] Level 1:colcon.colcon_core.package_identification:_identify(src/log) ignored
+[0.327s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.327s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.327s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.327s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.327s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.367s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.367s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.370s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 7 installed packages in /home/wilson/saurcon_ws/install
+[0.371s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/wilson/uros_ws/install
+[0.371s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/wilson/ros2_ws/install
+[0.375s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 287 installed packages in /opt/ros/jazzy
+[0.379s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.487s] WARNING:colcon.colcon_core.package_selection:Some selected packages are already built in one or more underlay workspaces:
+	'joy' is in: /opt/ros/jazzy, /home/wilson/saurcon_ws/install/joy
+If a package in a merged underlay workspace is overridden and it installs headers, then all packages in the overlay must sort their include directories by workspace order. Failure to do so may result in build failures or undefined behavior at run time.
+If the overridden package is used by another package in any underlay, then the overriding package in the overlay must be API and ABI compatible or undefined behavior at run time may occur.
+
+If you understand the risks and want to override a package anyways, add the following to the command line:
+	--allow-overriding joy
+
+This may be promoted to an error in a future release of colcon-override-check.
+[0.489s] Level 5:colcon.colcon_core.verb:set package 'control_rc' build argument 'cmake_args' from command line to 'None'
+[0.489s] Level 5:colcon.colcon_core.verb:set package 'control_rc' build argument 'cmake_target' from command line to 'None'
+[0.489s] Level 5:colcon.colcon_core.verb:set package 'control_rc' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.489s] Level 5:colcon.colcon_core.verb:set package 'control_rc' build argument 'cmake_clean_cache' from command line to 'False'
+[0.489s] Level 5:colcon.colcon_core.verb:set package 'control_rc' build argument 'cmake_clean_first' from command line to 'False'
+[0.489s] Level 5:colcon.colcon_core.verb:set package 'control_rc' build argument 'cmake_force_configure' from command line to 'False'
+[0.489s] Level 5:colcon.colcon_core.verb:set package 'control_rc' build argument 'ament_cmake_args' from command line to 'None'
+[0.489s] Level 5:colcon.colcon_core.verb:set package 'control_rc' build argument 'catkin_cmake_args' from command line to 'None'
+[0.489s] Level 5:colcon.colcon_core.verb:set package 'control_rc' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.489s] DEBUG:colcon.colcon_core.verb:Building package 'control_rc' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/wilson/saurcon_ws/build/control_rc', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/wilson/saurcon_ws/install/control_rc', 'merge_install': False, 'path': '/home/wilson/saurcon_ws/src/control_rc', 'symlink_install': False, 'test_result_base': None}
+[0.490s] Level 5:colcon.colcon_core.verb:set package 'joy_linux' build argument 'cmake_args' from command line to 'None'
+[0.490s] Level 5:colcon.colcon_core.verb:set package 'joy_linux' build argument 'cmake_target' from command line to 'None'
+[0.490s] Level 5:colcon.colcon_core.verb:set package 'joy_linux' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.490s] Level 5:colcon.colcon_core.verb:set package 'joy_linux' build argument 'cmake_clean_cache' from command line to 'False'
+[0.490s] Level 5:colcon.colcon_core.verb:set package 'joy_linux' build argument 'cmake_clean_first' from command line to 'False'
+[0.490s] Level 5:colcon.colcon_core.verb:set package 'joy_linux' build argument 'cmake_force_configure' from command line to 'False'
+[0.490s] Level 5:colcon.colcon_core.verb:set package 'joy_linux' build argument 'ament_cmake_args' from command line to 'None'
+[0.491s] Level 5:colcon.colcon_core.verb:set package 'joy_linux' build argument 'catkin_cmake_args' from command line to 'None'
+[0.491s] Level 5:colcon.colcon_core.verb:set package 'joy_linux' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.491s] DEBUG:colcon.colcon_core.verb:Building package 'joy_linux' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/wilson/saurcon_ws/build/joy_linux', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/wilson/saurcon_ws/install/joy_linux', 'merge_install': False, 'path': '/home/wilson/saurcon_ws/src/joystick_drivers/joy_linux', 'symlink_install': False, 'test_result_base': None}
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'sdl2_vendor' build argument 'cmake_args' from command line to 'None'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'sdl2_vendor' build argument 'cmake_target' from command line to 'None'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'sdl2_vendor' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'sdl2_vendor' build argument 'cmake_clean_cache' from command line to 'False'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'sdl2_vendor' build argument 'cmake_clean_first' from command line to 'False'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'sdl2_vendor' build argument 'cmake_force_configure' from command line to 'False'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'sdl2_vendor' build argument 'ament_cmake_args' from command line to 'None'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'sdl2_vendor' build argument 'catkin_cmake_args' from command line to 'None'
+[0.492s] Level 5:colcon.colcon_core.verb:set package 'sdl2_vendor' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.492s] DEBUG:colcon.colcon_core.verb:Building package 'sdl2_vendor' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/wilson/saurcon_ws/build/sdl2_vendor', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/wilson/saurcon_ws/install/sdl2_vendor', 'merge_install': False, 'path': '/home/wilson/saurcon_ws/src/joystick_drivers/sdl2_vendor', 'symlink_install': False, 'test_result_base': None}
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'spacenav' build argument 'cmake_args' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'spacenav' build argument 'cmake_target' from command line to 'None'
+[0.493s] Level 5:colcon.colcon_core.verb:set package 'spacenav' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'spacenav' build argument 'cmake_clean_cache' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'spacenav' build argument 'cmake_clean_first' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'spacenav' build argument 'cmake_force_configure' from command line to 'False'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'spacenav' build argument 'ament_cmake_args' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'spacenav' build argument 'catkin_cmake_args' from command line to 'None'
+[0.494s] Level 5:colcon.colcon_core.verb:set package 'spacenav' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.494s] DEBUG:colcon.colcon_core.verb:Building package 'spacenav' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/wilson/saurcon_ws/build/spacenav', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/wilson/saurcon_ws/install/spacenav', 'merge_install': False, 'path': '/home/wilson/saurcon_ws/src/joystick_drivers/spacenav', 'symlink_install': False, 'test_result_base': None}
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'joy' build argument 'cmake_args' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'joy' build argument 'cmake_target' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'joy' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'joy' build argument 'cmake_clean_cache' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'joy' build argument 'cmake_clean_first' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'joy' build argument 'cmake_force_configure' from command line to 'False'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'joy' build argument 'ament_cmake_args' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'joy' build argument 'catkin_cmake_args' from command line to 'None'
+[0.495s] Level 5:colcon.colcon_core.verb:set package 'joy' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.495s] DEBUG:colcon.colcon_core.verb:Building package 'joy' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/wilson/saurcon_ws/build/joy', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/wilson/saurcon_ws/install/joy', 'merge_install': False, 'path': '/home/wilson/saurcon_ws/src/joystick_drivers/joy', 'symlink_install': False, 'test_result_base': None}
+[0.496s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.498s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.498s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/wilson/saurcon_ws/src/joystick_drivers/sdl2_vendor' with build type 'ament_cmake'
+[0.498s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/wilson/saurcon_ws/src/joystick_drivers/sdl2_vendor'
+[0.502s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.503s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.503s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.513s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/wilson/saurcon_ws/src/control_rc' with build type 'ament_cmake'
+[0.513s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/wilson/saurcon_ws/src/control_rc'
+[0.514s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.514s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.529s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/wilson/saurcon_ws/src/joystick_drivers/joy_linux' with build type 'ament_cmake'
+[0.529s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/wilson/saurcon_ws/src/joystick_drivers/joy_linux'
+[0.530s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.533s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.549s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/wilson/saurcon_ws/src/joystick_drivers/spacenav' with build type 'ament_cmake'
+[0.550s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/wilson/saurcon_ws/src/joystick_drivers/spacenav'
+[0.551s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.551s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.576s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/sdl2_vendor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/sdl2_vendor -- -j4 -l4
+[0.583s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/control_rc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/control_rc -- -j4 -l4
+[0.597s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/joy_linux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/joy_linux -- -j4 -l4
+[0.624s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/spacenav': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/spacenav -- -j4 -l4
+[0.720s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/sdl2_vendor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/sdl2_vendor -- -j4 -l4
+[0.793s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/sdl2_vendor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/sdl2_vendor
+[0.856s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(sdl2_vendor)
+[0.863s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/sdl2_vendor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/sdl2_vendor
+[0.871s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor' for CMake module files
+[0.877s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor' for CMake config files
+[0.878s] Level 1:colcon.colcon_core.shell:create_environment_hook('sdl2_vendor', 'cmake_prefix_path')
+[0.878s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/hook/cmake_prefix_path.ps1'
+[0.880s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/hook/cmake_prefix_path.dsv'
+[0.881s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/hook/cmake_prefix_path.sh'
+[0.882s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor/bin'
+[0.883s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor/lib/pkgconfig/sdl2_vendor.pc'
+[0.883s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor/lib/python3.12/site-packages'
+[0.884s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor/bin'
+[0.884s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.ps1'
+[0.885s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.dsv'
+[0.886s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.sh'
+[0.887s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.bash'
+[0.891s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.zsh'
+[0.892s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/sdl2_vendor/share/colcon-core/packages/sdl2_vendor)
+[0.893s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(sdl2_vendor)
+[0.894s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor' for CMake module files
+[0.896s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor' for CMake config files
+[0.896s] Level 1:colcon.colcon_core.shell:create_environment_hook('sdl2_vendor', 'cmake_prefix_path')
+[0.896s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/hook/cmake_prefix_path.ps1'
+[0.897s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/hook/cmake_prefix_path.dsv'
+[0.898s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/hook/cmake_prefix_path.sh'
+[0.900s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor/bin'
+[0.900s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor/lib/pkgconfig/sdl2_vendor.pc'
+[0.900s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor/lib/python3.12/site-packages'
+[0.901s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/sdl2_vendor/bin'
+[0.901s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.ps1'
+[0.902s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.dsv'
+[0.903s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.sh'
+[0.905s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.bash'
+[0.907s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.zsh'
+[0.913s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/sdl2_vendor/share/colcon-core/packages/sdl2_vendor)
+[0.915s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/wilson/saurcon_ws/src/joystick_drivers/joy' with build type 'ament_cmake'
+[0.915s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/wilson/saurcon_ws/src/joystick_drivers/joy'
+[0.915s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.915s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.963s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/joy': CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/sdl2_vendor:/home/wilson/saurcon_ws/install/wiimote:/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/saurcon_ws/install/spacenav:/home/wilson/saurcon_ws/install/joy:/home/wilson/saurcon_ws/install/joy_linux:/home/wilson/saurcon_ws/install/control_rc:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/joy -- -j4 -l4
+[1.037s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/joy_linux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/joy_linux -- -j4 -l4
+[1.044s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/joy_linux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/joy_linux
+[1.089s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/spacenav' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/spacenav -- -j4 -l4
+[1.090s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/spacenav': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/spacenav
+[1.128s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(joy_linux)
+[1.128s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux' for CMake module files
+[1.130s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux' for CMake config files
+[1.130s] Level 1:colcon.colcon_core.shell:create_environment_hook('joy_linux', 'cmake_prefix_path')
+[1.137s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/hook/cmake_prefix_path.ps1'
+[1.139s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/hook/cmake_prefix_path.dsv'
+[1.140s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/hook/cmake_prefix_path.sh'
+[1.138s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/joy_linux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/joy_linux
+[1.149s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/lib'
+[1.150s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/bin'
+[1.150s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/lib/pkgconfig/joy_linux.pc'
+[1.158s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/lib/python3.12/site-packages'
+[1.162s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/bin'
+[1.163s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.ps1'
+[1.168s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.dsv'
+[1.182s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.sh'
+[1.183s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.bash'
+[1.183s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.zsh'
+[1.205s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/joy_linux/share/colcon-core/packages/joy_linux)
+[1.206s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(joy_linux)
+[1.212s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux' for CMake module files
+[1.219s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux' for CMake config files
+[1.221s] Level 1:colcon.colcon_core.shell:create_environment_hook('joy_linux', 'cmake_prefix_path')
+[1.221s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/hook/cmake_prefix_path.ps1'
+[1.222s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/hook/cmake_prefix_path.dsv'
+[1.228s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/hook/cmake_prefix_path.sh'
+[1.236s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/lib'
+[1.236s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/bin'
+[1.236s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/lib/pkgconfig/joy_linux.pc'
+[1.239s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/lib/python3.12/site-packages'
+[1.243s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy_linux/bin'
+[1.246s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.ps1'
+[1.252s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.dsv'
+[1.256s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.sh'
+[1.264s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.bash'
+[1.268s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy_linux/share/joy_linux/package.zsh'
+[1.269s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/joy_linux/share/colcon-core/packages/joy_linux)
+[1.286s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(spacenav)
+[1.287s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav' for CMake module files
+[1.288s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav' for CMake config files
+[1.303s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/spacenav' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/spacenav
+[1.304s] Level 1:colcon.colcon_core.shell:create_environment_hook('spacenav', 'cmake_prefix_path')
+[1.304s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/cmake_prefix_path.ps1'
+[1.305s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/cmake_prefix_path.dsv'
+[1.305s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/cmake_prefix_path.sh'
+[1.316s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/lib'
+[1.316s] Level 1:colcon.colcon_core.shell:create_environment_hook('spacenav', 'ld_library_path_lib')
+[1.316s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/ld_library_path_lib.ps1'
+[1.317s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/ld_library_path_lib.dsv'
+[1.327s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/ld_library_path_lib.sh'
+[1.333s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/bin'
+[1.333s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/lib/pkgconfig/spacenav.pc'
+[1.333s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/lib/python3.12/site-packages'
+[1.334s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/bin'
+[1.335s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.ps1'
+[1.336s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.dsv'
+[1.340s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.sh'
+[1.345s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.bash'
+[1.346s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.zsh'
+[1.349s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/spacenav/share/colcon-core/packages/spacenav)
+[1.352s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(spacenav)
+[1.353s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav' for CMake module files
+[1.358s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav' for CMake config files
+[1.367s] Level 1:colcon.colcon_core.shell:create_environment_hook('spacenav', 'cmake_prefix_path')
+[1.367s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/cmake_prefix_path.ps1'
+[1.368s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/cmake_prefix_path.dsv'
+[1.369s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/cmake_prefix_path.sh'
+[1.376s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/lib'
+[1.376s] Level 1:colcon.colcon_core.shell:create_environment_hook('spacenav', 'ld_library_path_lib')
+[1.376s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/ld_library_path_lib.ps1'
+[1.377s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/ld_library_path_lib.dsv'
+[1.380s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/hook/ld_library_path_lib.sh'
+[1.385s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/bin'
+[1.385s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/lib/pkgconfig/spacenav.pc'
+[1.386s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/lib/python3.12/site-packages'
+[1.386s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/spacenav/bin'
+[1.392s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.ps1'
+[1.394s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.dsv'
+[1.399s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.sh'
+[1.403s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.bash'
+[1.404s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/spacenav/share/spacenav/package.zsh'
+[1.404s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/spacenav/share/colcon-core/packages/spacenav)
+[1.482s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/joy' returned '0': CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/sdl2_vendor:/home/wilson/saurcon_ws/install/wiimote:/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/saurcon_ws/install/spacenav:/home/wilson/saurcon_ws/install/joy:/home/wilson/saurcon_ws/install/joy_linux:/home/wilson/saurcon_ws/install/control_rc:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/joy -- -j4 -l4
+[1.483s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/joy': CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/sdl2_vendor:/home/wilson/saurcon_ws/install/wiimote:/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/saurcon_ws/install/spacenav:/home/wilson/saurcon_ws/install/joy:/home/wilson/saurcon_ws/install/joy_linux:/home/wilson/saurcon_ws/install/control_rc:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/joy
+[1.553s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(joy)
+[1.554s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy' for CMake module files
+[1.558s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy' for CMake config files
+[1.562s] Level 1:colcon.colcon_core.shell:create_environment_hook('joy', 'cmake_prefix_path')
+[1.563s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy/share/joy/hook/cmake_prefix_path.ps1'
+[1.566s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/joy' returned '0': CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/install/sdl2_vendor:/home/wilson/saurcon_ws/install/wiimote:/home/wilson/saurcon_ws/install/wiimote_msgs:/home/wilson/saurcon_ws/install/spacenav:/home/wilson/saurcon_ws/install/joy:/home/wilson/saurcon_ws/install/joy_linux:/home/wilson/saurcon_ws/install/control_rc:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/joy
+[1.569s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/joy/share/joy/hook/cmake_prefix_path.dsv'
+[1.572s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy/share/joy/hook/cmake_prefix_path.sh'
+[1.573s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/lib'
+[1.573s] Level 1:colcon.colcon_core.shell:create_environment_hook('joy', 'ld_library_path_lib')
+[1.574s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy/share/joy/hook/ld_library_path_lib.ps1'
+[1.581s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/joy/share/joy/hook/ld_library_path_lib.dsv'
+[1.583s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy/share/joy/hook/ld_library_path_lib.sh'
+[1.589s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/bin'
+[1.589s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/lib/pkgconfig/joy.pc'
+[1.589s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/lib/python3.12/site-packages'
+[1.590s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/bin'
+[1.591s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy/share/joy/package.ps1'
+[1.596s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/joy/share/joy/package.dsv'
+[1.599s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy/share/joy/package.sh'
+[1.603s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy/share/joy/package.bash'
+[1.608s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy/share/joy/package.zsh'
+[1.613s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/joy/share/colcon-core/packages/joy)
+[1.618s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(joy)
+[1.619s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy' for CMake module files
+[1.628s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy' for CMake config files
+[1.632s] Level 1:colcon.colcon_core.shell:create_environment_hook('joy', 'cmake_prefix_path')
+[1.635s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy/share/joy/hook/cmake_prefix_path.ps1'
+[1.639s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/joy/share/joy/hook/cmake_prefix_path.dsv'
+[1.645s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy/share/joy/hook/cmake_prefix_path.sh'
+[1.651s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/lib'
+[1.651s] Level 1:colcon.colcon_core.shell:create_environment_hook('joy', 'ld_library_path_lib')
+[1.651s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy/share/joy/hook/ld_library_path_lib.ps1'
+[1.652s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/joy/share/joy/hook/ld_library_path_lib.dsv'
+[1.659s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/joy/share/joy/hook/ld_library_path_lib.sh'
+[1.662s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/bin'
+[1.662s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/lib/pkgconfig/joy.pc'
+[1.666s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/lib/python3.12/site-packages'
+[1.666s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/joy/bin'
+[1.669s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy/share/joy/package.ps1'
+[1.672s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/joy/share/joy/package.dsv'
+[1.674s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy/share/joy/package.sh'
+[1.675s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy/share/joy/package.bash'
+[1.676s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/joy/share/joy/package.zsh'
+[1.677s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/joy/share/colcon-core/packages/joy)
+[13.781s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/control_rc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/control_rc -- -j4 -l4
+[13.782s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wilson/saurcon_ws/build/control_rc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/control_rc
+[13.811s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(control_rc)
+[13.812s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc' for CMake module files
+[13.813s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wilson/saurcon_ws/build/control_rc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/control_rc
+[13.814s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc' for CMake config files
+[13.814s] Level 1:colcon.colcon_core.shell:create_environment_hook('control_rc', 'cmake_prefix_path')
+[13.814s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/hook/cmake_prefix_path.ps1'
+[13.815s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/hook/cmake_prefix_path.dsv'
+[13.815s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/hook/cmake_prefix_path.sh'
+[13.816s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/lib'
+[13.816s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/bin'
+[13.816s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/lib/pkgconfig/control_rc.pc'
+[13.817s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/lib/python3.12/site-packages'
+[13.817s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/bin'
+[13.817s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.ps1'
+[13.818s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.dsv'
+[13.819s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.sh'
+[13.819s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.bash'
+[13.820s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.zsh'
+[13.820s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/control_rc/share/colcon-core/packages/control_rc)
+[13.821s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(control_rc)
+[13.821s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc' for CMake module files
+[13.823s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc' for CMake config files
+[13.823s] Level 1:colcon.colcon_core.shell:create_environment_hook('control_rc', 'cmake_prefix_path')
+[13.824s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/hook/cmake_prefix_path.ps1'
+[13.825s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/hook/cmake_prefix_path.dsv'
+[13.826s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/hook/cmake_prefix_path.sh'
+[13.828s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/lib'
+[13.828s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/bin'
+[13.828s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/lib/pkgconfig/control_rc.pc'
+[13.829s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/lib/python3.12/site-packages'
+[13.829s] Level 1:colcon.colcon_core.environment:checking '/home/wilson/saurcon_ws/install/control_rc/bin'
+[13.830s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.ps1'
+[13.830s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.dsv'
+[13.831s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.sh'
+[13.832s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.bash'
+[13.832s] INFO:colcon.colcon_core.shell:Creating package script '/home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.zsh'
+[13.833s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wilson/saurcon_ws/install/control_rc/share/colcon-core/packages/control_rc)
+[13.833s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[13.834s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[13.834s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[13.834s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[13.845s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[13.845s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[13.845s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[13.867s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[13.867s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/wilson/saurcon_ws/install/local_setup.ps1'
+[13.868s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/wilson/saurcon_ws/install/_local_setup_util_ps1.py'
+[13.870s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/wilson/saurcon_ws/install/setup.ps1'
+[13.873s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/wilson/saurcon_ws/install/local_setup.sh'
+[13.875s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/wilson/saurcon_ws/install/_local_setup_util_sh.py'
+[13.876s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/wilson/saurcon_ws/install/setup.sh'
+[13.879s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/wilson/saurcon_ws/install/local_setup.bash'
+[13.880s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/wilson/saurcon_ws/install/setup.bash'
+[13.881s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/wilson/saurcon_ws/install/local_setup.zsh'
+[13.882s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/wilson/saurcon_ws/install/setup.zsh'

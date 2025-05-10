@@ -1,0 +1,24 @@
+[0.077s] Invoking command in '/home/wilson/saurcon_ws/build/sdl2_vendor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/sdl2_vendor -- -j4 -l4
+[0.195s] Invoked command in '/home/wilson/saurcon_ws/build/sdl2_vendor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/build/sdl2_vendor -- -j4 -l4
+[0.228s] Invoking command in '/home/wilson/saurcon_ws/build/sdl2_vendor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/sdl2_vendor
+[0.264s] -- Install configuration: ""
+[0.264s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/cmake
+[0.265s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/cmake/Modules
+[0.265s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/cmake/Modules/Findsdl2_custom.cmake
+[0.265s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/ament_index/resource_index/package_run_dependencies/sdl2_vendor
+[0.265s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/ament_index/resource_index/parent_prefix_path/sdl2_vendor
+[0.266s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/environment/ament_prefix_path.sh
+[0.266s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/environment/ament_prefix_path.dsv
+[0.267s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/environment/path.sh
+[0.268s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/environment/path.dsv
+[0.268s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/local_setup.bash
+[0.268s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/local_setup.sh
+[0.268s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/local_setup.zsh
+[0.269s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/local_setup.dsv
+[0.269s] -- Installing: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.dsv
+[0.269s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/ament_index/resource_index/packages/sdl2_vendor
+[0.269s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/cmake/sdl2_vendor-extras.cmake
+[0.271s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/cmake/sdl2_vendorConfig.cmake
+[0.275s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/cmake/sdl2_vendorConfig-version.cmake
+[0.275s] -- Up-to-date: /home/wilson/saurcon_ws/install/sdl2_vendor/share/sdl2_vendor/package.xml
+[0.280s] Invoked command in '/home/wilson/saurcon_ws/build/sdl2_vendor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/build/sdl2_vendor

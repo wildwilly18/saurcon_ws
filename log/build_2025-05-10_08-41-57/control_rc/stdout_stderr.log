@@ -1,0 +1,23 @@
+[ 50%] Built target talker
+[ 75%] [32mBuilding CXX object CMakeFiles/ctrl_interface.dir/src/ctrl_interface.cpp.o[0m
+[100%] [32m[1mLinking CXX executable ctrl_interface[0m
+[100%] Built target ctrl_interface
+-- Install configuration: ""
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/lib/control_rc/talker
+-- Installing: /home/wilson/saurcon_ws/install/control_rc/lib/control_rc/ctrl_interface
+-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/install/control_rc/lib/control_rc/ctrl_interface" to ""
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/package_run_dependencies/control_rc
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/parent_prefix_path/control_rc
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/ament_prefix_path.sh
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/path.sh
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/environment/path.dsv
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.bash
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.sh
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.zsh
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/local_setup.dsv
+-- Installing: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.dsv
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/ament_index/resource_index/packages/control_rc
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/cmake/control_rcConfig.cmake
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/cmake/control_rcConfig-version.cmake
+-- Up-to-date: /home/wilson/saurcon_ws/install/control_rc/share/control_rc/package.xml
