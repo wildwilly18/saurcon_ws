@@ -1,0 +1,731 @@
+[0.000000] (-) TimerEvent: {}
+[0.000722] (control_rc) JobQueued: {'identifier': 'control_rc', 'dependencies': OrderedDict()}
+[0.000779] (joy_linux) JobQueued: {'identifier': 'joy_linux', 'dependencies': OrderedDict()}
+[0.000981] (sdl2_vendor) JobQueued: {'identifier': 'sdl2_vendor', 'dependencies': OrderedDict()}
+[0.001010] (spacenav) JobQueued: {'identifier': 'spacenav', 'dependencies': OrderedDict()}
+[0.001037] (joy) JobQueued: {'identifier': 'joy', 'dependencies': OrderedDict({'sdl2_vendor': '/home/wilson/saurcon_ws/src/install/sdl2_vendor'})}
+[0.001069] (sdl2_vendor) JobStarted: {'identifier': 'sdl2_vendor'}
+[0.009658] (control_rc) JobStarted: {'identifier': 'control_rc'}
+[0.013518] (joy_linux) JobStarted: {'identifier': 'joy_linux'}
+[0.018326] (spacenav) JobStarted: {'identifier': 'spacenav'}
+[0.023570] (sdl2_vendor) JobProgress: {'identifier': 'sdl2_vendor', 'progress': 'cmake'}
+[0.024264] (sdl2_vendor) Command: {'cmd': ['/usr/bin/cmake', '/home/wilson/saurcon_ws/src/joystick_drivers/sdl2_vendor', '-DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/sdl2_vendor'], 'cwd': '/home/wilson/saurcon_ws/src/build/sdl2_vendor', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/sdl2_vendor', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.026979] (control_rc) JobProgress: {'identifier': 'control_rc', 'progress': 'cmake'}
+[0.027658] (control_rc) Command: {'cmd': ['/usr/bin/cmake', '/home/wilson/saurcon_ws/src/control_rc', '-DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/control_rc'], 'cwd': '/home/wilson/saurcon_ws/src/build/control_rc', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/control_rc', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.029389] (joy_linux) JobProgress: {'identifier': 'joy_linux', 'progress': 'cmake'}
+[0.029812] (joy_linux) Command: {'cmd': ['/usr/bin/cmake', '/home/wilson/saurcon_ws/src/joystick_drivers/joy_linux', '-DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/joy_linux'], 'cwd': '/home/wilson/saurcon_ws/src/build/joy_linux', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/joy_linux', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.036318] (spacenav) JobProgress: {'identifier': 'spacenav', 'progress': 'cmake'}
+[0.036380] (spacenav) Command: {'cmd': ['/usr/bin/cmake', '/home/wilson/saurcon_ws/src/joystick_drivers/spacenav', '-DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/spacenav'], 'cwd': '/home/wilson/saurcon_ws/src/build/spacenav', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/spacenav', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.099597] (-) TimerEvent: {}
+[0.201826] (-) TimerEvent: {}
+[0.226053] (sdl2_vendor) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[0.226400] (joy_linux) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[0.226653] (control_rc) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[0.227535] (spacenav) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[0.301916] (-) TimerEvent: {}
+[0.402836] (-) TimerEvent: {}
+[0.422356] (control_rc) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[0.422983] (spacenav) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[0.424287] (sdl2_vendor) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[0.425786] (joy_linux) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[0.455409] (sdl2_vendor) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.455677] (spacenav) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.456064] (control_rc) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.456227] (joy_linux) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.503072] (-) TimerEvent: {}
+[0.604831] (-) TimerEvent: {}
+[0.619637] (joy_linux) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.620043] (control_rc) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.622022] (sdl2_vendor) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.624384] (spacenav) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.638977] (control_rc) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.639353] (joy_linux) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.641620] (sdl2_vendor) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.643422] (spacenav) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.646215] (spacenav) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.646431] (control_rc) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.646574] (joy_linux) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.648069] (joy_linux) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.648792] (control_rc) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.648941] (sdl2_vendor) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.649095] (sdl2_vendor) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.649216] (spacenav) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.666023] (spacenav) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.666303] (joy_linux) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.666481] (sdl2_vendor) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.666649] (control_rc) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.705148] (-) TimerEvent: {}
+[0.806818] (-) TimerEvent: {}
+[0.837413] (spacenav) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.839097] (control_rc) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.839366] (joy_linux) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.845441] (sdl2_vendor) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.859106] (control_rc) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.859654] (joy_linux) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.859941] (joy_linux) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.860082] (spacenav) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.861213] (control_rc) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.861536] (control_rc) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.861683] (joy_linux) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.861833] (spacenav) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.861979] (spacenav) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.868940] (sdl2_vendor) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.869527] (sdl2_vendor) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.871029] (sdl2_vendor) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.873228] (spacenav) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.873473] (joy_linux) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.873951] (control_rc) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.876395] (sdl2_vendor) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.909800] (-) TimerEvent: {}
+[1.010149] (-) TimerEvent: {}
+[1.110488] (-) TimerEvent: {}
+[1.134546] (sdl2_vendor) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.134911] (joy_linux) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.138362] (spacenav) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.149013] (control_rc) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.210805] (-) TimerEvent: {}
+[1.312984] (-) TimerEvent: {}
+[1.361210] (joy_linux) StdoutLine: {'line': b'-- Found diagnostic_msgs: 5.3.5 (/opt/ros/jazzy/share/diagnostic_msgs/cmake)\n'}
+[1.361552] (spacenav) StdoutLine: {'line': b'-- Found geometry_msgs: 5.3.5 (/opt/ros/jazzy/share/geometry_msgs/cmake)\n'}
+[1.361728] (control_rc) StdoutLine: {'line': b'-- Found rclcpp: 28.1.6 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[1.414450] (-) TimerEvent: {}
+[1.454395] (control_rc) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[1.454619] (spacenav) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[1.454780] (joy_linux) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[1.484949] (joy_linux) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[1.485172] (spacenav) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[1.485326] (control_rc) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[1.514574] (-) TimerEvent: {}
+[1.527376] (control_rc) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.527603] (spacenav) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.527780] (joy_linux) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.537015] (sdl2_vendor) StdoutLine: {'line': b'-- Configuring done (1.5s)\n'}
+[1.543795] (sdl2_vendor) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[1.546839] (sdl2_vendor) StdoutLine: {'line': b'-- Build files have been written to: /home/wilson/saurcon_ws/src/build/sdl2_vendor\n'}
+[1.553028] (sdl2_vendor) CommandEnded: {'returncode': 0}
+[1.554888] (sdl2_vendor) JobProgress: {'identifier': 'sdl2_vendor', 'progress': 'build'}
+[1.554952] (sdl2_vendor) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/wilson/saurcon_ws/src/build/sdl2_vendor', '--', '-j4', '-l4'], 'cwd': '/home/wilson/saurcon_ws/src/build/sdl2_vendor', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/sdl2_vendor', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[1.567912] (control_rc) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.568225] (joy_linux) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.570787] (spacenav) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.612425] (sdl2_vendor) CommandEnded: {'returncode': 0}
+[1.612869] (sdl2_vendor) JobProgress: {'identifier': 'sdl2_vendor', 'progress': 'install'}
+[1.614652] (-) TimerEvent: {}
+[1.626675] (sdl2_vendor) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/wilson/saurcon_ws/src/build/sdl2_vendor'], 'cwd': '/home/wilson/saurcon_ws/src/build/sdl2_vendor', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/sdl2_vendor', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[1.639343] (sdl2_vendor) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[1.639673] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake\n'}
+[1.639832] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake/Modules\n'}
+[1.640102] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake/Modules/Findsdl2_custom.cmake\n'}
+[1.640508] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/ament_index/resource_index/package_run_dependencies/sdl2_vendor\n'}
+[1.640794] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/ament_index/resource_index/parent_prefix_path/sdl2_vendor\n'}
+[1.641060] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/environment/ament_prefix_path.sh\n'}
+[1.641281] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/environment/ament_prefix_path.dsv\n'}
+[1.641501] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/environment/path.sh\n'}
+[1.641738] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/environment/path.dsv\n'}
+[1.641987] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/local_setup.bash\n'}
+[1.642431] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/local_setup.sh\n'}
+[1.642928] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/local_setup.zsh\n'}
+[1.643381] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/local_setup.dsv\n'}
+[1.643835] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/package.dsv\n'}
+[1.644345] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/ament_index/resource_index/packages/sdl2_vendor\n'}
+[1.644801] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake/sdl2_vendor-extras.cmake\n'}
+[1.645247] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake/sdl2_vendorConfig.cmake\n'}
+[1.645636] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake/sdl2_vendorConfig-version.cmake\n'}
+[1.646058] (sdl2_vendor) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/package.xml\n'}
+[1.649215] (sdl2_vendor) CommandEnded: {'returncode': 0}
+[1.675600] (sdl2_vendor) JobEnded: {'identifier': 'sdl2_vendor', 'rc': 0}
+[1.677695] (joy) JobStarted: {'identifier': 'joy'}
+[1.688225] (spacenav) StdoutLine: {'line': b'-- Found rclcpp: 28.1.6 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[1.693962] (joy) JobProgress: {'identifier': 'joy', 'progress': 'cmake'}
+[1.694011] (joy) Command: {'cmd': ['/usr/bin/cmake', '/home/wilson/saurcon_ws/src/joystick_drivers/joy', '-DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/joy'], 'cwd': '/home/wilson/saurcon_ws/src/build/joy', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/joy', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[1.714806] (-) TimerEvent: {}
+[1.736221] (joy_linux) StdoutLine: {'line': b'-- Found diagnostic_updater: 4.2.2 (/opt/ros/jazzy/share/diagnostic_updater/cmake)\n'}
+[1.765606] (control_rc) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[1.773573] (control_rc) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.783904] (joy) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[1.814905] (-) TimerEvent: {}
+[1.830165] (spacenav) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[1.830528] (spacenav) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.852708] (joy_linux) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[1.860995] (joy_linux) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.893937] (joy) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[1.915385] (-) TimerEvent: {}
+[1.927938] (joy) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.970804] (control_rc) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[1.971647] (spacenav) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[2.005396] (joy_linux) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[2.011855] (spacenav) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") \n'}
+[2.012168] (control_rc) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") \n'}
+[2.015480] (-) TimerEvent: {}
+[2.048465] (joy_linux) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") \n'}
+[2.060943] (spacenav) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[2.061348] (control_rc) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[2.063785] (joy) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[2.084632] (joy) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[2.084919] (joy) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[2.086788] (joy) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[2.089573] (joy_linux) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[2.100289] (joy) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[2.115577] (-) TimerEvent: {}
+[2.216937] (-) TimerEvent: {}
+[2.238655] (control_rc) StdoutLine: {'line': b'-- Found std_msgs: 5.3.5 (/opt/ros/jazzy/share/std_msgs/cmake)\n'}
+[2.239103] (spacenav) StdoutLine: {'line': b'-- Found rclcpp_components: 28.1.6 (/opt/ros/jazzy/share/rclcpp_components/cmake)\n'}
+[2.255132] (joy_linux) StdoutLine: {'line': b'-- Found sensor_msgs: 5.3.5 (/opt/ros/jazzy/share/sensor_msgs/cmake)\n'}
+[2.262034] (joy) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.276792] (control_rc) StdoutLine: {'line': b'-- Found sensor_msgs: 5.3.5 (/opt/ros/jazzy/share/sensor_msgs/cmake)\n'}
+[2.282853] (joy) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[2.283086] (joy) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.283220] (joy) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[2.287423] (joy) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)\n'}
+[2.317038] (-) TimerEvent: {}
+[2.326841] (spacenav) StdoutLine: {'line': b'-- Found sensor_msgs: 5.3.5 (/opt/ros/jazzy/share/sensor_msgs/cmake)\n'}
+[2.354434] (joy_linux) StdoutLine: {'line': b'-- Looking for include file linux/joystick.h\n'}
+[2.381177] (spacenav) StdoutLine: {'line': b'-- Found SPNAV: /usr/lib/libspnav.so  \n'}
+[2.387620] (spacenav) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)\n'}
+[2.417125] (-) TimerEvent: {}
+[2.517424] (-) TimerEvent: {}
+[2.527116] (joy_linux) StdoutLine: {'line': b'-- Looking for include file linux/joystick.h - found\n'}
+[2.531390] (joy_linux) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)\n'}
+[2.531707] (control_rc) StdoutLine: {'line': b'-- Configuring done (2.5s)\n'}
+[2.567615] (control_rc) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[2.571479] (joy) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[2.579793] (control_rc) StdoutLine: {'line': b'-- Build files have been written to: /home/wilson/saurcon_ws/src/build/control_rc\n'}
+[2.598008] (control_rc) CommandEnded: {'returncode': 0}
+[2.599340] (control_rc) JobProgress: {'identifier': 'control_rc', 'progress': 'build'}
+[2.599411] (control_rc) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/wilson/saurcon_ws/src/build/control_rc', '--', '-j4', '-l4'], 'cwd': '/home/wilson/saurcon_ws/src/build/control_rc', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/control_rc', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[2.602352] (spacenav) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[2.602677] (spacenav) StdoutLine: {'line': b'-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/wilson/saurcon_ws/src/joystick_drivers/spacenav/include>\n'}
+[2.603396] (spacenav) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[2.606857] (spacenav) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[2.607191] (spacenav) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[2.609043] (spacenav) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[2.610557] (spacenav) StdoutLine: {'line': b"-- Configured 'flake8' exclude dirs and/or files: \n"}
+[2.611357] (spacenav) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[2.614685] (spacenav) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[2.616695] (spacenav) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[2.617139] (spacenav) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[2.617495] (-) TimerEvent: {}
+[2.625844] (spacenav) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[2.627391] (spacenav) StdoutLine: {'line': b'-- Configuring done (2.6s)\n'}
+[2.662247] (spacenav) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[2.676877] (spacenav) StdoutLine: {'line': b'-- Build files have been written to: /home/wilson/saurcon_ws/src/build/spacenav\n'}
+[2.687926] (control_rc) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/xbox_ctrl_sub.dir/src/sub_xbox_ctrl.cpp.o\x1b[0m\n'}
+[2.701552] (spacenav) CommandEnded: {'returncode': 0}
+[2.702161] (spacenav) JobProgress: {'identifier': 'spacenav', 'progress': 'build'}
+[2.702207] (spacenav) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/wilson/saurcon_ws/src/build/spacenav', '--', '-j4', '-l4'], 'cwd': '/home/wilson/saurcon_ws/src/build/spacenav', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/spacenav', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[2.706150] (control_rc) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/talker.dir/src/publisher_control_rc.cpp.o\x1b[0m\n'}
+[2.717605] (-) TimerEvent: {}
+[2.737266] (joy_linux) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[2.738930] (joy_linux) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/wilson/saurcon_ws/src/joystick_drivers/joy_linux/msg/cpp\n'}
+[2.739115] (joy_linux) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[2.739238] (joy_linux) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[2.739354] (joy_linux) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[2.742410] (joy_linux) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[2.743318] (joy_linux) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[2.743470] (joy_linux) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[2.745654] (joy_linux) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[2.749685] (joy_linux) StdoutLine: {'line': b'-- Configuring done (2.7s)\n'}
+[2.780856] (joy_linux) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[2.788693] (joy_linux) StdoutLine: {'line': b'-- Build files have been written to: /home/wilson/saurcon_ws/src/build/joy_linux\n'}
+[2.797697] (spacenav) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/spacenav.dir/src/spacenav.cpp.o\x1b[0m\n'}
+[2.805378] (joy) StdoutLine: {'line': b'-- Found rclcpp: 28.1.6 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[2.809896] (joy_linux) CommandEnded: {'returncode': 0}
+[2.810493] (joy_linux) JobProgress: {'identifier': 'joy_linux', 'progress': 'build'}
+[2.810539] (joy_linux) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/wilson/saurcon_ws/src/build/joy_linux', '--', '-j4', '-l4'], 'cwd': '/home/wilson/saurcon_ws/src/build/joy_linux', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/joy_linux', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[2.818769] (spacenav) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/spacenav_node.dir/rclcpp_components/node_main_spacenav_node.cpp.o\x1b[0m\n'}
+[2.819029] (-) TimerEvent: {}
+[2.907385] (joy) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[2.919936] (-) TimerEvent: {}
+[2.945503] (joy_linux) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/joy_linux_node.dir/src/joy_linux_node.cpp.o\x1b[0m\n'}
+[2.955874] (joy) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[3.020327] (-) TimerEvent: {}
+[3.021855] (joy) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[3.079363] (joy) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[3.120423] (-) TimerEvent: {}
+[3.224646] (-) TimerEvent: {}
+[3.259878] (joy) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[3.266903] (joy) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[3.324760] (-) TimerEvent: {}
+[3.418652] (joy) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[3.424814] (-) TimerEvent: {}
+[3.464420] (joy) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") \n'}
+[3.513829] (joy) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[3.524963] (-) TimerEvent: {}
+[3.625354] (-) TimerEvent: {}
+[3.699255] (joy) StdoutLine: {'line': b'-- Found rclcpp_components: 28.1.6 (/opt/ros/jazzy/share/rclcpp_components/cmake)\n'}
+[3.725454] (-) TimerEvent: {}
+[3.780295] (joy) StdoutLine: {'line': b'-- Found sdl2_vendor: 3.3.0 (/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake)\n'}
+[3.798859] (joy) StdoutLine: {'line': b'-- Found sensor_msgs: 5.3.5 (/opt/ros/jazzy/share/sensor_msgs/cmake)\n'}
+[3.825559] (-) TimerEvent: {}
+[3.930908] (-) TimerEvent: {}
+[4.035510] (-) TimerEvent: {}
+[4.086853] (joy) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)\n'}
+[4.135614] (-) TimerEvent: {}
+[4.238950] (-) TimerEvent: {}
+[4.339285] (-) TimerEvent: {}
+[4.423006] (joy) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[4.423479] (joy) StdoutLine: {'line': b'-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/wilson/saurcon_ws/src/joystick_drivers/joy/include>\n'}
+[4.423672] (joy) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[4.428537] (joy) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[4.428792] (joy) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[4.433104] (joy) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[4.433390] (joy) StdoutLine: {'line': b"-- Configured 'flake8' exclude dirs and/or files: \n"}
+[4.434793] (joy) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[4.440847] (joy) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[4.441088] (-) TimerEvent: {}
+[4.445145] (joy) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[4.445393] (joy) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[4.451895] (joy) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[4.457046] (joy) StdoutLine: {'line': b'-- Configuring done (2.8s)\n'}
+[4.542816] (-) TimerEvent: {}
+[4.567200] (joy) StdoutLine: {'line': b'-- Generating done (0.1s)\n'}
+[4.603837] (joy) StdoutLine: {'line': b'-- Build files have been written to: /home/wilson/saurcon_ws/src/build/joy\n'}
+[4.642914] (-) TimerEvent: {}
+[4.646915] (joy) CommandEnded: {'returncode': 0}
+[4.647437] (joy) JobProgress: {'identifier': 'joy', 'progress': 'build'}
+[4.647486] (joy) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/wilson/saurcon_ws/src/build/joy', '--', '-j4', '-l4'], 'cwd': '/home/wilson/saurcon_ws/src/build/joy', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/joy', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[4.743025] (-) TimerEvent: {}
+[4.814604] (joy) StdoutLine: {'line': b'[ 20%] \x1b[32mBuilding CXX object CMakeFiles/joy.dir/src/joy.cpp.o\x1b[0m\n'}
+[4.818863] (joy) StdoutLine: {'line': b'[ 20%] \x1b[32mBuilding CXX object CMakeFiles/joy_node.dir/rclcpp_components/node_main_joy_node.cpp.o\x1b[0m\n'}
+[4.843133] (-) TimerEvent: {}
+[4.857858] (joy) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/game_controller.dir/src/game_controller.cpp.o\x1b[0m\n'}
+[4.867179] (joy) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/game_controller_node.dir/rclcpp_components/node_main_game_controller_node.cpp.o\x1b[0m\n'}
+[4.945815] (-) TimerEvent: {}
+[5.048809] (-) TimerEvent: {}
+[5.149168] (-) TimerEvent: {}
+[5.249479] (-) TimerEvent: {}
+[5.349825] (-) TimerEvent: {}
+[5.454809] (-) TimerEvent: {}
+[5.555174] (-) TimerEvent: {}
+[5.655567] (-) TimerEvent: {}
+[5.760811] (-) TimerEvent: {}
+[5.863205] (-) TimerEvent: {}
+[5.968814] (-) TimerEvent: {}
+[6.069186] (-) TimerEvent: {}
+[6.169543] (-) TimerEvent: {}
+[6.272822] (-) TimerEvent: {}
+[6.373179] (-) TimerEvent: {}
+[6.473513] (-) TimerEvent: {}
+[6.576078] (-) TimerEvent: {}
+[6.678822] (-) TimerEvent: {}
+[6.781284] (-) TimerEvent: {}
+[6.881634] (-) TimerEvent: {}
+[6.988811] (-) TimerEvent: {}
+[7.089160] (-) TimerEvent: {}
+[7.191818] (-) TimerEvent: {}
+[7.292913] (-) TimerEvent: {}
+[7.393256] (-) TimerEvent: {}
+[7.493598] (-) TimerEvent: {}
+[7.598912] (-) TimerEvent: {}
+[7.704815] (-) TimerEvent: {}
+[7.807498] (-) TimerEvent: {}
+[7.911814] (-) TimerEvent: {}
+[8.012205] (-) TimerEvent: {}
+[8.112565] (-) TimerEvent: {}
+[8.219811] (-) TimerEvent: {}
+[8.321807] (-) TimerEvent: {}
+[8.424817] (-) TimerEvent: {}
+[8.525133] (-) TimerEvent: {}
+[8.625485] (-) TimerEvent: {}
+[8.725814] (-) TimerEvent: {}
+[8.826147] (-) TimerEvent: {}
+[8.926486] (-) TimerEvent: {}
+[9.029815] (-) TimerEvent: {}
+[9.130140] (-) TimerEvent: {}
+[9.232598] (-) TimerEvent: {}
+[9.333811] (-) TimerEvent: {}
+[9.438812] (-) TimerEvent: {}
+[9.541245] (-) TimerEvent: {}
+[9.641594] (-) TimerEvent: {}
+[9.746828] (-) TimerEvent: {}
+[9.847193] (-) TimerEvent: {}
+[9.952815] (-) TimerEvent: {}
+[10.053148] (-) TimerEvent: {}
+[10.157376] (-) TimerEvent: {}
+[10.260045] (-) TimerEvent: {}
+[10.360375] (-) TimerEvent: {}
+[10.467954] (-) TimerEvent: {}
+[10.568300] (-) TimerEvent: {}
+[10.670657] (-) TimerEvent: {}
+[10.771025] (-) TimerEvent: {}
+[10.879818] (-) TimerEvent: {}
+[10.982463] (-) TimerEvent: {}
+[11.082816] (-) TimerEvent: {}
+[11.185816] (-) TimerEvent: {}
+[11.286170] (-) TimerEvent: {}
+[11.386485] (-) TimerEvent: {}
+[11.486818] (-) TimerEvent: {}
+[11.589815] (-) TimerEvent: {}
+[11.690169] (-) TimerEvent: {}
+[11.798814] (-) TimerEvent: {}
+[11.899178] (-) TimerEvent: {}
+[11.999521] (-) TimerEvent: {}
+[12.099817] (-) TimerEvent: {}
+[12.200168] (-) TimerEvent: {}
+[12.300518] (-) TimerEvent: {}
+[12.402813] (-) TimerEvent: {}
+[12.503128] (-) TimerEvent: {}
+[12.605811] (-) TimerEvent: {}
+[12.706128] (-) TimerEvent: {}
+[12.806485] (-) TimerEvent: {}
+[12.906817] (-) TimerEvent: {}
+[13.009809] (-) TimerEvent: {}
+[13.110107] (-) TimerEvent: {}
+[13.210448] (-) TimerEvent: {}
+[13.310804] (-) TimerEvent: {}
+[13.411121] (-) TimerEvent: {}
+[13.513812] (-) TimerEvent: {}
+[13.614157] (-) TimerEvent: {}
+[13.714498] (-) TimerEvent: {}
+[13.821381] (-) TimerEvent: {}
+[13.921722] (-) TimerEvent: {}
+[14.022080] (-) TimerEvent: {}
+[14.126424] (-) TimerEvent: {}
+[14.231437] (-) TimerEvent: {}
+[14.337884] (-) TimerEvent: {}
+[14.442386] (-) TimerEvent: {}
+[14.545818] (-) TimerEvent: {}
+[14.647818] (-) TimerEvent: {}
+[14.748170] (-) TimerEvent: {}
+[14.850815] (-) TimerEvent: {}
+[14.951144] (-) TimerEvent: {}
+[15.051472] (-) TimerEvent: {}
+[15.151807] (-) TimerEvent: {}
+[15.256836] (-) TimerEvent: {}
+[15.357179] (-) TimerEvent: {}
+[15.457532] (-) TimerEvent: {}
+[15.560815] (-) TimerEvent: {}
+[15.654892] (spacenav) StdoutLine: {'line': b'[ 75%] \x1b[32m\x1b[1mLinking CXX executable spacenav_node\x1b[0m\n'}
+[15.660920] (-) TimerEvent: {}
+[15.766251] (-) TimerEvent: {}
+[15.866600] (-) TimerEvent: {}
+[15.969257] (-) TimerEvent: {}
+[16.073816] (-) TimerEvent: {}
+[16.174157] (-) TimerEvent: {}
+[16.274525] (-) TimerEvent: {}
+[16.377205] (-) TimerEvent: {}
+[16.447663] (spacenav) StdoutLine: {'line': b'[ 75%] Built target spacenav_node\n'}
+[16.477318] (-) TimerEvent: {}
+[16.581823] (-) TimerEvent: {}
+[16.684420] (-) TimerEvent: {}
+[16.787816] (-) TimerEvent: {}
+[16.888165] (-) TimerEvent: {}
+[16.988532] (-) TimerEvent: {}
+[17.051262] (joy) StdoutLine: {'line': b'[ 50%] \x1b[32m\x1b[1mLinking CXX executable joy_node\x1b[0m\n'}
+[17.088645] (-) TimerEvent: {}
+[17.188999] (-) TimerEvent: {}
+[17.289351] (-) TimerEvent: {}
+[17.394822] (-) TimerEvent: {}
+[17.495160] (-) TimerEvent: {}
+[17.597815] (-) TimerEvent: {}
+[17.604878] (joy) StdoutLine: {'line': b'[ 50%] Built target joy_node\n'}
+[17.658138] (joy) StdoutLine: {'line': b'[ 60%] \x1b[32mBuilding CXX object CMakeFiles/joy_enumerate_devices.dir/src/joy_enumerate_devices.cpp.o\x1b[0m\n'}
+[17.697921] (-) TimerEvent: {}
+[17.798263] (-) TimerEvent: {}
+[17.898602] (-) TimerEvent: {}
+[18.002679] (-) TimerEvent: {}
+[18.103046] (-) TimerEvent: {}
+[18.203403] (-) TimerEvent: {}
+[18.303783] (-) TimerEvent: {}
+[18.404135] (-) TimerEvent: {}
+[18.504461] (-) TimerEvent: {}
+[18.550986] (joy) StdoutLine: {'line': b'[ 70%] \x1b[32m\x1b[1mLinking CXX executable game_controller_node\x1b[0m\n'}
+[18.579015] (control_rc) StdoutLine: {'line': b'[ 75%] \x1b[32m\x1b[1mLinking CXX executable talker\x1b[0m\n'}
+[18.604581] (-) TimerEvent: {}
+[18.704995] (-) TimerEvent: {}
+[18.807818] (-) TimerEvent: {}
+[18.908195] (-) TimerEvent: {}
+[19.008579] (-) TimerEvent: {}
+[19.035556] (joy) StdoutLine: {'line': b'[ 70%] Built target game_controller_node\n'}
+[19.112817] (-) TimerEvent: {}
+[19.213188] (-) TimerEvent: {}
+[19.318015] (-) TimerEvent: {}
+[19.378409] (control_rc) StdoutLine: {'line': b'[ 75%] Built target talker\n'}
+[19.418121] (-) TimerEvent: {}
+[19.518496] (-) TimerEvent: {}
+[19.618820] (-) TimerEvent: {}
+[19.719166] (-) TimerEvent: {}
+[19.821825] (-) TimerEvent: {}
+[19.852045] (joy) StdoutLine: {'line': b'[ 80%] \x1b[32m\x1b[1mLinking CXX executable joy_enumerate_devices\x1b[0m\n'}
+[19.923826] (-) TimerEvent: {}
+[20.024168] (-) TimerEvent: {}
+[20.124488] (-) TimerEvent: {}
+[20.225813] (-) TimerEvent: {}
+[20.330670] (-) TimerEvent: {}
+[20.433067] (-) TimerEvent: {}
+[20.538793] (-) TimerEvent: {}
+[20.639171] (-) TimerEvent: {}
+[20.742000] (-) TimerEvent: {}
+[20.760676] (joy) StdoutLine: {'line': b'[ 80%] Built target joy_enumerate_devices\n'}
+[20.842120] (-) TimerEvent: {}
+[20.947520] (-) TimerEvent: {}
+[21.047900] (-) TimerEvent: {}
+[21.148263] (-) TimerEvent: {}
+[21.251971] (-) TimerEvent: {}
+[21.354644] (-) TimerEvent: {}
+[21.455031] (-) TimerEvent: {}
+[21.559828] (-) TimerEvent: {}
+[21.660180] (-) TimerEvent: {}
+[21.760555] (-) TimerEvent: {}
+[21.863081] (-) TimerEvent: {}
+[21.966988] (-) TimerEvent: {}
+[22.067335] (-) TimerEvent: {}
+[22.167674] (-) TimerEvent: {}
+[22.273090] (-) TimerEvent: {}
+[22.375797] (-) TimerEvent: {}
+[22.476153] (-) TimerEvent: {}
+[22.576508] (-) TimerEvent: {}
+[22.679062] (-) TimerEvent: {}
+[22.779440] (-) TimerEvent: {}
+[22.882973] (-) TimerEvent: {}
+[22.983334] (-) TimerEvent: {}
+[23.083711] (-) TimerEvent: {}
+[23.187933] (-) TimerEvent: {}
+[23.291817] (-) TimerEvent: {}
+[23.392208] (-) TimerEvent: {}
+[23.492557] (-) TimerEvent: {}
+[23.592911] (-) TimerEvent: {}
+[23.693265] (-) TimerEvent: {}
+[23.793613] (-) TimerEvent: {}
+[23.899813] (-) TimerEvent: {}
+[24.000170] (-) TimerEvent: {}
+[24.100509] (-) TimerEvent: {}
+[24.200909] (-) TimerEvent: {}
+[24.303661] (-) TimerEvent: {}
+[24.404054] (-) TimerEvent: {}
+[24.504406] (-) TimerEvent: {}
+[24.605954] (-) TimerEvent: {}
+[24.706311] (-) TimerEvent: {}
+[24.809973] (-) TimerEvent: {}
+[24.910343] (-) TimerEvent: {}
+[25.010709] (-) TimerEvent: {}
+[25.111065] (-) TimerEvent: {}
+[25.211412] (-) TimerEvent: {}
+[25.311795] (-) TimerEvent: {}
+[25.412145] (-) TimerEvent: {}
+[25.514746] (-) TimerEvent: {}
+[25.615108] (-) TimerEvent: {}
+[25.715456] (-) TimerEvent: {}
+[25.819814] (-) TimerEvent: {}
+[25.920181] (-) TimerEvent: {}
+[26.020523] (-) TimerEvent: {}
+[26.120900] (-) TimerEvent: {}
+[26.184762] (spacenav) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX shared library libspacenav.so\x1b[0m\n'}
+[26.221012] (-) TimerEvent: {}
+[26.322816] (-) TimerEvent: {}
+[26.423206] (-) TimerEvent: {}
+[26.525406] (-) TimerEvent: {}
+[26.628015] (-) TimerEvent: {}
+[26.730626] (-) TimerEvent: {}
+[26.830994] (-) TimerEvent: {}
+[26.835743] (spacenav) StdoutLine: {'line': b'[100%] Built target spacenav\n'}
+[26.880439] (spacenav) CommandEnded: {'returncode': 0}
+[26.880990] (spacenav) JobProgress: {'identifier': 'spacenav', 'progress': 'install'}
+[26.881040] (spacenav) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/wilson/saurcon_ws/src/build/spacenav'], 'cwd': '/home/wilson/saurcon_ws/src/build/spacenav', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/spacenav', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[26.909068] (spacenav) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[26.909434] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/lib/libspacenav.so\n'}
+[26.920424] (spacenav) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/spacenav/lib/libspacenav.so" to ""\n'}
+[26.921720] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/lib/spacenav/spacenav_node\n'}
+[26.922072] (spacenav) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/spacenav/lib/spacenav/spacenav_node" to ""\n'}
+[26.925015] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/include/spacenav\n'}
+[26.925435] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/include/spacenav/spacenav\n'}
+[26.928021] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/include/spacenav/spacenav/spacenav.hpp\n'}
+[26.928243] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav//launch\n'}
+[26.928430] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav//launch/no_deadband-launch.py\n'}
+[26.931100] (-) TimerEvent: {}
+[26.933691] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav//launch/classic-launch.py\n'}
+[26.934010] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav//launch/static_deadband-launch.py\n'}
+[26.934203] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/ament_index/resource_index/package_run_dependencies/spacenav\n'}
+[26.935424] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/ament_index/resource_index/parent_prefix_path/spacenav\n'}
+[26.935760] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/environment/ament_prefix_path.sh\n'}
+[26.935960] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/environment/ament_prefix_path.dsv\n'}
+[26.936133] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/environment/path.sh\n'}
+[26.936301] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/environment/path.dsv\n'}
+[26.936473] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/local_setup.bash\n'}
+[26.936636] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/local_setup.sh\n'}
+[26.947584] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/local_setup.zsh\n'}
+[26.947880] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/local_setup.dsv\n'}
+[26.948061] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/package.dsv\n'}
+[26.948223] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/ament_index/resource_index/packages/spacenav\n'}
+[26.948392] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/ament_index/resource_index/rclcpp_components/spacenav\n'}
+[26.948555] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/cmake/export_spacenavExport.cmake\n'}
+[26.948724] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/cmake/export_spacenavExport-noconfig.cmake\n'}
+[26.948919] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[26.949083] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/cmake/spacenavConfig.cmake\n'}
+[26.949246] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/cmake/spacenavConfig-version.cmake\n'}
+[26.949400] (spacenav) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/spacenav/share/spacenav/package.xml\n'}
+[26.959795] (spacenav) CommandEnded: {'returncode': 0}
+[27.017367] (spacenav) JobEnded: {'identifier': 'spacenav', 'rc': 0}
+[27.031212] (-) TimerEvent: {}
+[27.131569] (-) TimerEvent: {}
+[27.231970] (-) TimerEvent: {}
+[27.337837] (-) TimerEvent: {}
+[27.438260] (-) TimerEvent: {}
+[27.538677] (-) TimerEvent: {}
+[27.639113] (-) TimerEvent: {}
+[27.739553] (-) TimerEvent: {}
+[27.840025] (-) TimerEvent: {}
+[27.940725] (-) TimerEvent: {}
+[28.043226] (-) TimerEvent: {}
+[28.143701] (-) TimerEvent: {}
+[28.244179] (-) TimerEvent: {}
+[28.344642] (-) TimerEvent: {}
+[28.447051] (-) TimerEvent: {}
+[28.547540] (-) TimerEvent: {}
+[28.648042] (-) TimerEvent: {}
+[28.748550] (-) TimerEvent: {}
+[28.850030] (-) TimerEvent: {}
+[28.952021] (-) TimerEvent: {}
+[29.052519] (-) TimerEvent: {}
+[29.153033] (-) TimerEvent: {}
+[29.253512] (-) TimerEvent: {}
+[29.356042] (-) TimerEvent: {}
+[29.456522] (-) TimerEvent: {}
+[29.559134] (-) TimerEvent: {}
+[29.634111] (control_rc) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable xbox_ctrl_sub\x1b[0m\n'}
+[29.659277] (-) TimerEvent: {}
+[29.759746] (-) TimerEvent: {}
+[29.861195] (-) TimerEvent: {}
+[29.961672] (-) TimerEvent: {}
+[30.062973] (-) TimerEvent: {}
+[30.163473] (-) TimerEvent: {}
+[30.266030] (-) TimerEvent: {}
+[30.366502] (-) TimerEvent: {}
+[30.467038] (-) TimerEvent: {}
+[30.569044] (-) TimerEvent: {}
+[30.612065] (control_rc) StdoutLine: {'line': b'[100%] Built target xbox_ctrl_sub\n'}
+[30.647386] (control_rc) CommandEnded: {'returncode': 0}
+[30.648231] (control_rc) JobProgress: {'identifier': 'control_rc', 'progress': 'install'}
+[30.648329] (control_rc) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/wilson/saurcon_ws/src/build/control_rc'], 'cwd': '/home/wilson/saurcon_ws/src/build/control_rc', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/control_rc', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[30.670885] (-) TimerEvent: {}
+[30.672827] (control_rc) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[30.673340] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/talker\n'}
+[30.677971] (control_rc) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/talker" to ""\n'}
+[30.679823] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/xbox_ctrl_sub\n'}
+[30.690294] (control_rc) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/xbox_ctrl_sub" to ""\n'}
+[30.691874] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/ament_index/resource_index/package_run_dependencies/control_rc\n'}
+[30.693428] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/ament_index/resource_index/parent_prefix_path/control_rc\n'}
+[30.693932] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/ament_prefix_path.sh\n'}
+[30.694867] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/ament_prefix_path.dsv\n'}
+[30.696296] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/path.sh\n'}
+[30.697232] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/path.dsv\n'}
+[30.697675] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.bash\n'}
+[30.699045] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.sh\n'}
+[30.700066] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.zsh\n'}
+[30.700536] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.dsv\n'}
+[30.702097] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/package.dsv\n'}
+[30.702606] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/ament_index/resource_index/packages/control_rc\n'}
+[30.703690] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/cmake/control_rcConfig.cmake\n'}
+[30.705092] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/cmake/control_rcConfig-version.cmake\n'}
+[30.705558] (control_rc) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/package.xml\n'}
+[30.711076] (control_rc) CommandEnded: {'returncode': 0}
+[30.745217] (control_rc) JobEnded: {'identifier': 'control_rc', 'rc': 0}
+[30.771014] (-) TimerEvent: {}
+[30.871457] (-) TimerEvent: {}
+[30.971951] (-) TimerEvent: {}
+[31.072791] (-) TimerEvent: {}
+[31.173222] (-) TimerEvent: {}
+[31.275989] (-) TimerEvent: {}
+[31.378576] (-) TimerEvent: {}
+[31.475635] (joy_linux) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable joy_linux_node\x1b[0m\n'}
+[31.478721] (-) TimerEvent: {}
+[31.579171] (-) TimerEvent: {}
+[31.679816] (-) TimerEvent: {}
+[31.782226] (-) TimerEvent: {}
+[31.883885] (-) TimerEvent: {}
+[31.986024] (-) TimerEvent: {}
+[32.087999] (-) TimerEvent: {}
+[32.188392] (-) TimerEvent: {}
+[32.288819] (-) TimerEvent: {}
+[32.389219] (-) TimerEvent: {}
+[32.395096] (joy_linux) StdoutLine: {'line': b'[100%] Built target joy_linux_node\n'}
+[32.422315] (joy_linux) CommandEnded: {'returncode': 0}
+[32.424791] (joy_linux) JobProgress: {'identifier': 'joy_linux', 'progress': 'install'}
+[32.424884] (joy_linux) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/wilson/saurcon_ws/src/build/joy_linux'], 'cwd': '/home/wilson/saurcon_ws/src/build/joy_linux', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/joy_linux', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[32.444190] (joy_linux) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[32.444641] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/lib/joy_linux/joy_linux_node\n'}
+[32.455428] (joy_linux) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy_linux/lib/joy_linux/joy_linux_node" to ""\n'}
+[32.455882] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/ament_index/resource_index/package_run_dependencies/joy_linux\n'}
+[32.456368] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/ament_index/resource_index/parent_prefix_path/joy_linux\n'}
+[32.456885] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/environment/ament_prefix_path.sh\n'}
+[32.457243] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/environment/ament_prefix_path.dsv\n'}
+[32.457569] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/environment/path.sh\n'}
+[32.457952] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/environment/path.dsv\n'}
+[32.458290] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/local_setup.bash\n'}
+[32.458646] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/local_setup.sh\n'}
+[32.459000] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/local_setup.zsh\n'}
+[32.459337] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/local_setup.dsv\n'}
+[32.459681] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/package.dsv\n'}
+[32.460163] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/ament_index/resource_index/packages/joy_linux\n'}
+[32.460596] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/cmake/joy_linuxConfig.cmake\n'}
+[32.460934] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/cmake/joy_linuxConfig-version.cmake\n'}
+[32.461274] (joy_linux) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/package.xml\n'}
+[32.466868] (joy_linux) CommandEnded: {'returncode': 0}
+[32.489315] (-) TimerEvent: {}
+[32.495072] (joy_linux) JobEnded: {'identifier': 'joy_linux', 'rc': 0}
+[32.589494] (-) TimerEvent: {}
+[32.689899] (-) TimerEvent: {}
+[32.790243] (-) TimerEvent: {}
+[32.890607] (-) TimerEvent: {}
+[32.991112] (-) TimerEvent: {}
+[33.091481] (-) TimerEvent: {}
+[33.161836] (joy) StdoutLine: {'line': b'[ 90%] \x1b[32m\x1b[1mLinking CXX shared library libjoy.so\x1b[0m\n'}
+[33.191583] (-) TimerEvent: {}
+[33.291926] (-) TimerEvent: {}
+[33.392276] (-) TimerEvent: {}
+[33.452696] (joy) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX shared library libgame_controller.so\x1b[0m\n'}
+[33.492388] (-) TimerEvent: {}
+[33.594012] (-) TimerEvent: {}
+[33.694380] (-) TimerEvent: {}
+[33.705250] (joy) StdoutLine: {'line': b'[100%] Built target joy\n'}
+[33.794490] (-) TimerEvent: {}
+[33.894821] (-) TimerEvent: {}
+[33.950653] (joy) StdoutLine: {'line': b'[100%] Built target game_controller\n'}
+[33.965851] (joy) CommandEnded: {'returncode': 0}
+[33.966596] (joy) JobProgress: {'identifier': 'joy', 'progress': 'install'}
+[33.967227] (joy) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/wilson/saurcon_ws/src/build/joy'], 'cwd': '/home/wilson/saurcon_ws/src/build/joy', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'wilson', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/wilson/uros_ws/install/micro_ros_agent/lib:/home/wilson/uros_ws/install/micro_ros_msgs/lib:/home/wilson/ros2_ws/install/micro_ros_agent/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/wilson', 'OLDPWD': '/home/wilson/saurcon_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2117', 'SYSTEMD_EXEC_PID': '2536', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '6154', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/wilson/uros_ws/install:/home/wilson/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'wilson', 'JOURNAL_STREAM': '9:18104', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'wilson', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wilson/.platformio/penv/bin', 'SESSION_MANAGER': 'local/wilson-Inspiron-13-7378:@/tmp/.ICE-unix/2324,unix/wilson-Inspiron-13-7378:/tmp/.ICE-unix/2324', 'INVOCATION_ID': '9b846764304344c5986fadaac0e24571', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.1GC542', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:5a026b31-82f3-4a3f-8457-360d342a7cac', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/wilson/saurcon_ws/src/build/joy', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/wilson/uros_ws/install/micro_ros_msgs/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[33.977893] (joy) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[33.978183] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/libjoy.so\n'}
+[33.984159] (joy) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy/lib/libjoy.so" to ""\n'}
+[33.984406] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/joy/joy_node\n'}
+[33.985046] (joy) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy/lib/joy/joy_node" to ""\n'}
+[33.985260] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/libgame_controller.so\n'}
+[33.990883] (joy) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy/lib/libgame_controller.so" to ""\n'}
+[33.991100] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/joy/game_controller_node\n'}
+[33.991723] (joy) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy/lib/joy/game_controller_node" to ""\n'}
+[33.991954] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/joy/joy_enumerate_devices\n'}
+[33.992157] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/include/joy\n'}
+[33.992395] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/include/joy/joy\n'}
+[33.992623] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/include/joy/joy/game_controller.hpp\n'}
+[33.992799] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/include/joy/joy/joy.hpp\n'}
+[33.992957] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/config\n'}
+[33.993090] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/config/joy-params.yaml\n'}
+[33.993290] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/launch\n'}
+[33.993421] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/launch/joy-launch.py\n'}
+[33.993742] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/launch/joy-composed-launch.py\n'}
+[33.994355] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/ament_index/resource_index/package_run_dependencies/joy\n'}
+[33.994545] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/ament_index/resource_index/parent_prefix_path/joy\n'}
+[33.994784] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/environment/ament_prefix_path.sh\n'}
+[33.994899] (-) TimerEvent: {}
+[33.995069] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/environment/ament_prefix_path.dsv\n'}
+[33.995282] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/environment/path.sh\n'}
+[33.995555] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/environment/path.dsv\n'}
+[33.995762] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/local_setup.bash\n'}
+[33.995969] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/local_setup.sh\n'}
+[33.996151] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/local_setup.zsh\n'}
+[33.996396] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/local_setup.dsv\n'}
+[33.996580] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/package.dsv\n'}
+[33.997380] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/ament_index/resource_index/packages/joy\n'}
+[33.998306] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/ament_index/resource_index/rclcpp_components/joy\n'}
+[33.998635] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/export_joyExport.cmake\n'}
+[33.998928] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/export_joyExport-noconfig.cmake\n'}
+[33.999159] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/export_game_controllerExport.cmake\n'}
+[33.999466] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/export_game_controllerExport-noconfig.cmake\n'}
+[33.999828] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[34.000050] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[34.000267] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/joyConfig.cmake\n'}
+[34.000471] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/joyConfig-version.cmake\n'}
+[34.000637] (joy) StdoutLine: {'line': b'-- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/package.xml\n'}
+[34.003279] (joy) CommandEnded: {'returncode': 0}
+[34.020322] (joy) JobEnded: {'identifier': 'joy', 'rc': 0}
+[34.021566] (-) EventReactorShutdown: {}

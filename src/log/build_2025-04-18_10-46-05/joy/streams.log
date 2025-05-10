@@ -1,0 +1,105 @@
+[0.017s] Invoking command in '/home/wilson/saurcon_ws/src/build/joy': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/wilson/saurcon_ws/src/joystick_drivers/joy -DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/joy
+[0.106s] -- The C compiler identification is GNU 13.3.0
+[0.216s] -- The CXX compiler identification is GNU 13.3.0
+[0.250s] -- Detecting C compiler ABI info
+[0.386s] -- Detecting C compiler ABI info - done
+[0.407s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.407s] -- Detecting C compile features
+[0.409s] -- Detecting C compile features - done
+[0.423s] -- Detecting CXX compiler ABI info
+[0.584s] -- Detecting CXX compiler ABI info - done
+[0.605s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.605s] -- Detecting CXX compile features
+[0.606s] -- Detecting CXX compile features - done
+[0.610s] -- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)
+[0.894s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.128s] -- Found rclcpp: 28.1.6 (/opt/ros/jazzy/share/rclcpp/cmake)
+[1.230s] -- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[1.278s] -- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.344s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.402s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.582s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.589s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.741s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[1.787s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[1.836s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.022s] -- Found rclcpp_components: 28.1.6 (/opt/ros/jazzy/share/rclcpp_components/cmake)
+[2.103s] -- Found sdl2_vendor: 3.3.0 (/home/wilson/saurcon_ws/src/install/sdl2_vendor/share/sdl2_vendor/cmake)
+[2.121s] -- Found sensor_msgs: 5.3.5 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[2.409s] -- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[2.746s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[2.746s] -- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/wilson/saurcon_ws/src/joystick_drivers/joy/include>
+[2.746s] -- Configured cppcheck exclude dirs and/or files: 
+[2.751s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[2.751s] -- Configured cpplint exclude dirs and/or files: 
+[2.756s] -- Added test 'flake8' to check Python code syntax and style conventions
+[2.756s] -- Configured 'flake8' exclude dirs and/or files: 
+[2.757s] -- Added test 'lint_cmake' to check CMake code style
+[2.763s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[2.768s] -- Added test 'uncrustify' to check C / C++ code style
+[2.768s] -- Configured uncrustify additional arguments: 
+[2.774s] -- Added test 'xmllint' to check XML markup files
+[2.780s] -- Configuring done (2.8s)
+[2.890s] -- Generating done (0.1s)
+[2.926s] -- Build files have been written to: /home/wilson/saurcon_ws/src/build/joy
+[2.969s] Invoked command in '/home/wilson/saurcon_ws/src/build/joy' returned '0': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/wilson/saurcon_ws/src/joystick_drivers/joy -DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/joy
+[2.970s] Invoking command in '/home/wilson/saurcon_ws/src/build/joy': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/src/build/joy -- -j4 -l4
+[3.137s] [ 20%] [32mBuilding CXX object CMakeFiles/joy.dir/src/joy.cpp.o[0m
+[3.141s] [ 20%] [32mBuilding CXX object CMakeFiles/joy_node.dir/rclcpp_components/node_main_joy_node.cpp.o[0m
+[3.180s] [ 30%] [32mBuilding CXX object CMakeFiles/game_controller.dir/src/game_controller.cpp.o[0m
+[3.190s] [ 40%] [32mBuilding CXX object CMakeFiles/game_controller_node.dir/rclcpp_components/node_main_game_controller_node.cpp.o[0m
+[15.374s] [ 50%] [32m[1mLinking CXX executable joy_node[0m
+[15.927s] [ 50%] Built target joy_node
+[15.981s] [ 60%] [32mBuilding CXX object CMakeFiles/joy_enumerate_devices.dir/src/joy_enumerate_devices.cpp.o[0m
+[16.873s] [ 70%] [32m[1mLinking CXX executable game_controller_node[0m
+[17.358s] [ 70%] Built target game_controller_node
+[18.175s] [ 80%] [32m[1mLinking CXX executable joy_enumerate_devices[0m
+[19.083s] [ 80%] Built target joy_enumerate_devices
+[31.484s] [ 90%] [32m[1mLinking CXX shared library libjoy.so[0m
+[31.775s] [100%] [32m[1mLinking CXX shared library libgame_controller.so[0m
+[32.028s] [100%] Built target joy
+[32.273s] [100%] Built target game_controller
+[32.288s] Invoked command in '/home/wilson/saurcon_ws/src/build/joy' returned '0': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/src/build/joy -- -j4 -l4
+[32.290s] Invoking command in '/home/wilson/saurcon_ws/src/build/joy': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/src/build/joy
+[32.300s] -- Install configuration: ""
+[32.301s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/libjoy.so
+[32.307s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy/lib/libjoy.so" to ""
+[32.307s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/joy/joy_node
+[32.308s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy/lib/joy/joy_node" to ""
+[32.308s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/libgame_controller.so
+[32.313s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy/lib/libgame_controller.so" to ""
+[32.313s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/joy/game_controller_node
+[32.314s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy/lib/joy/game_controller_node" to ""
+[32.314s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/lib/joy/joy_enumerate_devices
+[32.315s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/include/joy
+[32.315s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/include/joy/joy
+[32.315s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/include/joy/joy/game_controller.hpp
+[32.315s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/include/joy/joy/joy.hpp
+[32.315s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/config
+[32.315s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/config/joy-params.yaml
+[32.316s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/launch
+[32.316s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/launch/joy-launch.py
+[32.316s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/launch/joy-composed-launch.py
+[32.317s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/ament_index/resource_index/package_run_dependencies/joy
+[32.317s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/ament_index/resource_index/parent_prefix_path/joy
+[32.317s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/environment/ament_prefix_path.sh
+[32.317s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/environment/ament_prefix_path.dsv
+[32.318s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/environment/path.sh
+[32.318s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/environment/path.dsv
+[32.318s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/local_setup.bash
+[32.318s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/local_setup.sh
+[32.319s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/local_setup.zsh
+[32.319s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/local_setup.dsv
+[32.319s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/package.dsv
+[32.320s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/ament_index/resource_index/packages/joy
+[32.321s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/ament_index/resource_index/rclcpp_components/joy
+[32.321s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/export_joyExport.cmake
+[32.321s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/export_joyExport-noconfig.cmake
+[32.322s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/export_game_controllerExport.cmake
+[32.322s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/export_game_controllerExport-noconfig.cmake
+[32.322s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/ament_cmake_export_targets-extras.cmake
+[32.322s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/ament_cmake_export_dependencies-extras.cmake
+[32.323s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/joyConfig.cmake
+[32.323s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/cmake/joyConfig-version.cmake
+[32.323s] -- Installing: /home/wilson/saurcon_ws/src/install/joy/share/joy/package.xml
+[32.326s] Invoked command in '/home/wilson/saurcon_ws/src/build/joy' returned '0': AMENT_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/wilson/saurcon_ws/src/install/sdl2_vendor:/home/wilson/uros_ws/install/micro_ros_agent:/home/wilson/uros_ws/install/micro_ros_msgs:/home/wilson/ros2_ws/install/micro_ros_agent:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/src/build/joy

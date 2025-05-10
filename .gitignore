@@ -1,0 +1,32 @@
+# ROS 2 build and install directories
+/build/
+/install/
+/log/
+
+# Colcon metadata
+.colcon/
+
+# ROS 2 package-specific files
+**/CMakeLists.txt.user
+**/compile_commands.json
+
+# Python cache files
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.orig
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.tmp
+*.~*

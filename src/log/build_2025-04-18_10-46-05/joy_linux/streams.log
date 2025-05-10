@@ -1,0 +1,68 @@
+[0.017s] Invoking command in '/home/wilson/saurcon_ws/src/build/joy_linux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/wilson/saurcon_ws/src/joystick_drivers/joy_linux -DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/joy_linux
+[0.213s] -- The C compiler identification is GNU 13.3.0
+[0.412s] -- The CXX compiler identification is GNU 13.3.0
+[0.443s] -- Detecting C compiler ABI info
+[0.606s] -- Detecting C compiler ABI info - done
+[0.626s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.633s] -- Detecting C compile features
+[0.635s] -- Detecting C compile features - done
+[0.653s] -- Detecting CXX compiler ABI info
+[0.826s] -- Detecting CXX compiler ABI info - done
+[0.846s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.847s] -- Detecting CXX compile features
+[0.848s] -- Detecting CXX compile features - done
+[0.860s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.121s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.348s] -- Found diagnostic_msgs: 5.3.5 (/opt/ros/jazzy/share/diagnostic_msgs/cmake)
+[1.441s] -- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[1.472s] -- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.514s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.555s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.723s] -- Found diagnostic_updater: 4.2.2 (/opt/ros/jazzy/share/diagnostic_updater/cmake)
+[1.839s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.848s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.992s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[2.035s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[2.076s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.242s] -- Found sensor_msgs: 5.3.5 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[2.341s] -- Looking for include file linux/joystick.h
+[2.514s] -- Looking for include file linux/joystick.h - found
+[2.518s] -- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[2.724s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[2.726s] -- Configured cppcheck include dirs: /home/wilson/saurcon_ws/src/joystick_drivers/joy_linux/msg/cpp
+[2.726s] -- Configured cppcheck exclude dirs and/or files: 
+[2.726s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[2.726s] -- Configured cpplint exclude dirs and/or files: 
+[2.730s] -- Added test 'lint_cmake' to check CMake code style
+[2.730s] -- Added test 'uncrustify' to check C / C++ code style
+[2.730s] -- Configured uncrustify additional arguments: 
+[2.732s] -- Added test 'xmllint' to check XML markup files
+[2.736s] -- Configuring done (2.7s)
+[2.768s] -- Generating done (0.0s)
+[2.775s] -- Build files have been written to: /home/wilson/saurcon_ws/src/build/joy_linux
+[2.797s] Invoked command in '/home/wilson/saurcon_ws/src/build/joy_linux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/wilson/saurcon_ws/src/joystick_drivers/joy_linux -DCMAKE_INSTALL_PREFIX=/home/wilson/saurcon_ws/src/install/joy_linux
+[2.797s] Invoking command in '/home/wilson/saurcon_ws/src/build/joy_linux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/src/build/joy_linux -- -j4 -l4
+[2.932s] [ 50%] [32mBuilding CXX object CMakeFiles/joy_linux_node.dir/src/joy_linux_node.cpp.o[0m
+[31.462s] [100%] [32m[1mLinking CXX executable joy_linux_node[0m
+[32.382s] [100%] Built target joy_linux_node
+[32.409s] Invoked command in '/home/wilson/saurcon_ws/src/build/joy_linux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wilson/saurcon_ws/src/build/joy_linux -- -j4 -l4
+[32.412s] Invoking command in '/home/wilson/saurcon_ws/src/build/joy_linux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/src/build/joy_linux
+[32.431s] -- Install configuration: ""
+[32.431s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/lib/joy_linux/joy_linux_node
+[32.442s] -- Set non-toolchain portion of runtime path of "/home/wilson/saurcon_ws/src/install/joy_linux/lib/joy_linux/joy_linux_node" to ""
+[32.443s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/ament_index/resource_index/package_run_dependencies/joy_linux
+[32.443s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/ament_index/resource_index/parent_prefix_path/joy_linux
+[32.444s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/environment/ament_prefix_path.sh
+[32.444s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/environment/ament_prefix_path.dsv
+[32.444s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/environment/path.sh
+[32.445s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/environment/path.dsv
+[32.445s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/local_setup.bash
+[32.445s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/local_setup.sh
+[32.446s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/local_setup.zsh
+[32.446s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/local_setup.dsv
+[32.446s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/package.dsv
+[32.447s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/ament_index/resource_index/packages/joy_linux
+[32.447s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/cmake/joy_linuxConfig.cmake
+[32.448s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/cmake/joy_linuxConfig-version.cmake
+[32.448s] -- Installing: /home/wilson/saurcon_ws/src/install/joy_linux/share/joy_linux/package.xml
+[32.454s] Invoked command in '/home/wilson/saurcon_ws/src/build/joy_linux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wilson/saurcon_ws/src/build/joy_linux

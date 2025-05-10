@@ -1,0 +1,17 @@
+/home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/talker
+/home/wilson/saurcon_ws/src/install/control_rc/lib/control_rc/xbox_ctrl_sub
+/home/wilson/saurcon_ws/src/install/control_rc/share/ament_index/resource_index/package_run_dependencies/control_rc
+/home/wilson/saurcon_ws/src/install/control_rc/share/ament_index/resource_index/parent_prefix_path/control_rc
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/ament_prefix_path.sh
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/ament_prefix_path.dsv
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/path.sh
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/environment/path.dsv
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.bash
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.sh
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.zsh
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/local_setup.dsv
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/package.dsv
+/home/wilson/saurcon_ws/src/install/control_rc/share/ament_index/resource_index/packages/control_rc
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/cmake/control_rcConfig.cmake
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/cmake/control_rcConfig-version.cmake
+/home/wilson/saurcon_ws/src/install/control_rc/share/control_rc/package.xml
