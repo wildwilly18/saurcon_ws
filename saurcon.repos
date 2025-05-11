@@ -2,4 +2,4 @@ repositories:
   joystick_drivers:
     type: git
     url: https://github.com/ros2/joystick_drivers.git
-    version: jazzy
+    version: ros2
