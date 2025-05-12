@@ -23,7 +23,7 @@ def generate_launch_description():
         # micro_ros_agent as external process
         ExecuteProcess(
             cmd=[
-                'micro_ros_agent', 'serial', '--dev', '/dev/ttyUSB0', '--baudrate', '921600'
+                '/home/wilson/uros_ws/micro_ros_agent', 'serial', '--dev', '/dev/ttyUSB0', '--baudrate', '921600'
             ],
             name='micro_ros_agent',
             output='screen'
