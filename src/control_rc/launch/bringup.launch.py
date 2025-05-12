@@ -1,10 +1,16 @@
+import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import ExecuteProcess
+from ament_index_python.packages import get_package_share_directory, get_package_prefix
 
 def generate_launch_description():
+    # Dynamically get the full path to the micro_ros_agent binary
+    agent_prefix = get_package_prefix('micro_ros_agent')
+    agent_executable = os.path.join(agent_prefix, 'lib', 'micro_ros_agent', 'micro_ros_agent')
+
     return LaunchDescription([
-        # joy_node from joy package
+        # joy_node
         Node(
             package='joy',
             executable='joy_node',
@@ -12,7 +18,7 @@ def generate_launch_description():
             output='screen'
         ),
 
-        # ctrl_interface node from control_rc package
+        # ctrl_interface node
         Node(
             package='control_rc',
             executable='ctrl_interface',
@@ -20,10 +26,12 @@ def generate_launch_description():
             output='screen'
         ),
 
-        # micro_ros_agent as external process
+        # micro_ros_agent with dynamic path
         ExecuteProcess(
             cmd=[
-                '/home/wilson/uros_ws/micro_ros_agent', 'serial', '--dev', '/dev/ttyUSB0', '--baudrate', '921600'
+                agent_executable, 'serial',
+                '--dev', '/dev/ttyUSB0',
+                '--baudrate', '921600'
             ],
             name='micro_ros_agent',
             output='screen'
