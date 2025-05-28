@@ -38,8 +38,8 @@ private:
     twist_msg.linear.x = msg->axes[throttle_idx];
     twist_msg.angular.z = msg->axes[steer_idx];
     publisher_ctrl->publish(twist_msg);
-    RCLCPP_INFO(this->get_logger(), "Published CMD: linear.x=%.2f angular.z=%.2f",
-    twist_msg.linear.x, twist_msg.angular.z);
+    //RCLCPP_INFO(this->get_logger(), "Published CMD: linear.x=%.2f angular.z=%.2f",
+    //twist_msg.linear.x, twist_msg.angular.z);
   }
 
   rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr subscription_joy;
