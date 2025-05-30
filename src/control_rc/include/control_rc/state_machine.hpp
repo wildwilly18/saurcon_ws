@@ -21,7 +21,7 @@ private:
     
     //State Handlers
     void onEnter_STARTUP();
-    //void handle_STARTUP();
+    void handle_STARTUP();
 
     void handle_STANDBY();
 
@@ -37,6 +37,7 @@ private:
     void control_input_cb(const sensor_msgs::msg::Joy::SharedPtr msg);
     void saurcon_state_cb(const std_msgs::msg::UInt8::SharedPtr msg);
 
+    void check_heartbeat();
     // Variables
     SaurconState current_state_;
     SaurconState previous_state_;
@@ -68,7 +69,9 @@ private:
     bool view_held;
     bool view_transition_triggered;
 
-
+    // RC messaging handlers
+    rclcpp::Time last_rc_heartbeat_;
+    const rclcpp::Duration rc_timeout_ = rclcpp::Duration::from_seconds(1.0);
     bool saurcon_rc_ready = 0;
 
 
