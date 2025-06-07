@@ -33,12 +33,27 @@ StateMachine::StateMachine()
         }
     );
 
+    desired_rc_state_msg.data = static_cast<uint8_t>(SaurconRCState::STANDBY);
+
+    pub_state_cmd = this->create_publisher<std_msgs::msg::UInt8>(
+        "/rc_state_cmd", 10
+    );
+
+    state_pub_timer_ = this->create_wall_timer(1000ms,
+        [this] () {
+            std_msgs::msg::UInt8 msg;
+            msg = StateMachine::rc_state_cmd_handler(); 
+            pub_state_cmd->publish(msg); 
+        }
+    );
+
     //Enter into Standby enter handler
     onEnter(current_state_);
 }
 
 void StateMachine::setState(SaurconState newState)
 {
+    // Handle State Changes here
     if (newState == current_state_) return;
 
     onExit(current_state_);
@@ -92,8 +107,14 @@ void StateMachine::onEnter_STARTUP(){
         bind(&StateMachine::control_input_cb, this, placeholders::_1)
     );
 
+    //Initialize our RC State
+    saurcon_rc_current_state_ = SaurconRCState::NO_STATE;
+
+    rclcpp::QoS qos_profile(10);
+    qos_profile.reliability(rclcpp::ReliabilityPolicy::BestEffort);
+
     sub_src_state = this->create_subscription<std_msgs::msg::UInt8>(
-        "/saurcon/state", 10,
+        "/saurcon/state", qos_profile,
         bind(&StateMachine::saurcon_state_cb, this, placeholders::_1)
     );
 
@@ -121,7 +142,7 @@ void StateMachine::handle_STANDBY(){
 
 void StateMachine::handle_RUN_CONTROL(){
     //Always verify we have heartbeat
-    StateMachine::check_heartbeat();
+    //StateMachine::check_heartbeat();
 
     // Watch for button presses to send us back into Standby mode.
     if (menu_held) {
@@ -142,14 +163,25 @@ void StateMachine::handle_RUN_CONTROL(){
         }
     }   
 
-    // While in Run Control push joy messages onto the control message twist
-    ctrl_msg.linear.x = joy_msg.linear.x;
-    ctrl_msg.angular.z = joy_msg.angular.z;
+    if(1){
+        // While in Run Control push joy messages onto the control message twist
+        ctrl_msg.linear.x = joy_msg.linear.x;
+        ctrl_msg.angular.z = joy_msg.angular.z;
+    }
+}
+
+void StateMachine::handle_FAULT(){
+    ctrl_msg.linear.x  = 0;
+    ctrl_msg.angular.z = 0;
+
+    RCLCPP_ERROR(get_logger(), "FAULT state entered! System has faulted. Reset!");
 }
 
 void StateMachine::control_input_cb(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
-    //TODO: Add a controller timout incase we drop control
+    //Set Heartbeat
+    last_ctrl_heartbeat_ = this->now();
+
     joy_msg.linear.x  = msg->axes[throttle_idx];
     joy_msg.angular.z = msg->axes[steer_idx];
 
@@ -184,6 +216,11 @@ void StateMachine::control_input_cb(const sensor_msgs::msg::Joy::SharedPtr msg)
 
 void StateMachine::saurcon_state_cb(const std_msgs::msg::UInt8::SharedPtr msg)
 {
+    saurcon_rc_current_state_ = static_cast<SaurconRCState>(msg->data);
+
+    bool in_ctrl_state = (saurcon_rc_current_state_ == SaurconRCState::RUN_CONTROL ||
+         saurcon_rc_current_state_ == SaurconRCState::RUN_AUTONOMOUS) ? true : false;
+
     if(msg->data == static_cast<uint8_t>(SaurconRCState::STANDBY) ||
         msg->data == static_cast<uint8_t>(SaurconRCState::RUN_CONTROL) ||
         msg->data == static_cast<uint8_t>(SaurconRCState::RUN_AUTONOMOUS))    
@@ -193,8 +230,27 @@ void StateMachine::saurcon_state_cb(const std_msgs::msg::UInt8::SharedPtr msg)
         saurcon_rc_ready = 0;
     }
 
+    control_ready = (in_ctrl_state && (saurcon_rc_current_state_ == saurcon_rc_desired_state_)) ? true : false;
+
+    //TODO: control sync timer. 
+
     //set heartbeat time    
     last_rc_heartbeat_ = this->now();
+}
+
+std_msgs::msg::UInt8 StateMachine::rc_state_cmd_handler(){
+    
+    //Check current state to determine what state we would like to set the RC to
+    switch(current_state_) {
+        case(SaurconState::RUN_AUTONOMOUS): saurcon_rc_desired_state_ = SaurconRCState::RUN_AUTONOMOUS; break;
+        case(SaurconState::RUN_CONTROL)   : saurcon_rc_desired_state_ = SaurconRCState::RUN_CONTROL;    break;
+        default:                            saurcon_rc_desired_state_ = SaurconRCState::STANDBY;        break;
+    }
+
+    desired_rc_state_msg.data = static_cast<uint8_t>(saurcon_rc_desired_state_);
+
+    return desired_rc_state_msg;
+    
 }
 
 void StateMachine::check_heartbeat()
@@ -203,7 +259,15 @@ void StateMachine::check_heartbeat()
         RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "RC heartbeat lost");
 
         if(current_state_ != SaurconState::STANDBY || current_state_ != SaurconState::STARTUP) {
-            setState(SaurconState::STANDBY); //TODO: make this a fault.
+            setState(SaurconState::FAULT);
+        }
+    }
+
+    if((this->now() - last_ctrl_heartbeat_) > ctrl_timeout_) {
+        RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "Joy heartbeat lost");
+
+        if(current_state_ == SaurconState::RUN_CONTROL || current_state_ == SaurconState::RUN_AUTONOMOUS) {
+            setState(SaurconState::FAULT);
         }
     }
 }

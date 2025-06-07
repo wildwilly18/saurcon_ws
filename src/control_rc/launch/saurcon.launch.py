@@ -15,7 +15,7 @@ def generate_launch_description():
             package='joy',
             executable='joy_node',
             name='joy_node',
-            output='screen'
+            output='log'
         ),
 
         # state_machine node
@@ -23,7 +23,7 @@ def generate_launch_description():
             package='control_rc',
             executable='saurcon_main',
             name='saurcon_agent',
-            output='screen'
+            output='both'
         ),
 
         # micro_ros_agent with dynamic path
@@ -34,6 +34,6 @@ def generate_launch_description():
                 '--baudrate', '921600'
             ],
             name='micro_ros_agent',
-            output='screen'
+            output='both'
         )
     ])
