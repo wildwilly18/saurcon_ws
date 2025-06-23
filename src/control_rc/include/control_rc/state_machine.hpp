@@ -7,6 +7,8 @@
 
 #include "types/saurcon_types.hpp"
 
+#include "control_rc/topic_bridge.hpp"
+
 class StateMachine : public rclcpp::Node
 {
 public:
@@ -66,6 +68,9 @@ private:
     geometry_msgs::msg::Twist stop_msg;
 
     std_msgs::msg::UInt8 desired_rc_state_msg;
+
+    //Bridge
+    std::unique_ptr<IMUBridge> imu_bridge_;
 
     //RC State
     SaurconRCState saurcon_rc_desired_state_;

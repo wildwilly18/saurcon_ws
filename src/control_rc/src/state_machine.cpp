@@ -47,6 +47,8 @@ StateMachine::StateMachine()
         }
     );
 
+    imu_bridge_ = std::make_unique<IMUBridge>(this);
+
     //Enter into Standby enter handler
     onEnter(current_state_);
 }

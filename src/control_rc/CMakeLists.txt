@@ -23,7 +23,11 @@ find_package(geometry_msgs REQUIRED)
 
 add_executable(talker src/publisher_control_rc.cpp)
 add_executable(ctrl_interface src/ctrl_interface.cpp)
-add_executable(saurcon_main src/saurcon.cpp src/state_machine.cpp)
+add_executable(saurcon_main
+               src/saurcon.cpp 
+               src/state_machine.cpp 
+               src/topic_bridge.cpp)
+               
 ament_target_dependencies(talker rclcpp std_msgs)
 ament_target_dependencies(ctrl_interface rclcpp sensor_msgs geometry_msgs)
 ament_target_dependencies(saurcon_main rclcpp sensor_msgs geometry_msgs std_msgs)
