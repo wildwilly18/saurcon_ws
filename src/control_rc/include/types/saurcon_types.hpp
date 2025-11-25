@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 
+//Enumeration for the ROS Saurcon State
 enum class SaurconState : uint8_t{
     NO_STATE = 0,      // Initial or invalid state
     STARTUP,          // Startup push to standby to wait for esp32

@@ -3,6 +3,8 @@
 /install/
 /log/
 
+#Rosbag
+/rosbag2*
 # Colcon metadata
 .colcon/
 
