@@ -29,8 +29,8 @@ def generate_launch_description():
         # sim_rc mode
         Node(
             package='control_rc',
-            executable='sim_state_machine',
-            name='sim_state_machine',
+            executable='sim_saurcon_rc',
+            name='sim_saurcon_rc',
             output='both'
         ),
 
