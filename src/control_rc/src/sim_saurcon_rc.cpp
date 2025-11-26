@@ -48,7 +48,7 @@ private:
 	void ctrl_output_cb(const geometry_msgs::msg::Twist::SharedPtr msg) {
 		// Only publish velocity if in correct state
 		if (current_state_ == SaurconRCState::RUN_CONTROL || current_state_ == SaurconRCState::RUN_AUTONOMOUS) {
-			RCLCPP_INFO(this->get_logger(), "Publishing to Gazebo: linear.x=%.3f angular.z=%.3f", msg->linear.x, msg->angular.z);
+			//RCLCPP_INFO(this->get_logger(), "Publishing to Gazebo: linear.x=%.3f angular.z=%.3f", msg->linear.x, msg->angular.z);
 			pub_gz_cmd_->publish(*msg);
 		}
 	}
@@ -60,7 +60,7 @@ private:
 			current_state_ = new_state;
 			publish_sim_state();
 		} else {
-			RCLCPP_INFO(this->get_logger(), "Already in state: %s", state_name(current_state_).c_str());
+			//RCLCPP_INFO(this->get_logger(), "Already in state: %s", state_name(current_state_).c_str());
 		}
 	}
 

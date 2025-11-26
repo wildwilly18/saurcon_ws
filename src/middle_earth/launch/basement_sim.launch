@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <!-- Launch Gazebo with basement world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find middle_earth)/worlds/basement.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+    <arg name="verbose" value="true"/>
+  </include>
+
+  <!-- Spawn RC Ackermann vehicle -->
+  <node name="spawn_rc_vehicle" pkg="gazebo_ros" type="spawn_model"
+        args="-file $(find middle_earth)/models/rc_ackermann_vehicle/model.sdf 
+              -sdf 
+              -model rc_ackermann_vehicle 
+              -x 0 -y 0 -z 0.1"
+        output="screen"/>
+
+</launch>

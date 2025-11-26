@@ -1,0 +1,33 @@
+# RC Ackermann Vehicle Configuration Parameters
+# Adjust these values to change the vehicle size and characteristics
+
+vehicle:
+  # Dimensions (in meters)
+  chassis:
+    length: 0.4      # Total length of vehicle body
+    width: 0.2       # Total width of vehicle body
+    height: 0.02     # Height of chassis
+    mass: 2.0        # Mass in kg
+  
+  wheels:
+    radius: 0.03     # Wheel radius
+    width: 0.03      # Wheel thickness
+    mass: 0.1        # Mass per wheel in kg
+  
+  # Ackermann geometry
+  wheelbase: 0.3     # Distance between front and rear axles
+  track_width: 0.24  # Distance between left and right wheels
+  
+  # Performance limits
+  max_steering_angle: 0.6  # Maximum steering angle in radians (~34 degrees)
+  max_speed: 2.0           # Maximum speed in m/s
+  max_torque: 5.0          # Maximum torque in Nm
+  
+  # Physics
+  wheel_friction: 1.0      # Coefficient of friction
+  damping: 0.05            # Wheel damping coefficient
+
+# To scale the vehicle:
+# - Small RC (1:18 scale): multiply all dimensions by 0.7
+# - Standard RC (1:10 scale): use default values (current)
+# - Large RC (1:8 scale): multiply all dimensions by 1.3

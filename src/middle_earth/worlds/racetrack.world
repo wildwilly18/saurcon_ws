@@ -1,0 +1,392 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="racetrack">
+    
+    <!-- Physics -->
+    <physics name="1ms" type="dart">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+
+    <!-- Plugins -->
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <gravity>0 0 -9.8</gravity>
+
+    <!-- Lighting -->
+    <light type="directional" name="track_sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Floor -->
+    <model name="track_floor">
+      <static>true</static>
+      <link name="floor_link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>12.0 10.0 0.01</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>12.0 10.0 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.4 0.2 0.1 1</ambient>
+            <diffuse>0.6 0.3 0.15 1</diffuse>
+            <specular>0.3 0.15 0.1 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Outer Oval Track Boundary -->
+    <!-- Major axis: 8m, Minor axis: 6m -->
+    
+    <!-- Outer long sides -->
+    <model name="outer_straight_left">
+      <static>true</static>
+      <pose>0 2.5 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>6.0 0.1 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>6.0 0.1 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="outer_straight_right">
+      <static>true</static>
+      <pose>0 -2.5 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>6.0 0.1 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>6.0 0.1 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Outer curved ends (approximated with cylinders) -->
+    <model name="outer_curve_left">
+      <static>true</static>
+      <pose>-3.0 0 0.15 0 1.5707 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>2.5</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>2.5</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="outer_curve_right">
+      <static>true</static>
+      <pose>3.0 0 0.15 0 1.5707 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>2.5</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>2.5</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Inner Oval Track Boundary -->
+    <!-- Inner track width: 1.5m from outer -->
+    
+    <model name="inner_straight_left">
+      <static>true</static>
+      <pose>0 1.0 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>4.0 0.1 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>4.0 0.1 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="inner_straight_right">
+      <static>true</static>
+      <pose>0 -1.0 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>4.0 0.1 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>4.0 0.1 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="inner_curve_left">
+      <static>true</static>
+      <pose>-2.0 0 0.15 0 1.5707 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>1.0</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>1.0</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="inner_curve_right">
+      <static>true</static>
+      <pose>2.0 0 0.15 0 1.5707 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>1.0</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>1.0</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ArUco Markers around the track at 12" (0.3048m) height -->
+    <!-- Outer track markers - evenly spaced -->
+    
+    <!-- Top straight section -->
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_0</name>
+      <pose>-2.5 2.8 0.3048 0 0 3.14159</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_1</name>
+      <pose>-1.0 2.8 0.3048 0 0 3.14159</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_2</name>
+      <pose>1.0 2.8 0.3048 0 0 3.14159</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_3</name>
+      <pose>2.5 2.8 0.3048 0 0 3.14159</pose>
+    </include>
+
+    <!-- Right curve -->
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_4</name>
+      <pose>3.8 2.0 0.3048 0 0 2.35619</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_5</name>
+      <pose>4.5 0 0.3048 0 0 1.5708</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_6</name>
+      <pose>3.8 -2.0 0.3048 0 0 0.7854</pose>
+    </include>
+
+    <!-- Bottom straight section -->
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_7</name>
+      <pose>2.5 -2.8 0.3048 0 0 0</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_8</name>
+      <pose>1.0 -2.8 0.3048 0 0 0</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_9</name>
+      <pose>-1.0 -2.8 0.3048 0 0 0</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_10</name>
+      <pose>-2.5 -2.8 0.3048 0 0 0</pose>
+    </include>
+
+    <!-- Left curve -->
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_11</name>
+      <pose>-3.8 -2.0 0.3048 0 0 5.49779</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_12</name>
+      <pose>-4.5 0 0.3048 0 0 4.71239</pose>
+    </include>
+    
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/aruco_marker</uri>
+      <name>aruco_13</name>
+      <pose>-3.8 2.0 0.3048 0 0 3.92699</pose>
+    </include>
+
+    <!-- Include RC Ackermann Vehicle -->
+    <include>
+      <uri>file:///home/morgoth/middle_earth/models/rc_ackermann_vehicle</uri>
+      <name>rc_vehicle</name>
+      <pose>0 -1.75 1.0 0 0 1.5708</pose>
+    </include>
+
+  </world>
+</sdf>
