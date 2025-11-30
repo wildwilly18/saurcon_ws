@@ -391,7 +391,7 @@
           <effort>1e6</effort>
         </limit>
         <dynamics>
-          <damping>1.0</damping>
+          <damping>0.02</damping>
         </dynamics>
       </axis>
     </joint>
@@ -408,7 +408,7 @@
           <effort>1e6</effort>
         </limit>
         <dynamics>
-          <damping>1.0</damping>
+          <damping>0.02</damping>
         </dynamics>
       </axis>
     </joint>
@@ -464,6 +464,7 @@
       <max_velocity>2.0</max_velocity>
       <min_acceleration>-5.0</min_acceleration>
       <max_acceleration>5.0</max_acceleration>
+      <steer_p_gain>50.0</steer_p_gain>
       <topic>/model/rc_ackermann_vehicle/cmd_vel</topic>
       <odometry_topic>/model/rc_ackermann_vehicle/odom</odometry_topic>
     </plugin>

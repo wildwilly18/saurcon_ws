@@ -3,7 +3,10 @@
 #include <geometry_msgs/msg/twist.hpp>
 #include <std_msgs/msg/u_int8.hpp>
 #include <sensor_msgs/msg/imu.hpp>
+#include <sensor_msgs/msg/joint_state.hpp>
 #include "../include/types/saurcon_types.hpp"
+
+#include <mutex>
 
 class SaurconRcSim : public rclcpp::Node {
 public:
@@ -25,6 +28,11 @@ public:
 			std::bind(&SaurconRcSim::imu_data_cb, this, std::placeholders::_1)
 		);
 
+		sub_joint_state_output_ = this->create_subscription<sensor_msgs::msg::JointState>(
+			"/model/rc_ackermann_vehicle/joint_states", 10,
+			std::bind(&SaurconRcSim::joint_state_cb, this, std::placeholders::_1)
+		);
+
 		pub_gz_cmd_ = this->create_publisher<geometry_msgs::msg::Twist>(
 			"/model/rc_ackermann_vehicle/cmd_vel", 10
 		);
@@ -41,6 +49,12 @@ public:
 			"/saurcon/state", 10
 		);
 
+		// Timer to publish Joint State at 100hz
+		odom_pub_timer_ = this->create_wall_timer(
+			std::chrono::milliseconds(10),
+			std::bind(&SaurconRcSim::publish_rc_odom, this)
+		);
+
 		// Timer to publish state every second
 		state_pub_timer_ = this->create_wall_timer(
 			std::chrono::seconds(1),
@@ -54,12 +68,13 @@ private:
 	rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_ctrl_output_;
 	rclcpp::Subscription<std_msgs::msg::UInt8>::SharedPtr sub_state_cmd_output_;
 	rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr sub_imu_output_;
-	rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_veh_vel_;
+	rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_state_output_;
 	rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub_gz_cmd_;
 	rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr pub_sim_state_output_;
 	rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr pub_rc_imu_;
-	rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub_rc_odom_;
+	rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub_rc_odom_; //Take the joint state output and re-publish as twist imitating what saurcon rc does.
 	rclcpp::TimerBase::SharedPtr state_pub_timer_;
+	rclcpp::TimerBase::SharedPtr odom_pub_timer_;
 
 	SaurconRCState current_state_;
 
@@ -82,8 +97,28 @@ private:
 		}
 	}
 
-	void imu_data_cb(const sensor_msgs::msg::Imu msg){
-		pub_rc_imu_->publish(msg);
+	void imu_data_cb(const sensor_msgs::msg::Imu::SharedPtr msg){
+		pub_rc_imu_->publish(*msg);
+	}
+
+	// Creating a joint state variable to store last joint state such that it can be published at varying frequency.
+	geometry_msgs::msg::Twist rc_odom_;
+	std::mutex rc_odom_mutex_;
+
+	void joint_state_cb(const sensor_msgs::msg::JointState::SharedPtr msg){
+		//Coordinate Frame needs to be NED
+		std::lock_guard<std::mutex> lock(rc_odom_mutex_);
+		rc_odom_.linear.x  = msg->velocity[1]; //rotational velocity of the wheel.
+		rc_odom_.angular.z = -1 * msg->position[3]; //gamma turn angle. This is misleading do not mistake it with phi!!!!
+	}
+
+	void publish_rc_odom() {
+		geometry_msgs::msg::Twist msg;
+		{
+			std::lock_guard<std::mutex> lock(rc_odom_mutex_);
+			msg = rc_odom_;
+		}
+		pub_rc_odom_->publish(msg);
 	}
 
 	void publish_sim_state() {
