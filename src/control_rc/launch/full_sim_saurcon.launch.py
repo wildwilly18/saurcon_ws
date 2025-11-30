@@ -6,8 +6,13 @@ from datetime import datetime
 
 def generate_launch_description():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    bag_name = f"rosbag_{timestamp}"
-
+    
+    # Create bags directory if it doesn't exist
+    bags_dir = os.path.expanduser('~/saurcon_ws/bags')
+    os.makedirs(bags_dir, exist_ok=True)
+    
+    bag_path = os.path.join(bags_dir, f"rosbag_{timestamp}")
+    
     return LaunchDescription([
         # Launch the basement world in gz sim
         ExecuteProcess(
@@ -17,24 +22,62 @@ def generate_launch_description():
             ],
             output='screen'
         ),
-
-            # gz-ros-bridge node
-            Node(
-                package='ros_gz_bridge',
-                executable='parameter_bridge',
-                name='gz_bridge',
-                output='screen',
-                    arguments=[
-                        # Velocity control (publish to this topic)
-                        '/model/rc_ackermann_vehicle/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
-                        # Odometry (subscribe to this topic)
-                        '/model/rc_ackermann_vehicle/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry',
-                        # Camera color image (subscribe to this topic)
-                        '/camera/image@sensor_msgs/msg/Image@gz.msgs.Image',
-                        # Camera depth image (subscribe to this topic)
-                        '/camera/depth_image@sensor_msgs/msg/Image@gz.msgs.Image',
-                    ]
-            ),
+        
+        # gz-ros-bridge node - using separate processes to avoid argument concatenation
+        ExecuteProcess(
+            cmd=[
+                'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
+                '/model/rc_ackermann_vehicle/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
+            ],
+            output='screen',
+            shell=False
+        ),
+        
+        ExecuteProcess(
+            cmd=[
+                'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
+                '/model/rc_ackermann_vehicle/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry',
+            ],
+            output='screen',
+            shell=False
+        ),
+        
+        ExecuteProcess(
+            cmd=[
+                'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
+                '/model/rc_ackermann_vehicle/imu@sensor_msgs/msg/Imu@gz.msgs.IMU',
+            ],
+            output='screen',
+            shell=False
+        ),
+        
+        ExecuteProcess(
+            cmd=[
+                'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
+                '/camera/image@sensor_msgs/msg/Image@gz.msgs.Image',
+            ],
+            output='screen',
+            shell=False
+        ),
+        
+        ExecuteProcess(
+            cmd=[
+                'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
+                '/camera/depth_image@sensor_msgs/msg/Image@gz.msgs.Image',
+            ],
+            output='screen',
+            shell=False
+        ),
+        
+        ExecuteProcess(
+            cmd=[
+                'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
+                '/model/rc_ackermann_vehicle/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model',
+            ],
+            output='screen',
+            shell=False
+        ),
+        
         # joy_node
         Node(
             package='joy',
@@ -42,7 +85,7 @@ def generate_launch_description():
             name='joy_node',
             output='log'
         ),
-
+        
         # state_machine node
         Node(
             package='control_rc',
@@ -50,7 +93,7 @@ def generate_launch_description():
             name='saurcon_agent',
             output='both'
         ),
-
+        
         # sim_rc mode
         Node(
             package='control_rc',
@@ -58,12 +101,12 @@ def generate_launch_description():
             name='sim_saurcon_rc',
             output='both'
         ),
-
+        
         # rosbag record all topics
         ExecuteProcess(
             cmd=[
-                'ros2', 'bag', 'record',
-                '-a'
+                'ros2', 'bag', 'record', '-a',
+                '-o', bag_path
             ],
             output='screen'
         ),

@@ -2,6 +2,7 @@
 /build/
 /install/
 /log/
+/bags/
 
 #Rosbag
 /rosbag2*

@@ -33,7 +33,7 @@ add_executable(sim_saurcon_rc
 ament_target_dependencies(talker rclcpp std_msgs)
 ament_target_dependencies(ctrl_interface rclcpp sensor_msgs geometry_msgs)
 ament_target_dependencies(saurcon_main rclcpp sensor_msgs geometry_msgs std_msgs)
-ament_target_dependencies(sim_saurcon_rc rclcpp geometry_msgs std_msgs)
+ament_target_dependencies(sim_saurcon_rc rclcpp geometry_msgs std_msgs sensor_msgs)
 
 # find headers
 target_include_directories(saurcon_main PUBLIC

@@ -2,6 +2,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <std_msgs/msg/u_int8.hpp>
+#include <sensor_msgs/msg/imu.hpp>
 #include "../include/types/saurcon_types.hpp"
 
 class SaurconRcSim : public rclcpp::Node {
@@ -19,8 +20,21 @@ public:
 			std::bind(&SaurconRcSim::state_cmd_cb, this, std::placeholders::_1)
 		);
 
+		sub_imu_output_ = this->create_subscription<sensor_msgs::msg::Imu>(
+			"/model/rc_ackermann_vehicle/imu", 10,
+			std::bind(&SaurconRcSim::imu_data_cb, this, std::placeholders::_1)
+		);
+
 		pub_gz_cmd_ = this->create_publisher<geometry_msgs::msg::Twist>(
 			"/model/rc_ackermann_vehicle/cmd_vel", 10
+		);
+
+		pub_rc_imu_ = this->create_publisher<sensor_msgs::msg::Imu>(
+			"/saurcon/imu", 10
+		);
+
+		pub_rc_odom_ = this->create_publisher<geometry_msgs::msg::Twist>(
+			"/saurcon/odom", 10
 		);
 
 		pub_sim_state_output_ = this->create_publisher<std_msgs::msg::UInt8>(
@@ -39,8 +53,12 @@ public:
 private:
 	rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_ctrl_output_;
 	rclcpp::Subscription<std_msgs::msg::UInt8>::SharedPtr sub_state_cmd_output_;
+	rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr sub_imu_output_;
+	rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_veh_vel_;
 	rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub_gz_cmd_;
 	rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr pub_sim_state_output_;
+	rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr pub_rc_imu_;
+	rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub_rc_odom_;
 	rclcpp::TimerBase::SharedPtr state_pub_timer_;
 
 	SaurconRCState current_state_;
@@ -62,6 +80,10 @@ private:
 		} else {
 			//RCLCPP_INFO(this->get_logger(), "Already in state: %s", state_name(current_state_).c_str());
 		}
+	}
+
+	void imu_data_cb(const sensor_msgs::msg::Imu msg){
+		pub_rc_imu_->publish(msg);
 	}
 
 	void publish_sim_state() {

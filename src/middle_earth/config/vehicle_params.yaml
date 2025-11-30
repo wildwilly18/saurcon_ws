@@ -4,24 +4,42 @@
 vehicle:
   # Dimensions (in meters)
   chassis:
-    length: 0.4      # Total length of vehicle body
-    width: 0.2       # Total width of vehicle body
-    height: 0.02     # Height of chassis
+    length: 0.38      # Total length of vehicle body
+    width: 0.12       # Total width of vehicle body
+    height: 0.0254     # Height of chassis
     mass: 2.0        # Mass in kg
   
   wheels:
-    radius: 0.03     # Wheel radius
+    radius: 0.066     # Wheel radius
     width: 0.03      # Wheel thickness
     mass: 0.1        # Mass per wheel in kg
+
+  # IMU location
+  imu:
+    x: 0.125
+    y: 0.00
+    z: 0.00
+    phi: 0.0
+    theta: 0.0
+    psi: 0.0
+  
+  # Camera location
+  cam:
+   x:  0.1397
+   y:  0.0
+   z: -0.05
+   phi: 0.0
+   theta: 0.088
+   psi: 0.0
   
   # Ackermann geometry
-  wheelbase: 0.3     # Distance between front and rear axles
-  track_width: 0.24  # Distance between left and right wheels
+  wheelbase: 0.254     # Distance between front and rear axles
+  track_width: 0.14  # Distance between left and right wheels
   
   # Performance limits
-  max_steering_angle: 0.6  # Maximum steering angle in radians (~34 degrees)
-  max_speed: 2.0           # Maximum speed in m/s
-  max_torque: 5.0          # Maximum torque in Nm
+  max_steering_angle: 0.786  # Maximum steering angle in radians (~34 degrees)
+  max_speed: 2.0             # Maximum speed in m/s
+  max_torque: 5.0            # Maximum torque in Nm
   
   # Physics
   wheel_friction: 1.0      # Coefficient of friction

@@ -197,7 +197,7 @@
     </include>
 
     <!-- ArUco Markers in oval pattern at 12" (0.3048m) height -->
-    <!-- 12 markers evenly spaced like clock positions, renumbered so old tag 9 is now tag 0 -->
+    <!-- 12 markers evenly spaced like clock positions -->
     
     <!-- Marker 0 -->
     <model name="aruco_0">
