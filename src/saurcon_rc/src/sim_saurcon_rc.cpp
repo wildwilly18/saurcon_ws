@@ -1,6 +1,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
+#include <geometry_msgs/msg/twist_stamped.hpp>
 #include <std_msgs/msg/u_int8.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
@@ -41,7 +42,7 @@ public:
 			"/saurcon/imu", 10
 		);
 
-		pub_rc_odom_ = this->create_publisher<geometry_msgs::msg::Twist>(
+		pub_rc_odom_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(
 			"/saurcon/odom", 10
 		);
 
@@ -72,7 +73,7 @@ private:
 	rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub_gz_cmd_;
 	rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr pub_sim_state_output_;
 	rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr pub_rc_imu_;
-	rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub_rc_odom_; //Take the joint state output and re-publish as twist imitating what saurcon rc does.
+	rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr pub_rc_odom_; //Take the joint state output and re-publish as twist imitating what saurcon rc does.
 	rclcpp::TimerBase::SharedPtr state_pub_timer_;
 	rclcpp::TimerBase::SharedPtr odom_pub_timer_;
 
@@ -102,22 +103,24 @@ private:
 	}
 
 	// Creating a joint state variable to store last joint state such that it can be published at varying frequency.
-	geometry_msgs::msg::Twist rc_odom_;
+	geometry_msgs::msg::TwistStamped rc_odom_;
 	std::mutex rc_odom_mutex_;
 
 	void joint_state_cb(const sensor_msgs::msg::JointState::SharedPtr msg){
 		//Coordinate Frame needs to be NED
 		std::lock_guard<std::mutex> lock(rc_odom_mutex_);
-		rc_odom_.linear.x  = msg->velocity[1]; //rotational velocity of the wheel.
-		rc_odom_.angular.z = -1 * msg->position[3]; //gamma turn angle. This is misleading do not mistake it with phi!!!!
+		rc_odom_.twist.linear.x  = msg->velocity[1]; //rotational velocity of the wheel.
+		rc_odom_.twist.angular.z = -1 * msg->position[3]; //gamma turn angle. This is misleading do not mistake it with phi!!!!
 	}
 
 	void publish_rc_odom() {
-		geometry_msgs::msg::Twist msg;
+		geometry_msgs::msg::TwistStamped msg;
 		{
 			std::lock_guard<std::mutex> lock(rc_odom_mutex_);
 			msg = rc_odom_;
 		}
+		msg.header.stamp = this->now();
+		msg.header.frame_id = "base_link";
 		pub_rc_odom_->publish(msg);
 	}
 

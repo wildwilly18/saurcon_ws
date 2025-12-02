@@ -20,7 +20,7 @@ def generate_launch_description():
 
         # ctrl_interface node
         Node(
-            package='control_rc',
+            package='saurcon_rc',
             executable='ctrl_interface',
             name='ctrl_interface',
             output='screen'

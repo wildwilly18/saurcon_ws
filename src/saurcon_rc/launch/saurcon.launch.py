@@ -25,7 +25,7 @@ def generate_launch_description():
 
         # state_machine node
         Node(
-            package='control_rc',
+            package='saurcon_rc',
             executable='saurcon_main',
             name='saurcon_agent',
             output='both'
