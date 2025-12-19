@@ -35,18 +35,45 @@
     <gravity>0 0 -9.8</gravity>
 
     <!-- Lighting -->
-    <light type="directional" name="basement_sun">
-      <cast_shadows>true</cast_shadows>
+    <scene>
+      <ambient>1.0 1.0 1.0 1.0</ambient>
+      <background>0.3 0.3 0.3 1.0</background>
+    </scene>
+
+    <!-- Light from North -->
+    <light type="directional" name="sun_north">
+      <cast_shadows>false</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
       <specular>0.2 0.2 0.2 1</specular>
-      <attenuation>
-        <range>1000</range>
-        <constant>0.9</constant>
-        <linear>0.01</linear>
-        <quadratic>0.001</quadratic>
-      </attenuation>
-      <direction>-0.5 0.1 -0.9</direction>
+      <direction>0 1 -1</direction>
+    </light>
+
+    <!-- Light from South -->
+    <light type="directional" name="sun_south">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>0 -1 -1</direction>
+    </light>
+
+    <!-- Light from East -->
+    <light type="directional" name="sun_east">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>1 0 -1</direction>
+    </light>
+
+    <!-- Light from West -->
+    <light type="directional" name="sun_west">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-1 0 -1</direction>
     </light>
 
     <!-- Basement floor (10m x 12m - larger driving area) -->
@@ -84,110 +111,6 @@
       </link>
     </model>
 
-    <!-- Walls -->
-    <!-- North wall -->
-    <model name="north_wall">
-      <static>true</static>
-      <pose>0 5.0 1.25 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>12.0 0.2 2.5</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>12.0 0.2 2.5</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.8 0.8 0.8 1</ambient>
-            <diffuse>0.9 0.9 0.9 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- South wall -->
-    <model name="south_wall">
-      <static>true</static>
-      <pose>0 -5.0 1.25 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>12.0 0.2 2.5</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>12.0 0.2 2.5</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.8 0.8 0.8 1</ambient>
-            <diffuse>0.9 0.9 0.9 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- East wall -->
-    <model name="east_wall">
-      <static>true</static>
-      <pose>6.0 0 1.25 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.2 10.0 2.5</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.2 10.0 2.5</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.8 0.8 0.8 1</ambient>
-            <diffuse>0.9 0.9 0.9 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- West wall -->
-    <model name="west_wall">
-      <static>true</static>
-      <pose>-6.0 0 1.25 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.2 10.0 2.5</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.2 10.0 2.5</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.8 0.8 0.8 1</ambient>
-            <diffuse>0.9 0.9 0.9 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
 
     <!-- Include RC Ackermann Vehicle -->
     <include>
