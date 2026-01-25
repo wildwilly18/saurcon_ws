@@ -32,13 +32,13 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     std::vector<std::vector<cv::Point2f>> markerCorners, rejectedCandidates;
     cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create();
 
-    // Use DICT_4X4_50 dictionary
+    // Use DICT_4X4_50 dictionary should make this configurable
     cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_50);
     
     // Detect markers using enhanced image (try both)
     cv::aruco::detectMarkers(image, dictionary, markerCorners, markerIds, detectorParams, rejectedCandidates);
 
-    std::cout << "Detected " << markerIds.size() << " markers" << std::endl;
+    //std::cout << "Detected " << markerIds.size() << " markers" << std::endl;
 
     //If no markers found simply return
     if(markerIds.empty()){ return tags;}
@@ -54,11 +54,11 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
 
     // Estimate poses
     for(size_t i = 0; i < nMarkers; ++i){
-        std::cout << "Solving tag ID : " << markerIds.at(i) << std::endl;
+        //std::cout << "Solving tag ID : " << markerIds.at(i) << std::endl;
         cv::Vec3d rvec; cv::Vec3d tvec; 
         cv::solvePnP(objPoints, markerCorners.at(i), camMatrix_, distCoeffs_, rvec, tvec);
 
-        std::cout << "  Marker in camera frame: " << tvec << std::endl;
+        //std::cout << "  Marker in camera frame: " << tvec << std::endl;
 
         cv::Matx33d R_cm = rodriguesToMatx33d(rvec);
         cv::Matx44d T_cm = makeT(R_cm, tvec);
@@ -67,13 +67,13 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
         
         // Extract position from transformation matrix
         cv::Vec3d t_vm(T_vm(0,3), T_vm(1,3), T_vm(2,3));
-        std::cout << "  Marker in vehicle frame: " << t_vm << std::endl;
+        //std::cout << "  Marker in vehicle frame: " << t_vm << std::endl;
 
         ArucoPose_t marker_pose;
         marker_pose.tag_id = markerIds.at(i);
         marker_pose.tag_pose = T_vm;
 
-        std::cout<< "[ DEBUG ] Marker added to vector ID: " << marker_pose.tag_id << std::endl;        tags.push_back(marker_pose);
+        //std::cout<< "[ DEBUG ] Marker added to vector ID: " << marker_pose.tag_id << std::endl;        tags.push_back(marker_pose);
     }
 
     return tags;

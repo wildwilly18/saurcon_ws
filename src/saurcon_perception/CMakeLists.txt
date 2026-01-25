@@ -14,7 +14,9 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
@@ -80,14 +82,44 @@ add_custom_command(TARGET aruco_class_test POST_BUILD
   COMMENT "Copying aruco_class_test to workspace root"
 )
 
-# Install aruco_class_test executable
-install(TARGETS aruco_class_test
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/ArucoPose.msg"
+  "msg/ArucoPoseArray.msg"
+  DEPENDENCIES std_msgs geometry_msgs
+)
+
+# Add aruco_detector_node executable
+add_executable(aruco_detector_node
+  src/aruco_detector_node.cpp
+  src/aruco_detector.cpp
+)
+
+ament_target_dependencies(aruco_detector_node
+  rclcpp
+  sensor_msgs
+  cv_bridge
+  tf2
+)
+
+target_link_libraries(aruco_detector_node
+  ${OpenCV_LIBS}
+  ${Boost_LIBRARIES}
+  Eigen3::Eigen
+)
+
+# Link generated messages to the node
+rosidl_get_typesupport_target(cpp_typesupport_target 
+  ${PROJECT_NAME} "rosidl_typesupport_cpp")
+target_link_libraries(aruco_detector_node "${cpp_typesupport_target}")
+
+# Install aruco_detector_node executable
+install(TARGETS aruco_detector_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# Install header files
-install(DIRECTORY include/
-  DESTINATION include/
+# Install aruco_class_test executable
+install(TARGETS aruco_class_test
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 # Install launch files

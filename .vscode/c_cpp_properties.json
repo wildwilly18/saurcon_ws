@@ -7,6 +7,9 @@
       },
       "includePath": [
         "/opt/ros/jazzy/include/**",
+        "/home/wilson/saurcon_ws/install/saurcon_perception/include/**",
+        "/home/wilson/saurcon_ws/src/saurcon_rc/include/**",
+        "/home/wilson/saurcon_ws/src/saurcon_perception/include/**",
         "/home/wilson/saurcon_ws/src/control_rc/include/**",
         "/usr/include/**"
       ],
@@ -14,7 +17,7 @@
       "intelliSenseMode": "gcc-x64",
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "gnu11",
-      "cppStandard": "c++14"
+      "cppStandard": "c++17"
     }
   ],
   "version": 4
