@@ -1,0 +1,23 @@
+# ArUco Detector Configuration
+
+aruco_detector:
+  ros__parameters:
+    # ArUco marker specifications
+    marker_size: 0.1524  # meters (6 inches)
+    dictionary_id: 4     # DICT_4X4_50
+    
+    # Marker ID filtering
+    min_marker_id: 0
+    max_marker_id: 19
+    
+    # Frame IDs
+    camera_frame: "camera_link"
+    
+    # Visualization
+    publish_visualization: true
+    
+    # Detection parameters (optional tuning)
+    # adaptiveThreshWinSizeMin: 3
+    # adaptiveThreshWinSizeMax: 23
+    # minMarkerPerimeterRate: 0.03
+    # maxMarkerPerimeterRate: 4.0

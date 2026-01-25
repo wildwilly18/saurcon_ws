@@ -1,0 +1,8 @@
+{
+  "marker": {
+    "dictionary": "DICT_4X4_50",
+    "marker_length": 0.1103,
+    "length_unit": "meters",
+    "comment": "Empirically calibrated - optimized for X-axis (forward) accuracy"
+  }
+}

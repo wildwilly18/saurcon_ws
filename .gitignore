@@ -4,6 +4,11 @@
 /log/
 /bags/
 
+# Saurcon Perception build and install dirs
+/src/saurcon_perception/build/
+/src/saurcon_perception/install/
+/src/saurcon_perception/log/
+
 #Rosbag
 /rosbag2*
 # Colcon metadata
