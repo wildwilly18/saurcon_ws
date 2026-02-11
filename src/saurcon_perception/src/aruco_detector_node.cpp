@@ -4,20 +4,23 @@
 #include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <saurcon_perception/msg/aruco_pose_array.hpp>
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include "aruco_detector.hpp"
 
 class ArucoDetectorNode : public rclcpp::Node{
 public:
-    ArucoDetectorNode() : Node("aruco_detector_node"){
+    ArucoDetectorNode() : Node("aruco_detector"){
         //Declaration of parameters
-        this->declare_parameter("camera_topic", "/camera/image_raw");
+        this->declare_parameter("camera_topic", "/camera/image");
         this->declare_parameter("aruco_topic", "/aruco_poses");
 
         std::string camera_topic = this->get_parameter("camera_topic").as_string();
         std::string aruco_topic  = this->get_parameter("aruco_topic").as_string();
 
-        std::string camera_json = "config/camera_params.json";
-        std::string marker_json = "config/marker_params.json";
+        // Get package share directory for config files
+        std::string package_share_dir = ament_index_cpp::get_package_share_directory("saurcon_perception");
+        std::string camera_json = package_share_dir + "/config/camera_params.json";
+        std::string marker_json = package_share_dir + "/config/marker_params.json";
 
         // Initialize the aruco detector
         aruco_detector_ = std::make_unique<aruco_detector>(camera_json, marker_json);

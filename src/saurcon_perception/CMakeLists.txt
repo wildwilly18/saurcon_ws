@@ -12,6 +12,7 @@ endif()
 
 # Find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -88,20 +89,21 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   DEPENDENCIES std_msgs geometry_msgs
 )
 
-# Add aruco_detector_node executable
-add_executable(aruco_detector_node
+# Add aruco_detector executable
+add_executable(aruco_detector
   src/aruco_detector_node.cpp
   src/aruco_detector.cpp
 )
 
-ament_target_dependencies(aruco_detector_node
+ament_target_dependencies(aruco_detector
   rclcpp
+  ament_index_cpp
   sensor_msgs
   cv_bridge
   tf2
 )
 
-target_link_libraries(aruco_detector_node
+target_link_libraries(aruco_detector
   ${OpenCV_LIBS}
   ${Boost_LIBRARIES}
   Eigen3::Eigen
@@ -110,10 +112,10 @@ target_link_libraries(aruco_detector_node
 # Link generated messages to the node
 rosidl_get_typesupport_target(cpp_typesupport_target 
   ${PROJECT_NAME} "rosidl_typesupport_cpp")
-target_link_libraries(aruco_detector_node "${cpp_typesupport_target}")
+target_link_libraries(aruco_detector "${cpp_typesupport_target}")
 
-# Install aruco_detector_node executable
-install(TARGETS aruco_detector_node
+# Install aruco_detector executable
+install(TARGETS aruco_detector
   DESTINATION lib/${PROJECT_NAME}
 )
 
