@@ -6,6 +6,3 @@
 	path = src/src/micro_ros_msgs
 	url = https://github.com/micro-ROS/micro_ros_msgs.git
 	branch = jazzy
-[submodule "src/joystick_drivers"]
-	path = src/joystick_drivers
-	url = https://github.com/ros-drivers/joystick_drivers.git
