@@ -4,23 +4,60 @@ from launch_ros.actions import Node
 from launch.actions import ExecuteProcess
 from datetime import datetime
 
+def find_workspace_root():
+    """Find workspace root by searching for src/middle_earth directory."""
+    # Start from the launch file's location
+    current = os.path.dirname(os.path.abspath(__file__))
+    
+    # Search up the directory tree
+    for _ in range(10):  # Limit search depth
+        potential_ws = current
+        # Check if this looks like a workspace (has src/middle_earth)
+        if os.path.isdir(os.path.join(potential_ws, 'src', 'middle_earth')):
+            return potential_ws
+        # Also check if we're inside install/ and workspace is parent
+        parent = os.path.dirname(current)
+        if os.path.basename(current) == 'install' or os.path.isdir(os.path.join(parent, 'src', 'middle_earth')):
+            if os.path.isdir(os.path.join(parent, 'src', 'middle_earth')):
+                return parent
+        current = parent
+    
+    raise RuntimeError("Could not find workspace root containing src/middle_earth")
+
 def generate_launch_description():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
+    # Get workspace path by finding src/middle_earth
+    ws_path = find_workspace_root()
+    
     # Create bags directory if it doesn't exist
-    bags_dir = os.path.expanduser('~/saurcon_ws/bags')
+    bags_dir = os.path.join(ws_path, 'bags')
     os.makedirs(bags_dir, exist_ok=True)
     
     bag_path = os.path.join(bags_dir, f"rosbag_{timestamp}")
+    
+    # World file path
+    world_path = os.path.join(ws_path, 'src/middle_earth/worlds/basement.world')
+    
+    # Resource paths for Gazebo (models and materials)
+    middle_earth_path = os.path.join(ws_path, 'src/middle_earth')
+    models_path = os.path.join(middle_earth_path, 'models')
+    gz_resource_path = f"{models_path}:{middle_earth_path}"
+    
+    # Merge with existing GZ_SIM_RESOURCE_PATH if set
+    existing_path = os.environ.get('GZ_SIM_RESOURCE_PATH', '')
+    if existing_path:
+        gz_resource_path = f"{gz_resource_path}:{existing_path}"
     
     return LaunchDescription([
         # Launch the basement world in gz sim
         ExecuteProcess(
             cmd=[
                 'gz', 'sim',
-                '/home/wilson/saurcon_ws/src/middle_earth/worlds/basement.world'
+                world_path
             ],
-            output='screen'
+            output='screen',
+            additional_env={'GZ_SIM_RESOURCE_PATH': gz_resource_path}
         ),
         
         # gz-ros-bridge node - using separate processes to avoid argument concatenation
@@ -100,6 +137,26 @@ def generate_launch_description():
             executable='sim_saurcon_rc',
             name='sim_saurcon_rc',
             output='both'
+        ),
+        
+        # aruco_detector node with necessary parameters and remappings
+        Node(
+            package='saurcon_perception',
+            executable='aruco_detector',
+            name='aruco_detector',
+            output='screen',
+            parameters=[{
+                'marker_size': 0.1524,
+                'dictionary_id': 4,  # DICT_4X4_50
+                'camera_frame': 'camera_link',
+                'publish_visualization': True,
+                'min_marker_id': 0,
+                'max_marker_id': 19,
+            }],
+            remappings=[
+                ('image_raw', '/camera/image'),
+                ('camera_info', '/camera/camera_info'),
+            ]
         ),
         
         # rosbag record all topics

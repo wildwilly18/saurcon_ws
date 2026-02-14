@@ -114,7 +114,7 @@
 
     <!-- Include RC Ackermann Vehicle -->
     <include>
-      <uri>file:///home/wilson/saurcon_ws/src/middle_earth/models/rc_ackermann_vehicle</uri>
+      <uri>model://rc_ackermann_vehicle</uri>
       <name>rc_vehicle</name>
       <pose>-1.0000 -3.5000 0.05 0 0 0</pose>
     </include>
@@ -138,7 +138,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_0.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_0.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -162,7 +162,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_1.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_1.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -186,7 +186,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_2.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_2.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -210,7 +210,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_3.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_3.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -234,7 +234,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_4.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_4.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -258,7 +258,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_5.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_5.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -282,7 +282,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_6.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_6.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -306,7 +306,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_7.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_7.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -330,7 +330,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_8.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_8.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -354,7 +354,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_9.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_9.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -378,7 +378,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_10.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_10.png</albedo_map>
               </metal>
             </pbr>
           </material>
@@ -402,7 +402,7 @@
             <diffuse>1 1 1 1</diffuse>
             <pbr>
               <metal>
-                <albedo_map>file:///home/wilson/saurcon_ws/src/middle_earth/materials/textures/aruco_11.png</albedo_map>
+                <albedo_map>model://materials/textures/aruco_11.png</albedo_map>
               </metal>
             </pbr>
           </material>
