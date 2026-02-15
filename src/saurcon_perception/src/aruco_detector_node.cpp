@@ -52,10 +52,6 @@ private:
         // Detect ArUco markers
         auto detections = aruco_detector_->getTagsInImage(cv_ptr->image);
 
-        if(detections.empty()){
-            return; //no detections
-        }
-
         //Create the ArUcoPoseArray message
         saurcon_perception::msg::ArucoPoseArray pose_array;
         pose_array.header.stamp = msg->header.stamp;
@@ -95,8 +91,6 @@ private:
 
         //Publish the poses
         aruco_pub_->publish(pose_array);
-
-        RCLCPP_DEBUG(this->get_logger(), "Published %zu ArUco poses", pose_array.poses.size());
     }
 
     std::unique_ptr<aruco_detector> aruco_detector_;

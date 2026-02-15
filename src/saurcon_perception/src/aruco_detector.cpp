@@ -19,14 +19,13 @@ aruco_detector::~aruco_detector()
 
 std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     std::vector<ArucoPose_t> tags;
+    //std::cout << "Processing image of size: " << image.cols << "x" << image.rows << std::endl;
     //check if image grayscale, if not convert
     if(image.channels() > 1){
         cv::cvtColor(image, image, cv::COLOR_BGR2GRAY);
     }
 
-    //Apply threshold to image
-    cv::threshold(image, image, 50, 255, cv::THRESH_BINARY);
-
+    // ArUco detection handles thresholding internally - no manual threshold needed
      // Set up ArUco detection parameters
     std::vector<int> markerIds;
     std::vector<std::vector<cv::Point2f>> markerCorners, rejectedCandidates;
@@ -38,7 +37,23 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     // Detect markers using enhanced image (try both)
     cv::aruco::detectMarkers(image, dictionary, markerCorners, markerIds, detectorParams, rejectedCandidates);
 
-    //std::cout << "Detected " << markerIds.size() << " markers" << std::endl;
+    // Debug visualization - draw detected markers
+    cv::Mat debugImage;
+    cv::cvtColor(image, debugImage, cv::COLOR_GRAY2BGR);
+    if(!markerIds.empty()){
+        cv::aruco::drawDetectedMarkers(debugImage, markerCorners, markerIds);
+    }
+    if(!rejectedCandidates.empty()){
+        cv::aruco::drawDetectedMarkers(debugImage, rejectedCandidates, cv::noArray(), cv::Scalar(0, 0, 255));
+    }
+    
+    // Only save debug images when markers detected or rejected (not every frame)
+    static int frame_count = 0;
+    if(!markerIds.empty() || !rejectedCandidates.empty()){
+        //cv::imwrite("data/output/debug_frame_" + std::to_string(frame_count++) + ".png", debugImage);
+    }
+
+    //std::cout << "Detected " << markerIds.size() << " markers, " << rejectedCandidates.size() << " rejected" << std::endl;
 
     //If no markers found simply return
     if(markerIds.empty()){ return tags;}
@@ -73,7 +88,8 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
         marker_pose.tag_id = markerIds.at(i);
         marker_pose.tag_pose = T_vm;
 
-        //std::cout<< "[ DEBUG ] Marker added to vector ID: " << marker_pose.tag_id << std::endl;        tags.push_back(marker_pose);
+        //std::cout<< "[ DEBUG ] Marker added to vector ID: " << marker_pose.tag_id << std::endl;
+        tags.push_back(marker_pose);
     }
 
     return tags;

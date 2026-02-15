@@ -11,7 +11,7 @@ int main(){
     auto detector = aruco_detector(camera_json, marker_json);
 
     //Let's load in an image
-    cv::Mat img = cv::imread("/home/wilson/saurcon_perception/data/test_images/frame_000001_1766246134.933204.png");
+    cv::Mat img = cv::imread("/home/wilson-desktop/saurcon_ws/src/saurcon_perception/data/test_images/frame_000001_1771129137.042909.png");
 
     auto tags = detector.getTagsInImage(img);
 
