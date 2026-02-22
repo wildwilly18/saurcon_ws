@@ -3,6 +3,7 @@
 /install/
 /log/
 /bags/
+/data/
 
 # Saurcon Perception build and install dirs
 /src/saurcon_perception/build/

@@ -48,7 +48,7 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     }
     
     // Only save debug images when markers detected or rejected (not every frame)
-    static int frame_count = 0;
+    //static int frame_count = 0;
     if(!markerIds.empty() || !rejectedCandidates.empty()){
         //cv::imwrite("data/output/debug_frame_" + std::to_string(frame_count++) + ".png", debugImage);
     }
