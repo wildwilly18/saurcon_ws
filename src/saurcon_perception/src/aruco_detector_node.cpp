@@ -13,9 +13,11 @@ public:
         //Declaration of parameters
         this->declare_parameter("camera_topic", "/camera/image");
         this->declare_parameter("aruco_topic", "/aruco_poses");
+        this->declare_parameter("camera_frame_id", "camera_optical_frame");
 
         std::string camera_topic = this->get_parameter("camera_topic").as_string();
         std::string aruco_topic  = this->get_parameter("aruco_topic").as_string();
+        camera_frame_id_ = this->get_parameter("camera_frame_id").as_string();
 
         // Get package share directory for config files
         std::string package_share_dir = ament_index_cpp::get_package_share_directory("saurcon_perception");
@@ -39,6 +41,8 @@ public:
     }
 
 private:
+    std::string camera_frame_id_;
+
     void imageCallback(const sensor_msgs::msg::Image::SharedPtr msg){
         //Convert ROS image to opencv format
         cv_bridge::CvImagePtr cv_ptr;
@@ -52,7 +56,7 @@ private:
         // Detect ArUco markers
         auto detections = aruco_detector_->getTagsInImage(cv_ptr->image);
 
-        //Create the ArUcoPoseArray message
+        //Create the ArUcoPoseArray message set frame ID to the camera frame id
         saurcon_perception::msg::ArucoPoseArray pose_array;
         pose_array.header.stamp = msg->header.stamp;
         pose_array.header.frame_id = msg->header.frame_id;

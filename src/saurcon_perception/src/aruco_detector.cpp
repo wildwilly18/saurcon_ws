@@ -48,7 +48,7 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     }
     
     // Only save debug images when markers detected or rejected (not every frame)
-    static int frame_count = 0;
+    //static int frame_count = 0;
     if(!markerIds.empty() || !rejectedCandidates.empty()){
         //cv::imwrite("data/output/debug_frame_" + std::to_string(frame_count++) + ".png", debugImage);
     }
@@ -78,15 +78,10 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
         cv::Matx33d R_cm = rodriguesToMatx33d(rvec);
         cv::Matx44d T_cm = makeT(R_cm, tvec);
 
-        cv::Matx44d T_vm = T_vc_ * T_cm;
-        
-        // Extract position from transformation matrix
-        cv::Vec3d t_vm(T_vm(0,3), T_vm(1,3), T_vm(2,3));
-        //std::cout << "  Marker in vehicle frame: " << t_vm << std::endl;
-
+        // Leave tag in the camera optical frame to be converted later
         ArucoPose_t marker_pose;
         marker_pose.tag_id = markerIds.at(i);
-        marker_pose.tag_pose = T_vm;
+        marker_pose.tag_pose = T_cm;
 
         //std::cout<< "[ DEBUG ] Marker added to vector ID: " << marker_pose.tag_id << std::endl;
         tags.push_back(marker_pose);

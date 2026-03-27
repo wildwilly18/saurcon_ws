@@ -37,7 +37,6 @@ find_package(Boost REQUIRED COMPONENTS json)
 include_directories(
   include
   ${OpenCV_INCLUDE_DIRS}
-  ${EIGEN3_INCLUDE_DIR}
   ${Boost_INCLUDE_DIRS}
 )
 
@@ -48,6 +47,7 @@ add_executable(aruco_test
 
 target_link_libraries(aruco_test
   ${OpenCV_LIBS}
+  Eigen3::Eigen
 )
 
 # Copy executable to workspace root after building
