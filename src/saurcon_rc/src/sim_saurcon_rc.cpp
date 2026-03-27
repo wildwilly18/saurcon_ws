@@ -99,6 +99,9 @@ private:
 	}
 
 	void imu_data_cb(const sensor_msgs::msg::Imu::SharedPtr msg){
+		// Re -stamp the IMU data and re-publish it to imitate what saurcon rc does.
+		msg->header.stamp = this->now();
+		msg->header.frame_id = "imu_link";
 		pub_rc_imu_->publish(*msg);
 	}
 
@@ -110,7 +113,7 @@ private:
 		//Coordinate Frame needs to be NED
 		std::lock_guard<std::mutex> lock(rc_odom_mutex_);
 		rc_odom_.twist.linear.x  = msg->velocity[1]; //rotational velocity of the wheel.
-		rc_odom_.twist.angular.z = -1 * msg->position[3]; //gamma turn angle. This is misleading do not mistake it with phi!!!!
+		rc_odom_.twist.angular.z = msg->position[3]; //gamma turn angle. This is misleading do not mistake it with phi!!!!
 	}
 
 	void publish_rc_odom() {
@@ -128,7 +131,7 @@ private:
 		std_msgs::msg::UInt8 msg;
 		msg.data = static_cast<uint8_t>(current_state_);
 		pub_sim_state_output_->publish(msg);
-		RCLCPP_INFO(this->get_logger(), "Published sim state: %s", state_name(current_state_).c_str());
+		RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 10000, "Published sim state: %s", state_name(current_state_).c_str());
 	}
 
 	std::string state_name(SaurconRCState state) {
