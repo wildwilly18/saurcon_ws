@@ -15,14 +15,6 @@ def generate_launch_description():
     bag_name = f"rosbag_{timestamp}"
 
     return LaunchDescription([
-        # joy_node
-        Node(
-            package='joy',
-            executable='joy_node',
-            name='joy_node',
-            output='log'
-        ),
-
         # state_machine node
         Node(
             package='saurcon_rc',
