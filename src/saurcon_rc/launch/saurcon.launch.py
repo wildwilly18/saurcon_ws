@@ -42,6 +42,4 @@ def generate_launch_description():
             name='micro_ros_agent',
             output='both'
         ),
-
-
     ])
