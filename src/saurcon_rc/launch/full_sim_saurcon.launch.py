@@ -37,7 +37,8 @@ def generate_launch_description():
     bag_path = os.path.join(bags_dir, f"rosbag_{timestamp}")
     
     # World file path
-    world_path = os.path.join(ws_path, 'src/middle_earth/worlds/basement.world')
+    #world_path = os.path.join(ws_path, 'src/middle_earth/worlds/basement.world')
+    world_path = os.path.join(ws_path, 'src/middle_earth/worlds/racetrack.world')
     
     # Resource paths for Gazebo (models and materials)
     middle_earth_path = os.path.join(ws_path, 'src/middle_earth')
