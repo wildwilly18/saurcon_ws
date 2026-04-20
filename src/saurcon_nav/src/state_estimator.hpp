@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <deque>
 #include <Eigen/Dense>
 
 namespace saurcon_nav
@@ -50,14 +51,18 @@ public:
     StateEstimator();
     ~StateEstimator();
 
-    void resetStateEstimator();
+    // reset interface call
+    void reset();
 
     // EKF interface
     void spin(double dt);
 
     // buffer helpers process as needed.
     void add_imu_measure();
+
     void add_odom_measure();
+
+    void add_aruco_measure();
 
     SaurconNavState getCurrentState() const { return current_state_; }
 
@@ -66,7 +71,8 @@ private:
     void duringNavState(SaurconNavState current_state);
 
     // Nav Specific functions
-    void initializeGyro();
+    void initializeSensors();
+    void initializeIMU();
     void initializeEKF();
 
     // EKF handling calls
@@ -88,25 +94,32 @@ private:
     void init_G(double dt);
 
     // Buffers
-    std::vector<IMU_t>   imu_buffer;
-    std::vector<ODOM_t> odom_buffer;
+    std::deque<IMU_t>   imu_buffer;
+    std::deque<ODOM_t> odom_buffer;
 
     SaurconNavState current_state_ = SaurconNavState::OFF;
     SaurconNavState last_state_    = SaurconNavState::OFF;
 
-    double gyro_bias_{0.0};
+    Eigen::Vector3d gyro_bias_{0.0, 0.0, 0.0};
 
     // Startup trackers
     size_t imu_counts{0};
     size_t odom_counts{0};
+    size_t gyro_bias_counts{0};
     size_t localization_counts{0};
 
-    size_t imu_survey_count = 100;
-    size_t odom_survey_count = 100;
-    size_t localization_survey_count = 100;
+    const size_t imu_survey_count = 100;
+    const size_t odom_survey_count = 100;
+    const size_t localization_survey_count = 100;
+
+    //IMU initialization
+    std::vector<Eigen::Vector3d> gz_readings;
+    uint16_t imu_last_seq{0.0};
 
     bool imu_ready{false};
     bool odom_ready{false};
+    bool sensors_ready{false};
+    bool gyro_bias_ready{false};
     bool localization_ready{false};
 };
 
