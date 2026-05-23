@@ -1,0 +1,71 @@
+timestamp_ns,timestamp_sec,stamp.sec,stamp.nanosec,level,name,msg,file,function,line
+1776168404561624928,1776168404.5616248,1776168404,556101884,20,rosbag2_recorder,Press SPACE for pausing/resuming,./src/rosbag2_transport/recorder.cpp,RecorderImpl,190
+1776168404561739075,1776168404.561739,1776168404,560867252,20,rosbag2_recorder,Listening for topics...,./src/rosbag2_transport/recorder.cpp,record,353
+1776168404561747315,1776168404.5617473,1776168404,560878308,20,rosbag2_recorder,Event publisher thread: Starting,./src/rosbag2_transport/recorder.cpp,event_publisher_thread_main,371
+1776168404561763009,1776168404.561763,1776168404,561695331,20,rosbag2_recorder,Subscribed to topic '/rosout',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404562285827,1776168404.562286,1776168404,562272734,20,rosbag2_recorder,Subscribed to topic '/events/write_split',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404562353427,1776168404.5623534,1776168404,562344180,20,rosbag2_recorder,Recording...,./src/rosbag2_transport/recorder.cpp,record,365
+1776168404645182545,1776168404.6451824,1776168404,243253209,20,aruco_detector,ArUco Detector Node initialized,/home/wilson-desktop/saurcon_ws/src/saurcon_perception/src/aruco_detector_node.cpp,ArucoDetectorNode,38
+1776168404645190759,1776168404.6451907,1776168404,243386441,20,aruco_detector,Subscribing to: /camera/image,/home/wilson-desktop/saurcon_ws/src/saurcon_perception/src/aruco_detector_node.cpp,ArucoDetectorNode,39
+1776168404645191880,1776168404.645192,1776168404,243396295,20,aruco_detector,Publishing to: /aruco_poses,/home/wilson-desktop/saurcon_ws/src/saurcon_perception/src/aruco_detector_node.cpp,ArucoDetectorNode,40
+1776168404806110089,1776168404.8061101,1776168404,806079783,20,rosbag2_recorder,Subscribed to topic '/aruco_poses',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404811179987,1776168404.81118,1776168404,811157001,20,rosbag2_recorder,Subscribed to topic '/camera/depth_image',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404814025008,1776168404.814025,1776168404,814004679,20,rosbag2_recorder,Subscribed to topic '/parameter_events',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404820055378,1776168404.8200552,1776168404,479934664,20,ros_gz_bridge,Creating GZ->ROS Bridge: [/camera/depth_image (gz.msgs.Image) -> /camera/depth_image (sensor_msgs/msg/Image)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,221
+1776168404820062929,1776168404.8200629,1776168404,483131292,20,ros_gz_bridge,Creating ROS->GZ Bridge: [/camera/depth_image (sensor_msgs/msg/Image) -> /camera/depth_image (gz.msgs.Image)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,236
+1776168404820177341,1776168404.8201773,1776168404,368420561,20,joy_node,Opened joystick: Xbox One S Controller.  deadzone: 0.050000,/home/wilson-desktop/saurcon_ws/src/joystick_drivers/joy/src/joy.cpp,handleJoyDeviceAdded,400
+1776168404889244037,1776168404.889244,1776168404,130452082,20,sim_saurcon_rc,SaurconRcSim node started.,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,SaurconRcSim,65
+1776168404890707998,1776168404.890708,1776168404,126222549,20,saurcon_agent,State Machine Initialized,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/state_machine.cpp,StateMachine,10
+1776168404890715445,1776168404.8907154,1776168404,131196709,20,saurcon_agent,"[IMUBridge] Subscribed to /imu/data_raw, publishing to /bridge/imu_data",/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/topic_bridge.cpp,IMUBridge,29
+1776168404890731462,1776168404.8907316,1776168404,131218203,20,saurcon_agent,Entering State [1]: STARTUP,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/state_machine.cpp,onEnter,82
+1776168404890732817,1776168404.8907328,1776168404,132258333,20,saurcon_agent,Exiting State [1]: STARTUP,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/state_machine.cpp,onExit,96
+1776168404890737028,1776168404.890737,1776168404,132285739,20,saurcon_agent,Entering State [2]: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/state_machine.cpp,onEnter,82
+1776168404918997400,1776168404.9189975,1776168404,918972714,20,rosbag2_recorder,Subscribed to topic '/model/rc_ackermann_vehicle/joint_states',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404920933231,1776168404.920933,1776168404,920910484,20,rosbag2_recorder,Subscribed to topic '/model/rc_ackermann_vehicle/cmd_vel',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404922444158,1776168404.922444,1776168404,922424237,20,rosbag2_recorder,Subscribed to topic '/joy',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404923736778,1776168404.9237368,1776168404,923714688,20,rosbag2_recorder,Subscribed to topic '/saurcon/odom',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404925421738,1776168404.9254217,1776168404,925402859,20,rosbag2_recorder,Subscribed to topic '/rc_state_cmd',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404926404381,1776168404.9264042,1776168404,926377443,20,rosbag2_recorder,Subscribed to topic '/ctrl_output',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404927712244,1776168404.9277122,1776168404,927693685,20,rosbag2_recorder,Subscribed to topic '/saurcon/imu',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404929002313,1776168404.9290023,1776168404,928981100,20,rosbag2_recorder,Subscribed to topic '/bridge/imu_data',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404929560045,1776168404.92956,1776168404,809773979,20,ros_gz_bridge,Creating GZ->ROS Bridge: [/model/rc_ackermann_vehicle/joint_states (gz.msgs.Model) -> /model/rc_ackermann_vehicle/joint_states (sensor_msgs/msg/JointState)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,221
+1776168404929565694,1776168404.9295657,1776168404,814428856,20,ros_gz_bridge,Creating ROS->GZ Bridge: [/model/rc_ackermann_vehicle/joint_states (sensor_msgs/msg/JointState) -> /model/rc_ackermann_vehicle/joint_states (gz.msgs.Model)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,236
+1776168404929916928,1776168404.9299169,1776168404,929899579,20,rosbag2_recorder,Subscribed to topic '/saurcon/state',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168404930756394,1776168404.9307563,1776168404,368727181,20,ros_gz_bridge,Creating GZ->ROS Bridge: [/model/rc_ackermann_vehicle/odom (gz.msgs.Odometry) -> /model/rc_ackermann_vehicle/odom (nav_msgs/msg/Odometry)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,221
+1776168404930761554,1776168404.9307616,1776168404,371476754,20,ros_gz_bridge,Creating ROS->GZ Bridge: [/model/rc_ackermann_vehicle/odom (nav_msgs/msg/Odometry) -> /model/rc_ackermann_vehicle/odom (gz.msgs.Odometry)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,236
+1776168404931093958,1776168404.931094,1776168404,424787358,20,ros_gz_bridge,Creating GZ->ROS Bridge: [/camera/image (gz.msgs.Image) -> /camera/image (sensor_msgs/msg/Image)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,221
+1776168404931099269,1776168404.9310994,1776168404,428614477,20,ros_gz_bridge,Creating ROS->GZ Bridge: [/camera/image (sensor_msgs/msg/Image) -> /camera/image (gz.msgs.Image)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,236
+1776168404931940142,1776168404.93194,1776168404,368561098,20,ros_gz_bridge,Creating GZ->ROS Bridge: [/model/rc_ackermann_vehicle/imu (gz.msgs.IMU) -> /model/rc_ackermann_vehicle/imu (sensor_msgs/msg/Imu)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,221
+1776168404931945440,1776168404.9319456,1776168404,371468947,20,ros_gz_bridge,Creating ROS->GZ Bridge: [/model/rc_ackermann_vehicle/imu (sensor_msgs/msg/Imu) -> /model/rc_ackermann_vehicle/imu (gz.msgs.IMU)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,236
+1776168404934683876,1776168404.9346838,1776168404,456231495,20,ros_gz_bridge,Creating GZ->ROS Bridge: [/model/rc_ackermann_vehicle/cmd_vel (gz.msgs.Twist) -> /model/rc_ackermann_vehicle/cmd_vel (geometry_msgs/msg/Twist)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,221
+1776168404934690446,1776168404.9346905,1776168404,457773854,20,ros_gz_bridge,Creating ROS->GZ Bridge: [/model/rc_ackermann_vehicle/cmd_vel (geometry_msgs/msg/Twist) -> /model/rc_ackermann_vehicle/cmd_vel (gz.msgs.Twist)] (Lazy 0),./src/ros_gz_bridge.cpp,add_bridge,236
+1776168405032871220,1776168405.0328712,1776168405,32849898,20,rosbag2_recorder,Subscribed to topic '/model/rc_ackermann_vehicle/odom',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168405033606827,1776168405.033607,1776168405,33591761,20,rosbag2_recorder,Subscribed to topic '/camera/image',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168405034313283,1776168405.0343132,1776168405,34298909,20,rosbag2_recorder,Subscribed to topic '/model/rc_ackermann_vehicle/imu',./src/rosbag2_transport/recorder.cpp,subscribe_topic,574
+1776168405130641805,1776168405.130642,1776168405,130583428,20,sim_saurcon_rc,Published sim state: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168416130632450,1776168416.1306324,1776168416,130566433,20,sim_saurcon_rc,Published sim state: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168426130637827,1776168426.130638,1776168426,130568526,20,sim_saurcon_rc,Published sim state: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168436130653230,1776168436.1306531,1776168436,130597088,20,sim_saurcon_rc,Published sim state: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168446130681002,1776168446.130681,1776168446,130601135,20,sim_saurcon_rc,Published sim state: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168457130630359,1776168457.1306305,1776168457,130576363,20,sim_saurcon_rc,Published sim state: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168468130596839,1776168468.1305969,1776168468,130549961,20,sim_saurcon_rc,Published sim state: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168478130633637,1776168478.1306338,1776168478,130556104,20,sim_saurcon_rc,Published sim state: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168482666978731,1776168482.6669788,1776168482,666919693,20,saurcon_agent,Exiting State [2]: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/state_machine.cpp,onExit,96
+1776168482666986049,1776168482.666986,1776168482,666966973,20,saurcon_agent,Entering State [3]: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/state_machine.cpp,onEnter,82
+1776168483129376721,1776168483.1293766,1776168483,129306257,20,sim_saurcon_rc,State change: STANDBY -> RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,state_cmd_cb,93
+1776168483149168532,1776168483.1491687,1776168483,149089685,20,ros_gz_bridge,Passing message from ROS geometry_msgs/msg/Twist to Gazebo gz.msgs.Twist (showing msg only once per type),./src/factory.hpp,ros_callback,152
+1776168488130601700,1776168488.1306016,1776168488,130571533,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168498130632109,1776168498.1306322,1776168498,130572760,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168508130698725,1776168508.1306987,1776168508,130643186,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168519130613213,1776168519.1306133,1776168519,130572740,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168529130715773,1776168529.1307156,1776168529,130622534,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168540130642880,1776168540.130643,1776168540,130583021,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168551130601827,1776168551.1306016,1776168551,130550566,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168562130922174,1776168562.1309223,1776168562,130768832,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168573130631386,1776168573.1306314,1776168573,130567447,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168584130624435,1776168584.1306245,1776168584,130572024,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168595130621259,1776168595.1306212,1776168595,130572052,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168605130633221,1776168605.130633,1776168605,130575036,20,sim_saurcon_rc,Published sim state: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,publish_sim_state,134
+1776168606236985065,1776168606.2369852,1776168606,236908603,20,saurcon_agent,Exiting State [3]: RUN_CONTROL,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/state_machine.cpp,onExit,96
+1776168606236995530,1776168606.2369957,1776168606,236974553,20,saurcon_agent,Entering State [2]: STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/state_machine.cpp,onEnter,82
+1776168607129457802,1776168607.129458,1776168607,129404071,20,sim_saurcon_rc,State change: RUN_CONTROL -> STANDBY,/home/wilson-desktop/saurcon_ws/src/saurcon_rc/src/sim_saurcon_rc.cpp,state_cmd_cb,93
