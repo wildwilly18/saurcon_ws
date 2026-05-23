@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <deque>
 #include <Eigen/Dense>
 
 namespace saurcon_nav
@@ -58,6 +59,7 @@ public:
     // buffer helpers process as needed.
     void add_imu_measure();
     void add_odom_measure();
+    void add_aruco_measure();
 
     SaurconNavState getCurrentState() const { return current_state_; }
 
@@ -68,6 +70,9 @@ private:
     // Nav Specific functions
     void initializeGyro();
     void initializeEKF();
+
+    // Initialize Q matrix each step. 
+    void initializeQ();
 
     // EKF handling calls
     void predictionUpdate();
@@ -88,8 +93,10 @@ private:
     void init_G(double dt);
 
     // Buffers
-    std::vector<IMU_t>   imu_buffer;
-    std::vector<ODOM_t> odom_buffer;
+    std::deque<IMU_t>   imu_buffer;
+    std::deque<ODOM_t> odom_buffer;
+
+    std::deque<NAV_t> state_buffer;
 
     SaurconNavState current_state_ = SaurconNavState::OFF;
     SaurconNavState last_state_    = SaurconNavState::OFF;

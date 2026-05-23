@@ -3,7 +3,7 @@
   <world name="warehouse_racetrack">
     
     <!-- Physics -->
-    <physics name="10ms" type="dart">
+    <physics name="10ms" type="ode">
       <max_step_size>0.01</max_step_size>
       <real_time_factor>1</real_time_factor>
     </physics>
@@ -21,6 +21,14 @@
       filename="gz-sim-scene-broadcaster-system"
       name="gz::sim::systems::SceneBroadcaster">
     </plugin>
+    <plugin
+      filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+    </plugin>
 
     <gravity>0 0 -9.8</gravity>
 
@@ -28,6 +36,7 @@
     <scene>
       <ambient>1.0 1.0 1.0 1.0</ambient>
       <background>0.3 0.3 0.3 1.0</background>
+      <render_engine>ogre</render_engine>
     </scene>
 
     <!-- Lighting from multiple directions for even illumination -->

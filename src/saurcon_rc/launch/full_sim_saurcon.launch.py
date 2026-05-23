@@ -1,7 +1,7 @@
 import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import ExecuteProcess
+from launch.actions import ExecuteProcess, TimerAction
 from datetime import datetime
 
 def find_workspace_root():
@@ -61,6 +61,8 @@ def generate_launch_description():
             additional_env={'GZ_SIM_RESOURCE_PATH': gz_resource_path}
         ),
         
+        # Delay bridge nodes to give Gazebo time to start
+        TimerAction(period=5.0, actions=[
         # gz-ros-bridge node - using separate processes to avoid argument concatenation
         ExecuteProcess(
             cmd=[
@@ -115,6 +117,7 @@ def generate_launch_description():
             output='screen',
             shell=False
         ),
+        ]),
         
         # joy_node
         Node(
@@ -160,10 +163,11 @@ def generate_launch_description():
             ]
         ),
         
-        # rosbag record all topics
+        # rosbag record all topics (mcap for Foxglove Studio compatibility)
         ExecuteProcess(
             cmd=[
                 'ros2', 'bag', 'record', '-a',
+                '--storage', 'mcap',
                 '-o', bag_path
             ],
             output='screen'
