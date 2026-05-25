@@ -110,16 +110,25 @@ private:
 	std::mutex rc_odom_mutex_;
 
 	void joint_state_cb(const sensor_msgs::msg::JointState::SharedPtr msg){
-		// Joint order from JointStatePublisher plugin:
-		// [0] rear_left_wheel_joint   [1] rear_right_wheel_joint
-		// [2] front_left_wheel_joint  [3] front_right_wheel_joint
-		// [4] front_left_steer_joint  [5] front_right_steer_joint
-		if (msg->velocity.size() < 2 || msg->position.size() < 6) return;
+		// Look up joints by name to avoid relying on a fixed index order.
+		int rl_vel_idx = -1, rr_vel_idx = -1;
+		int fl_steer_idx = -1, fr_steer_idx = -1;
+		for (size_t i = 0; i < msg->name.size(); ++i) {
+			if      (msg->name[i] == "rear_left_wheel_joint")   rl_vel_idx   = static_cast<int>(i);
+			else if (msg->name[i] == "rear_right_wheel_joint")  rr_vel_idx   = static_cast<int>(i);
+			else if (msg->name[i] == "front_left_steer_joint")  fl_steer_idx = static_cast<int>(i);
+			else if (msg->name[i] == "front_right_steer_joint") fr_steer_idx = static_cast<int>(i);
+		}
+		if (rl_vel_idx < 0 || rr_vel_idx < 0 || fl_steer_idx < 0 || fr_steer_idx < 0) {
+			RCLCPP_WARN_ONCE(this->get_logger(), "joint_state_cb: could not find all expected joints by name.");
+			return;
+		}
 		std::lock_guard<std::mutex> lock(rc_odom_mutex_);
-		// Average rear wheel velocities (rad/s). Multiply by wheel_radius (0.033m) gives m/s.
-		rc_odom_.twist.linear.x  = (msg->velocity[0] + msg->velocity[1]) / 2.0;
+		// Average rear wheel velocities (rad/s) * wheel_radius (0.033m) = m/s.
+		constexpr double wheel_radius = 0.033;
+		rc_odom_.twist.linear.x  = (msg->velocity[rl_vel_idx] + msg->velocity[rr_vel_idx]) / 2.0 * wheel_radius;
 		// Average front steer joint positions (rad) for steer angle.
-		rc_odom_.twist.angular.z = (msg->position[4] + msg->position[5]) / 2.0;
+		rc_odom_.twist.angular.z = (msg->position[fl_steer_idx] + msg->position[fr_steer_idx]) / 2.0;
 	}
 
 	void publish_rc_odom() {
