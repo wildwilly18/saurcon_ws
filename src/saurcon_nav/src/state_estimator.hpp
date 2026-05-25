@@ -10,7 +10,8 @@ namespace saurcon_nav
 enum STATE_IDX : int {
     X = 0,
     Y ,
-    Theta
+    Theta,
+    V
 };
 
 enum class SaurconNavState : int {
@@ -58,10 +59,8 @@ public:
     void spin(double dt);
 
     // buffer helpers process as needed.
-    void add_imu_measure();
-
-    void add_odom_measure();
-    void add_aruco_measure();
+    void add_measure(IMU_t meas);
+    void add_measure(ODOM_t meas);
 
     void add_aruco_measure();
 
@@ -72,30 +71,48 @@ private:
     void duringNavState(SaurconNavState current_state);
 
     // Nav Specific functions
-    void initializeSensors();
-    void initializeIMU();
-    void initializeEKF();
+    bool initializeSensors();
+    bool initializeIMU();
+    bool initializeStart();
+    bool initializeUKF();
 
     // Initialize Q matrix each step. 
     void initializeQ();
 
     // EKF handling calls
-    void predictionUpdate();
+    void predictionUpdate(double dt);
     void measurementUpdate();
 
-    // For this EKF we will be using a simple 4 state EKF with states [X Y Theta V_body]
-    // The EKF inputs are velocity in body x from wheel odometry and gyro_z bias corrected values.
+    // UKF with 4 states [X, Y, Theta, V_body]
+    // Gyro (bias-corrected) is the process input driving Theta. Odometry is a measurement of V.
     Eigen::VectorXd X_k_m_ = Eigen::VectorXd::Zero(4);
     Eigen::VectorXd X_k_p_ = Eigen::VectorXd::Zero(4);
 
     Eigen::MatrixXd P_k_m_ = Eigen::MatrixXd::Zero(4,4);
     Eigen::MatrixXd P_k_p_ = Eigen::MatrixXd::Zero(4,4);
 
-    Eigen::MatrixXd Q_k_ = Eigen::MatrixXd::Identity(4,4);
+    // Q: X and Y have no direct process noise (deterministic given Theta and V).
+    // Theta noise comes from gyro rate uncertainty. V noise from the constant-V model assumption.
+    Eigen::MatrixXd Q_k_ = Eigen::MatrixXd::Zero(4,4);
+    double gyro_q_std_ = 1E-3;
+    double odom_q_std_ = 1E-2;
+    double q_theta_{gyro_q_std_ * gyro_q_std_};   // gyro angular rate noise variance (rad/s)^2
+    double q_v_{odom_q_std_ * odom_q_std_};        // velocity model noise variance (m/s)^2
 
-    Eigen::MatrixXd G_k_ = Eigen::MatrixXd::Zero(4,2);
+    // UKF tuning
+    const int n_  = 4;
+    const double alpha_ = 0.1;
+    const double beta_  = 2.0;
+    const double kappa_ = 0.0;
+    double lambda_; // computed at initialization
 
-    void init_G(double dt);
+    Eigen::VectorXd Wm_ = Eigen::VectorXd::Zero(9);
+    Eigen::VectorXd Wc_ = Eigen::VectorXd::Zero(9);
+
+    // Sigma point matrix: each column is one sigma point (n x 2n+1)
+    Eigen::MatrixXd sigma_pts_ = Eigen::MatrixXd::Zero(4, 9);
+
+    void generateSigmaPoints();
 
     // Buffers
     std::deque<IMU_t>   imu_buffer;
@@ -120,7 +137,7 @@ private:
 
     //IMU initialization
     std::vector<Eigen::Vector3d> gz_readings;
-    uint16_t imu_last_seq{0.0};
+    uint16_t imu_last_seq{0};
 
     bool imu_ready{false};
     bool odom_ready{false};
