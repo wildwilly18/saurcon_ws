@@ -3,16 +3,16 @@
     "name": "rgbd_camera",
     "type": "rgbd_camera",
     "image": {
-      "width": 1280,
-      "height": 800,
+      "width": 640,
+      "height": 400,
       "format": "R8G8B8"
     },
     "intrinsics": {
-      "horizontal_fov": 1.211,
+      "horizontal_fov": 1.204,
       "focal_length_x": 929.4,
       "focal_length_y": 929.4,
-      "principal_point_x": 640.0,
-      "principal_point_y": 400.0
+      "principal_point_x": 320.0,
+      "principal_point_y": 200.0
     }
   },
   "transform": {

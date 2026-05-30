@@ -119,9 +119,6 @@ void StateMachine::onEnter_STARTUP(){
         "/saurcon/state", qos_profile,
         bind(&StateMachine::saurcon_state_cb, this, placeholders::_1)
     );
-
-    //TODO: add some logic here likely to watch for a heartbeat from uRos then send to standby
-    StateMachine::setState(SaurconState::STANDBY);
 }
 
 void StateMachine::handle_STARTUP(){
@@ -260,7 +257,7 @@ void StateMachine::check_heartbeat()
     if((this->now() - last_rc_heartbeat_) > rc_timeout_) {
         RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "RC heartbeat lost");
 
-        if(current_state_ != SaurconState::STANDBY || current_state_ != SaurconState::STARTUP) {
+        if(current_state_ != SaurconState::STANDBY && current_state_ != SaurconState::STARTUP) {
             setState(SaurconState::FAULT);
         }
     }

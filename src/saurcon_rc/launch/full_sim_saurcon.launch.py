@@ -117,6 +117,7 @@ def generate_launch_description():
             output='screen',
             shell=False
         ),
+
         ]),
         
         # Static transforms: base_link = rear_axle_center
@@ -193,6 +194,14 @@ def generate_launch_description():
                 ('camera_info', '/camera/camera_info'),
                 ('odom', '/model/rc_ackermann_vehicle/odom'),
             ]
+        ),
+
+        # state_estimator node
+        Node(
+            package='saurcon_nav',
+            executable='state_estimator_node',
+            name='state_estimator',
+            output='both'
         ),
         
         # rosbag record all topics (mcap for Foxglove Studio compatibility)

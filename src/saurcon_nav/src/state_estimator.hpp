@@ -19,7 +19,8 @@ enum class SaurconNavState : int {
     OFF = 0,
     STARTUP,
     SURVEY,
-    NAVIGATE
+    NAVIGATE,
+    RESET
 };
 
 struct NAV_t{
@@ -77,9 +78,14 @@ public:
 
     SaurconNavState getCurrentState() const { return current_state_; }
 
+    // Read-only access to estimated state and covariance
+    const Eigen::VectorXd& getX() const { return X_k_p_; }
+    const Eigen::MatrixXd& getP() const { return P_k_p_; }
+
 private:
     void onNavStateChange(SaurconNavState new_state);
-    void duringNavState(SaurconNavState current_state);
+    void duringNavState(SaurconNavState current_state, double dt);
+    void doReset();
 
     // Nav Specific functions
     bool initializeSensors();
@@ -88,10 +94,11 @@ private:
     bool initializeUKF();
 
     // Initialize Q matrix each step. 
-    void initializeQ();
+    void initializeQ(double dt);
 
     // EKF handling calls
     void predictionUpdate(double dt);
+    void predictionUpdateBypass();
     void measurementUpdate();
 
     // UKF with 4 states [X, Y, Theta, V_body]
@@ -154,7 +161,7 @@ private:
 
     const size_t imu_survey_count = 100;
     const size_t odom_survey_count = 100;
-    const size_t localization_survey_count = 100;
+    const size_t localization_survey_count = 10;  // 10 ArUco samples to init
 
     //IMU initialization
     std::vector<Eigen::Vector3d> gz_readings;
@@ -166,10 +173,14 @@ private:
     bool gyro_bias_ready{false};
     bool localization_ready{false};
 
+    double last_localization_time{0.0};
+
     bool first_loop{true};
 
     size_t aruco_last_seq_{0};
     size_t aruco_init_counts_{0};
+    size_t survey_spin_counts_{0};
+    const size_t survey_timeout_count{250};  // 5 s at 50 Hz — fallback to (0,0,0)
 };
 
 }  // namespace saurcon_nav

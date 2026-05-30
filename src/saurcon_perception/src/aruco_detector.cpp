@@ -30,6 +30,12 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     std::vector<int> markerIds;
     std::vector<std::vector<cv::Point2f>> markerCorners, rejectedCandidates;
     cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create();
+    // More robust detection under variable/low sim lighting
+    detectorParams->adaptiveThreshWinSizeMin  = 3;
+    detectorParams->adaptiveThreshWinSizeMax  = 53;   // default 23 — wider search
+    detectorParams->adaptiveThreshWinSizeStep = 4;    // default 10 — finer steps
+    detectorParams->adaptiveThreshConstant    = 3.0;  // default 7 — less aggressive
+    detectorParams->errorCorrectionRate       = 0.9;  // default 0.6 — more lenient bits
 
     // Use DICT_4X4_50 dictionary should make this configurable
     cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_50);
