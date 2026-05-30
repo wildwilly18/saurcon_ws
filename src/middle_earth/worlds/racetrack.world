@@ -36,40 +36,16 @@
     <scene>
       <ambient>1.0 1.0 1.0 1.0</ambient>
       <background>0.3 0.3 0.3 1.0</background>
-      <render_engine>ogre</render_engine>
+      <render_engine>ogre2</render_engine>
     </scene>
 
-    <!-- Lighting from multiple directions for even illumination -->
-    <light type="directional" name="sun_north">
+    <!-- Single overhead directional light -->
+    <light type="directional" name="sun">
       <cast_shadows>false</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
-      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
       <specular>0.2 0.2 0.2 1</specular>
-      <direction>0 1 -1</direction>
-    </light>
-
-    <light type="directional" name="sun_south">
-      <cast_shadows>false</cast_shadows>
-      <pose>0 0 10 0 0 0</pose>
-      <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <direction>0 -1 -1</direction>
-    </light>
-
-    <light type="directional" name="sun_east">
-      <cast_shadows>false</cast_shadows>
-      <pose>0 0 10 0 0 0</pose>
-      <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <direction>1 0 -1</direction>
-    </light>
-
-    <light type="directional" name="sun_west">
-      <cast_shadows>false</cast_shadows>
-      <pose>0 0 10 0 0 0</pose>
-      <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <direction>-1 0 -1</direction>
+      <direction>0.1 0.1 -1</direction>
     </light>
 
     <!-- Ground plane - provides clean flat collision surface for RC car -->
@@ -857,6 +833,135 @@
           </material>
         </visual>
       </link>
+    </model>
+
+    <!-- White backing blocks — block rear face of each ArUco marker -->
+    <model name="aruco_0_back">
+      <static>true</static>
+      <pose>0.005 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_1_back">
+      <static>true</static>
+      <pose>3.505 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_2_back">
+      <static>true</static>
+      <pose>7.005 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <!-- aruco_3: yaw=1.57, normal=+Y, back offset in +Y -->
+    <model name="aruco_3_back">
+      <static>true</static>
+      <pose>9 2.005 0.3048 0 0 1.57</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_4_back">
+      <static>true</static>
+      <pose>7.005 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_5_back">
+      <static>true</static>
+      <pose>3.505 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_6_back">
+      <static>true</static>
+      <pose>0.005 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_7_back">
+      <static>true</static>
+      <pose>-3.495 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_8_back">
+      <static>true</static>
+      <pose>-6.995 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_9_back">
+      <static>true</static>
+      <pose>-10.495 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <!-- aruco_10: yaw=1.57, normal=+Y, back offset in +Y -->
+    <model name="aruco_10_back">
+      <static>true</static>
+      <pose>-12.5 2.005 0.3048 0 0 1.57</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_11_back">
+      <static>true</static>
+      <pose>-10.495 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_12_back">
+      <static>true</static>
+      <pose>-6.995 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_13_back">
+      <static>true</static>
+      <pose>-3.495 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
     </model>
 
     <!-- Include RC Ackermann Vehicle -->

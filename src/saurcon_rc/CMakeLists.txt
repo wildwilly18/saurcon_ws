@@ -16,6 +16,8 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -33,7 +35,7 @@ add_executable(sim_saurcon_rc
 ament_target_dependencies(talker rclcpp std_msgs)
 ament_target_dependencies(ctrl_interface rclcpp sensor_msgs geometry_msgs)
 ament_target_dependencies(saurcon_main rclcpp sensor_msgs geometry_msgs std_msgs)
-ament_target_dependencies(sim_saurcon_rc rclcpp geometry_msgs std_msgs sensor_msgs)
+ament_target_dependencies(sim_saurcon_rc rclcpp geometry_msgs std_msgs sensor_msgs nav_msgs tf2_ros)
 
 # find headers
 target_include_directories(saurcon_main PUBLIC

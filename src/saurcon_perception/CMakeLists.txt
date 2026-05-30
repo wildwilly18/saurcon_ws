@@ -124,6 +124,27 @@ install(TARGETS aruco_class_test
   DESTINATION lib/${PROJECT_NAME}
 )
 
+# Add aruco_localizer_node executable
+add_executable(aruco_localizer
+  src/aruco_localizer_node.cpp
+)
+
+ament_target_dependencies(aruco_localizer
+  rclcpp
+  ament_index_cpp
+  geometry_msgs
+)
+
+target_link_libraries(aruco_localizer
+  ${Boost_LIBRARIES}
+  Eigen3::Eigen
+  "${cpp_typesupport_target}"
+)
+
+install(TARGETS aruco_localizer
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 # Install launch files
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}/

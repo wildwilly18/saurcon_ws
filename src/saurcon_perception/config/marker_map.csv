@@ -1,0 +1,35 @@
+# Marker world poses for ArUco localizer — derived from racetrack.world
+# Format: id,x,y,z,phi,theta,psi
+#
+# Positions: directly from <pose>x y z roll pitch yaw</pose> in the world file.
+# z = 0.3048m (12") for all markers.
+#
+# Orientations: ZYX Euler angles (radians) matching the SDF <pose> convention,
+# i.e. phi=roll, theta=pitch, psi=yaw of the marker face direction in world.
+# All markers are vertically mounted so phi=theta=0; psi encodes which way the
+# marker face points (= SDF yaw).
+#
+#   SDF yaw=0:    face normal = world +X  →  psi=0.0
+#   SDF yaw=1.57: face normal = world +Y  →  psi=1.5708
+#
+# The aruco_localizer_node applies a fixed ArUco-frame correction internally
+# (ArUco Z=outward ≠ SDF X=outward) so T_wm is correct for solvePnP output.
+#
+# NOTE: Orientations should be validated against sim detections.
+# Positions are ground truth from the world file and are definitive.
+#
+id,x,y,z,phi,theta,psi
+0,0.0,0.0,0.3048,0.0,0.0,0.0
+1,3.5,0.0,0.3048,0.0,0.0,0.0
+2,7.0,0.0,0.3048,0.0,0.0,0.0
+3,9.0,2.0,0.3048,0.0,0.0,1.5708
+4,7.0,4.0,0.3048,0.0,0.0,0.0
+5,3.5,4.0,0.3048,0.0,0.0,0.0
+6,0.0,4.0,0.3048,0.0,0.0,0.0
+7,-3.5,4.0,0.3048,0.0,0.0,0.0
+8,-7.0,4.0,0.3048,0.0,0.0,0.0
+9,-10.5,4.0,0.3048,0.0,0.0,0.0
+10,-12.5,2.0,0.3048,0.0,0.0,1.5708
+11,-10.5,0.0,0.3048,0.0,0.0,0.0
+12,-7.0,0.0,0.3048,0.0,0.0,0.0
+13,-3.5,0.0,0.3048,0.0,0.0,0.0

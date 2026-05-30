@@ -54,7 +54,7 @@ def generate_launch_description():
         # Launch the basement world in gz sim
         ExecuteProcess(
             cmd=[
-                'gz', 'sim',
+                'gz', 'sim', '-r',
                 world_path
             ],
             output='screen',
@@ -119,6 +119,20 @@ def generate_launch_description():
         ),
         ]),
         
+        # Static transforms: base_link = rear_axle_center
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='base_to_camera_tf',
+            arguments=['0.219', '0', '0.05', '0', '0', '0', 'base_link', 'camera_link']
+        ),
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='base_to_imu_tf',
+            arguments=['0.125', '0', '0', '0', '0', '0', 'base_link', 'imu_link']
+        ),
+
         # joy_node
         Node(
             package='joy',
@@ -160,6 +174,24 @@ def generate_launch_description():
             remappings=[
                 ('image_raw', '/camera/image'),
                 ('camera_info', '/camera/camera_info'),
+            ]
+        ),
+
+        # aruco_loclizer node with necessary parameters and remappings
+        Node(
+            package='saurcon_perception',
+            executable='aruco_localizer',
+            name='aruco_localizer',
+            output='screen',
+            parameters=[{
+                'marker_size': 0.1524,
+                'camera_frame': 'camera_link',
+                'publish_visualization': True,
+            }],
+            remappings=[
+                ('image_raw', '/camera/image'),
+                ('camera_info', '/camera/camera_info'),
+                ('odom', '/model/rc_ackermann_vehicle/odom'),
             ]
         ),
         

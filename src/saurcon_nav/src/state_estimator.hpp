@@ -11,7 +11,8 @@ enum STATE_IDX : int {
     X = 0,
     Y ,
     Theta,
-    V
+    V,
+    SIZE
 };
 
 enum class SaurconNavState : int {
@@ -46,6 +47,17 @@ struct ODOM_t{
     double v_b = 0.0;
 };
 
+struct Aruco_loc_t{
+    double time_stamp = 0.0;
+    size_t seq = 0;
+    double x     = 0.0;   // world X  (map frame)
+    double y     = 0.0;   // world Y  (map frame)
+    double theta = 0.0;   // yaw      (map frame, radians)
+    double var_x     = 1.0;  // position variance  (m^2)
+    double var_y     = 1.0;
+    double var_theta = 1.0;  // yaw variance (rad^2)
+};
+
 class StateEstimator
 {
 public:
@@ -61,8 +73,7 @@ public:
     // buffer helpers process as needed.
     void add_measure(IMU_t meas);
     void add_measure(ODOM_t meas);
-
-    void add_aruco_measure();
+    void add_measure(Aruco_loc_t meas);
 
     SaurconNavState getCurrentState() const { return current_state_; }
 
@@ -99,6 +110,13 @@ private:
     double q_theta_{gyro_q_std_ * gyro_q_std_};   // gyro angular rate noise variance (rad/s)^2
     double q_v_{odom_q_std_ * odom_q_std_};        // velocity model noise variance (m/s)^2
 
+
+    // P: State Initial Probablities
+    double x_p0_std_ = 0.2;
+    double y_p0_std_ = 0.2;
+    double v_p0_std_ = 0.1;
+    double theta_p0_std_ = 1E-2;
+
     // UKF tuning
     const int n_  = 4;
     const double alpha_ = 0.1;
@@ -115,8 +133,9 @@ private:
     void generateSigmaPoints();
 
     // Buffers
-    std::deque<IMU_t>   imu_buffer;
-    std::deque<ODOM_t> odom_buffer;
+    std::deque<IMU_t>                imu_buffer;
+    std::deque<ODOM_t>              odom_buffer;
+    std::deque<Aruco_loc_t> localization_buffer;
 
     std::deque<NAV_t> state_buffer;
 
@@ -131,6 +150,8 @@ private:
     size_t gyro_bias_counts{0};
     size_t localization_counts{0};
 
+    size_t buffer_size{100};
+
     const size_t imu_survey_count = 100;
     const size_t odom_survey_count = 100;
     const size_t localization_survey_count = 100;
@@ -144,6 +165,11 @@ private:
     bool sensors_ready{false};
     bool gyro_bias_ready{false};
     bool localization_ready{false};
+
+    bool first_loop{true};
+
+    size_t aruco_last_seq_{0};
+    size_t aruco_init_counts_{0};
 };
 
 }  // namespace saurcon_nav

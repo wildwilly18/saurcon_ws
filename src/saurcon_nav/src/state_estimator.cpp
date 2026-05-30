@@ -7,6 +7,8 @@ StateEstimator::StateEstimator()
 {
     imu_buffer.resize(100);
     odom_buffer.resize(100);
+    localization_buffer.resize(100);
+    state_buffer.resize(100);
 }
 
 StateEstimator::~StateEstimator()
@@ -14,13 +16,18 @@ StateEstimator::~StateEstimator()
 }
 
 // === State Estimator State Handling ===
+void StateEstimator::spin(double dt){
+
+}
 
 // === Add measurements to buffer, process if needed ===
 void StateEstimator::add_measure(ODOM_t measure){
     measure.seq = odom_counts;
 
     odom_buffer.push_front(measure);
-    odom_buffer.pop_back();
+    if(odom_buffer.size() > buffer_size){
+        odom_buffer.pop_back();
+    }
 
     odom_counts++;
 
@@ -31,15 +38,26 @@ void StateEstimator::add_measure(IMU_t measure){
     measure.seq = imu_counts;
 
     imu_buffer.push_front(measure);
-    imu_buffer.pop_back();
+    if(imu_buffer.size() > buffer_size){
+        imu_buffer.pop_back();
+    }
 
     imu_counts++;
 
     imu_ready = imu_counts > imu_survey_count;
 }
 
+void StateEstimator::add_measure(Aruco_loc_t measure){
+    measure.seq = localization_counts;
 
-void StateEstimator::spin(double dt){
+    localization_buffer.push_front(measure);
+    if(localization_buffer.size() > buffer_size){
+        localization_buffer.pop_back();
+    }
+
+    localization_counts++;
+
+    localization_ready = localization_counts > localization_survey_count; 
 }
 
 void StateEstimator::generateSigmaPoints(){
@@ -51,6 +69,67 @@ void StateEstimator::generateSigmaPoints(){
         sigma_pts_.col(i + 1)     = X_k_p_ + S.col(i);
         sigma_pts_.col(i + 1 + n_) = X_k_p_ - S.col(i);
     }
+}
+
+bool StateEstimator::initializeStart(){
+    auto meas = localization_buffer.front();
+    if(meas.seq == 0) return false;
+
+    if(first_loop){
+        X_k_p_(STATE_IDX::X)     = meas.x;
+        X_k_p_(STATE_IDX::Y)     = meas.y;
+        X_k_p_(STATE_IDX::V)     = 0.0;
+        X_k_p_(STATE_IDX::Theta) = meas.theta;
+
+        P_k_p_(STATE_IDX::X,     STATE_IDX::X)     = x_p0_std_*x_p0_std_;
+        P_k_p_(STATE_IDX::Y,     STATE_IDX::Y)     = y_p0_std_*y_p0_std_;
+        P_k_p_(STATE_IDX::Theta, STATE_IDX::Theta) = theta_p0_std_*theta_p0_std_;
+        P_k_p_(STATE_IDX::V,     STATE_IDX::V)     = v_p0_std_*v_p0_std_;
+        first_loop = false;
+    }
+
+    if(meas.seq <= aruco_last_seq_) return false;
+    aruco_last_seq_ = meas.seq;
+
+    // Measurement update to refine initial pose estimate
+    Eigen::Matrix3d R = Eigen::Matrix3d::Zero();
+    R(0,0) = meas.var_x;
+    R(1,1) = meas.var_y;
+    R(2,2) = meas.var_theta;
+
+    // H is 3×4: selects [X, Y, Theta] from the 4-state vector
+    Eigen::Matrix<double, 3, 4> H = Eigen::Matrix<double, 3, 4>::Zero();
+    H(0, STATE_IDX::X)     = 1.0;
+    H(1, STATE_IDX::Y)     = 1.0;
+    H(2, STATE_IDX::Theta) = 1.0;
+
+    // S = H*P*H^T + R  (3×3)
+    Eigen::Matrix3d S = H * P_k_p_ * H.transpose() + R;
+
+    // K = P*H^T * S^-1  (4×3)
+    Eigen::Matrix<double, 4, 3> K = P_k_p_ * H.transpose() * S.inverse();
+
+    // Innovation with angle wrap on theta
+    Eigen::Vector3d innov;
+    innov(0) = meas.x - X_k_p_(STATE_IDX::X);
+    innov(1) = meas.y - X_k_p_(STATE_IDX::Y);
+    innov(2) = std::atan2(std::sin(meas.theta - X_k_p_(STATE_IDX::Theta)),
+                           std::cos(meas.theta - X_k_p_(STATE_IDX::Theta)));
+
+    X_k_p_ += K * innov;
+    X_k_p_(STATE_IDX::Theta) = std::atan2(std::sin(X_k_p_(STATE_IDX::Theta)),
+                                            std::cos(X_k_p_(STATE_IDX::Theta)));
+
+    // Joseph form: (I - K*H)*P*(I - K*H)^T + K*R*K^T
+    Eigen::Matrix4d IKH = Eigen::Matrix4d::Identity() - K * H;
+    P_k_p_ = IKH * P_k_p_ * IKH.transpose() + K * R * K.transpose();
+
+    aruco_init_counts_++;
+    return aruco_init_counts_ >= localization_survey_count;
+}
+
+void StateEstimator::measurementUpdate(){
+    return
 }
 
 void StateEstimator::predictionUpdate(double dt){
