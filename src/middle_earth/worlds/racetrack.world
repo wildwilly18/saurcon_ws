@@ -662,7 +662,7 @@
     <!-- ArUco Markers at 12" (0.3048m) height - positions from tag_locations.csv -->
     <model name="aruco_0">
       <static>true</static>
-      <pose>0 0 0.3048 0 0 0</pose>
+      <pose>0 0 0.3048 0 0 3.14159</pose>
       <link name="marker_link">
         <visual name="visual">
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
@@ -676,7 +676,7 @@
 
     <model name="aruco_1">
       <static>true</static>
-      <pose>3.5 0 0.3048 0 0 0</pose>
+      <pose>3.5 0 0.3048 0 0 3.14159</pose>
       <link name="marker_link">
         <visual name="visual">
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
@@ -690,7 +690,7 @@
 
     <model name="aruco_2">
       <static>true</static>
-      <pose>7 0 0.3048 0 0 0</pose>
+      <pose>7 0 0.3048 0 0 3.14159</pose>
       <link name="marker_link">
         <visual name="visual">
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>

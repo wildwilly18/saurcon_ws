@@ -45,10 +45,14 @@ public:
 private:
     void loadCameraParams(const std::string& filepath);
     void loadMarkerParams(const std::string& filepath);
+    cv::Mat makeCameraMatrixForImage(const cv::Mat& image) const;
 
     // Camera intrinsics
     cv::Mat camMatrix_;
     cv::Mat distCoeffs_;
+    double horizontal_fov_rad_ = 0.0;
+    int configured_image_width_ = 0;
+    int configured_image_height_ = 0;
     
     // Camera transform (from camera_params.json)
     cv::Vec3d cam_translation_;

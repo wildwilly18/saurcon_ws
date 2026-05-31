@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cmath>
 #include <boost/json.hpp>
 
 namespace json = boost::json;
@@ -19,33 +20,40 @@ aruco_detector::~aruco_detector()
 
 std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     std::vector<ArucoPose_t> tags;
-    //std::cout << "Processing image of size: " << image.cols << "x" << image.rows << std::endl;
-    //check if image grayscale, if not convert
+    // Convert to grayscale if needed.
+    cv::Mat gray;
     if(image.channels() > 1){
-        cv::cvtColor(image, image, cv::COLOR_BGR2GRAY);
+        cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
+    } else {
+        gray = image.clone();
     }
 
-    // ArUco detection handles thresholding internally - no manual threshold needed
-     // Set up ArUco detection parameters
+    // CLAHE-only preprocessing gave the most consistent startup detections in test.
+    cv::Mat clahe_image;
+    cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(2.5, cv::Size(8, 8));
+    clahe->apply(gray, clahe_image);
+
+    // ArUco detection parameters tuned for sim imagery and startup tag visibility.
     std::vector<int> markerIds;
     std::vector<std::vector<cv::Point2f>> markerCorners, rejectedCandidates;
     cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create();
-    // More robust detection under variable/low sim lighting
     detectorParams->adaptiveThreshWinSizeMin  = 3;
-    detectorParams->adaptiveThreshWinSizeMax  = 53;   // default 23 — wider search
-    detectorParams->adaptiveThreshWinSizeStep = 4;    // default 10 — finer steps
-    detectorParams->adaptiveThreshConstant    = 3.0;  // default 7 — less aggressive
-    detectorParams->errorCorrectionRate       = 0.9;  // default 0.6 — more lenient bits
+    detectorParams->adaptiveThreshWinSizeMax  = 101;
+    detectorParams->adaptiveThreshWinSizeStep = 4;
+    detectorParams->adaptiveThreshConstant    = 7.0;
+    detectorParams->errorCorrectionRate       = 0.6;
+    detectorParams->minMarkerPerimeterRate    = 0.01;
+    detectorParams->maxMarkerPerimeterRate    = 4.0;
+    detectorParams->cornerRefinementMethod    = cv::aruco::CORNER_REFINE_SUBPIX;
+    detectorParams->detectInvertedMarker      = true;
 
-    // Use DICT_4X4_50 dictionary should make this configurable
-    cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_50);
+    cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(dictionary_name_);
     
-    // Detect markers using enhanced image (try both)
-    cv::aruco::detectMarkers(image, dictionary, markerCorners, markerIds, detectorParams, rejectedCandidates);
+    cv::aruco::detectMarkers(clahe_image, dictionary, markerCorners, markerIds, detectorParams, rejectedCandidates);
 
     // Debug visualization - draw detected markers
     cv::Mat debugImage;
-    cv::cvtColor(image, debugImage, cv::COLOR_GRAY2BGR);
+    cv::cvtColor(clahe_image, debugImage, cv::COLOR_GRAY2BGR);
     if(!markerIds.empty()){
         cv::aruco::drawDetectedMarkers(debugImage, markerCorners, markerIds);
     }
@@ -64,20 +72,22 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     //If no markers found simply return
     if(markerIds.empty()){ return tags;}
 
-    //Maybe add in code here to draw to the original image?
     cv::Mat objPoints(4,1, CV_32FC3);
     objPoints.ptr<cv::Vec3f>(0)[0] = cv::Vec3f(-marker_length_/2.f, marker_length_/2.f, 0);
     objPoints.ptr<cv::Vec3f>(0)[1] = cv::Vec3f(marker_length_/2.f, marker_length_/2.f, 0);
     objPoints.ptr<cv::Vec3f>(0)[2] = cv::Vec3f(marker_length_/2.f, -marker_length_/2.f, 0);
     objPoints.ptr<cv::Vec3f>(0)[3] = cv::Vec3f(-marker_length_/2.f, -marker_length_/2.f, 0);
 
+    cv::Mat imageCamMatrix = makeCameraMatrixForImage(clahe_image);
+
     size_t nMarkers = markerCorners.size();
 
     // Estimate poses
     for(size_t i = 0; i < nMarkers; ++i){
         //std::cout << "Solving tag ID : " << markerIds.at(i) << std::endl;
-        cv::Vec3d rvec; cv::Vec3d tvec; 
-        cv::solvePnP(objPoints, markerCorners.at(i), camMatrix_, distCoeffs_, rvec, tvec);
+        cv::Vec3d rvec;
+        cv::Vec3d tvec;
+        cv::solvePnP(objPoints, markerCorners.at(i), imageCamMatrix, distCoeffs_, rvec, tvec);
 
         //std::cout << "  Marker in camera frame: " << tvec << std::endl;
 
@@ -96,6 +106,37 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     return tags;
 }
 
+cv::Mat aruco_detector::makeCameraMatrixForImage(const cv::Mat& image) const
+{
+    cv::Mat imageCamMatrix = camMatrix_.clone();
+    if (imageCamMatrix.empty()) {
+        imageCamMatrix = cv::Mat::eye(3, 3, CV_64F);
+    }
+
+    if (horizontal_fov_rad_ > 0.0) {
+        const double fx = static_cast<double>(image.cols) / (2.0 * std::tan(horizontal_fov_rad_ / 2.0));
+        const double fy = fx;
+        const double cx = static_cast<double>(image.cols) / 2.0;
+        const double cy = static_cast<double>(image.rows) / 2.0;
+
+        imageCamMatrix = (cv::Mat_<double>(3,3) <<
+            fx, 0.0, cx,
+            0.0, fy, cy,
+            0.0, 0.0, 1.0);
+    } else if (configured_image_width_ > 0 && configured_image_height_ > 0 && !camMatrix_.empty()) {
+        const double sx = static_cast<double>(image.cols) / static_cast<double>(configured_image_width_);
+        const double sy = static_cast<double>(image.rows) / static_cast<double>(configured_image_height_);
+
+        imageCamMatrix = camMatrix_.clone();
+        imageCamMatrix.at<double>(0,0) *= sx;
+        imageCamMatrix.at<double>(1,1) *= sy;
+        imageCamMatrix.at<double>(0,2) *= sx;
+        imageCamMatrix.at<double>(1,2) *= sy;
+    }
+
+    return imageCamMatrix;
+}
+
 void aruco_detector::loadCameraParams(const std::string& filepath){
     std::ifstream file(filepath);
     if (!file.is_open()) {
@@ -106,7 +147,11 @@ void aruco_detector::loadCameraParams(const std::string& filepath){
     buffer << file.rdbuf();
     json::value j = json::parse(buffer.str());
     
-    // Load intrinsics
+    // Load image metadata and intrinsics from config.
+    configured_image_width_ = static_cast<int>(j.at("camera").at("image").at("width").as_int64());
+    configured_image_height_ = static_cast<int>(j.at("camera").at("image").at("height").as_int64());
+    horizontal_fov_rad_ = j.at("camera").at("intrinsics").at("horizontal_fov").as_double();
+
     double fx = j.at("camera").at("intrinsics").at("focal_length_x").as_double();
     double fy = j.at("camera").at("intrinsics").at("focal_length_y").as_double();
     double cx = j.at("camera").at("intrinsics").at("principal_point_x").as_double();
@@ -130,6 +175,8 @@ void aruco_detector::loadCameraParams(const std::string& filepath){
     cam_rotation_[2] = j.at("transform").at("rotation").at("yaw").as_double();
     
     std::cout << "Loaded camera params from: " << filepath << std::endl;
+    std::cout << "  Config image: " << configured_image_width_ << "x" << configured_image_height_ << std::endl;
+    std::cout << "  Horizontal FOV: " << horizontal_fov_rad_ << " rad" << std::endl;
 
     //Set up camera to vehicle xform
     // Camera frame: X=right, Y=down, Z=forward
