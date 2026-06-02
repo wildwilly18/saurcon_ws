@@ -896,7 +896,7 @@
 
     <model name="aruco_4_back">
       <static>true</static>
-      <pose>7.005 4 0.3048 0 0 0</pose>
+      <pose>6.995 4 0.3048 0 0 0</pose>
       <link name="link"><visual name="visual">
         <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
@@ -905,7 +905,7 @@
 
     <model name="aruco_5_back">
       <static>true</static>
-      <pose>3.505 4 0.3048 0 0 0</pose>
+      <pose>3.495 4 0.3048 0 0 0</pose>
       <link name="link"><visual name="visual">
         <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
@@ -914,7 +914,7 @@
 
     <model name="aruco_6_back">
       <static>true</static>
-      <pose>0.005 4 0.3048 0 0 0</pose>
+      <pose>-0.005 4 0.3048 0 0 0</pose>
       <link name="link"><visual name="visual">
         <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
@@ -923,7 +923,7 @@
 
     <model name="aruco_7_back">
       <static>true</static>
-      <pose>-3.495 4 0.3048 0 0 0</pose>
+      <pose>-3.505 4 0.3048 0 0 0</pose>
       <link name="link"><visual name="visual">
         <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
@@ -932,7 +932,7 @@
 
     <model name="aruco_8_back">
       <static>true</static>
-      <pose>-6.995 4 0.3048 0 0 0</pose>
+      <pose>-7.005 4 0.3048 0 0 0</pose>
       <link name="link"><visual name="visual">
         <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
@@ -941,7 +941,7 @@
 
     <model name="aruco_9_back">
       <static>true</static>
-      <pose>-10.495 4 0.3048 0 0 0</pose>
+      <pose>-10.505 4 0.3048 0 0 0</pose>
       <link name="link"><visual name="visual">
         <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
@@ -951,7 +951,7 @@
     <!-- aruco_10: yaw=1.57, normal=+Y, back offset in +Y -->
     <model name="aruco_10_back">
       <static>true</static>
-      <pose>-12.5 2.005 0.3048 0 0 1.57</pose>
+      <pose>-12.5 1.995 0.3048 0 0 1.57</pose>
       <link name="link"><visual name="visual">
         <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
         <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>

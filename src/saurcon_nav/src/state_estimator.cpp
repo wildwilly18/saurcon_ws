@@ -80,7 +80,13 @@ void StateEstimator::duringNavState(SaurconNavState state, double dt){
             break;
 
         case SaurconNavState::NAVIGATE:
-            predictionUpdate(dt);
+            // If odometry reports no motion, bypass prediction/noise injection
+            // and carry state/covariance forward unchanged.
+            if (!odom_buffer.empty() && std::abs(odom_buffer.front().v_b) <= 1e-9) {
+                predictionUpdateBypass();
+            } else {
+                predictionUpdate(dt);
+            }
             measurementUpdate();
             break;
 
@@ -241,9 +247,19 @@ bool StateEstimator::initializeStart(){
 void StateEstimator::measurementUpdate(){
     auto loc_measure = localization_buffer.front();
 
+    // Default behavior: if no fresh measurement arrives this cycle,
+    // carry the prediction straight through to posterior.
+    X_k_p_ = X_k_m_;
+    P_k_p_ = P_k_m_;
+    X_k_p_(STATE_IDX::Theta) = std::atan2(std::sin(X_k_p_(STATE_IDX::Theta)),
+                                          std::cos(X_k_p_(STATE_IDX::Theta)));
+
     bool fresh_localization = (loc_measure.time_stamp > last_localization_time);
 
     if(fresh_localization){
+        constexpr double kMahalanobisSigmaGate = 10.0;
+        constexpr double kMahalanobisD2Gate = kMahalanobisSigmaGate * kMahalanobisSigmaGate;
+
         // Setup R matrix
         Eigen::Matrix3d R = Eigen::Matrix3d::Zero();
         
@@ -282,6 +298,15 @@ void StateEstimator::measurementUpdate(){
         //Sz = dZ * diag(Wc) * dZ^T + R (3x3)
         Eigen::Matrix3d S_z = dZ * Wc_.asDiagonal() * dZ.transpose() + R;
 
+        // Mahalanobis innovation gating (relaxed 10-sigma threshold)
+        // d^2 = innov^T * S_z^-1 * innov
+        const double maha_d2 = (innov.transpose() * S_z.inverse() * innov)(0,0);
+        if(maha_d2 > kMahalanobisD2Gate){
+            // Reject outlier localization update; keep prediction as posterior.
+            last_localization_time = loc_measure.time_stamp;
+            return;
+        }
+
         // Centered State Sigma points (4x9)
         Eigen::MatrixXd dX = sp.colwise() - X_k_m_;
 
@@ -302,7 +327,6 @@ void StateEstimator::measurementUpdate(){
         last_localization_time = loc_measure.time_stamp;
     }
 
-
     return;
 }
 
@@ -311,6 +335,13 @@ void StateEstimator::predictionUpdate(double dt){
 
     // Bias-corrected gyro rate — process input driving Theta
     double omega_psi = imu_meas.w_b(2) - gyro_bias_(2);
+    
+    // Use latest odometry forward velocity as control input for dead reckoning.
+    // If odometry is unavailable, fall back to current state velocity.
+    double v_ctrl = X_k_p_(STATE_IDX::V);
+    if (!odom_buffer.empty()) {
+        v_ctrl = odom_buffer.front().v_b;
+    }
 
     // Initialize Q_k_ on this time step
     initializeQ(dt);
@@ -323,7 +354,7 @@ void StateEstimator::predictionUpdate(double dt){
     for(int i = 0; i < 2*n_+1; i++){
         Eigen::VectorXd s = sigma_pts_.col(i);
         double theta = s(STATE_IDX::Theta);
-        double v     = s(STATE_IDX::V);
+        double v     = v_ctrl;
         double theta_new = theta + omega_psi * dt;
 
         Eigen::VectorXd s_prop(n_);
@@ -335,7 +366,7 @@ void StateEstimator::predictionUpdate(double dt){
             s_prop(STATE_IDX::Y)     = s(STATE_IDX::Y) + v * sin(theta) * dt;
         }
         s_prop(STATE_IDX::Theta) = theta_new;
-        s_prop(STATE_IDX::V)     = v;
+        s_prop(STATE_IDX::V)     = v_ctrl;
         sigma_pts_prop.col(i) = s_prop;
     }
 
@@ -349,6 +380,15 @@ void StateEstimator::predictionUpdate(double dt){
         P_k_m_ += Wc_(i) * diff * diff.transpose();
     }
     P_k_m_ += Q_k_;
+}
+
+void StateEstimator::predictionUpdateBypass(){
+    X_k_m_ = X_k_p_;
+    P_k_m_ = P_k_p_;
+
+    // Keep heading wrapped even during bypass cycles.
+    X_k_m_(STATE_IDX::Theta) = std::atan2(std::sin(X_k_m_(STATE_IDX::Theta)),
+                                          std::cos(X_k_m_(STATE_IDX::Theta)));
 }
 
 void StateEstimator::initializeQ(double dt){

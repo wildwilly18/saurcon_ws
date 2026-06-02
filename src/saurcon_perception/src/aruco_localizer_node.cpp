@@ -40,8 +40,8 @@ public:
 		this->declare_parameter("camera_params",      pkg_share + "/config/camera_params.json");
 		this->declare_parameter("marker_map_csv",     pkg_share + "/config/marker_map.csv");
 		// Measurement noise: how accurate is an ArUco-derived pose (1-sigma)
-		this->declare_parameter("position_std",    0.05);  // metres
-		this->declare_parameter("orientation_std", 0.10);  // radians
+		this->declare_parameter("position_std",    0.1);  // metres
+		this->declare_parameter("orientation_std", 0.1);  // radians
 
 		pos_std_ = this->get_parameter("position_std").as_double();
 		ori_std_ = this->get_parameter("orientation_std").as_double();

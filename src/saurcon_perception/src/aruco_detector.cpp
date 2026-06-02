@@ -41,7 +41,7 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
     detectorParams->adaptiveThreshWinSizeMax  = 101;
     detectorParams->adaptiveThreshWinSizeStep = 4;
     detectorParams->adaptiveThreshConstant    = 7.0;
-    detectorParams->errorCorrectionRate       = 0.6;
+    detectorParams->errorCorrectionRate       = 0.54;
     detectorParams->minMarkerPerimeterRate    = 0.01;
     detectorParams->maxMarkerPerimeterRate    = 4.0;
     detectorParams->cornerRefinementMethod    = cv::aruco::CORNER_REFINE_SUBPIX;
