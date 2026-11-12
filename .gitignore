@@ -44,3 +44,12 @@ Thumbs.db
 /src/middle_earth/install/
 /src/middle_earth/log/
 /src/saurcon_perception/*.exe
+
+# Generated SLAM databases and evaluation artifacts
+/maps/
+/evaluation/
+/.sim_eval.lock
+
+# RL training environment and outputs
+/.venv-rl/
+/rl_runs/

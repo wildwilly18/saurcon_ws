@@ -356,8 +356,8 @@
           <upper>1e16</upper>
         </limit>
         <dynamics>
-          <damping>0.01</damping>
-          <friction>0.01</friction>
+          <damping>0.0001</damping>
+          <friction>0.0005</friction>
         </dynamics>
       </axis>
     </joint>
@@ -373,8 +373,8 @@
           <upper>1e16</upper>
         </limit>
         <dynamics>
-          <damping>0.01</damping>
-          <friction>0.01</friction>
+          <damping>0.0001</damping>
+          <friction>0.0005</friction>
         </dynamics>
       </axis>
     </joint>
@@ -424,8 +424,8 @@
           <upper>1e16</upper>
         </limit>
         <dynamics>
-          <damping>0.01</damping>
-          <friction>0.01</friction>
+          <damping>0.0001</damping>
+          <friction>0.0005</friction>
         </dynamics>
       </axis>
     </joint>
@@ -441,12 +441,15 @@
           <upper>1e16</upper>
         </limit>
         <dynamics>
-          <damping>0.01</damping>
-          <friction>0.01</friction>
+          <damping>0.0001</damping>
+          <friction>0.0005</friction>
         </dynamics>
       </axis>
     </joint>
     
+    <!-- Wheel joint damping/friction are small on purpose: with 33 mm wheels,
+         0.01 N m s/rad damping was ~15 N of drag per wheel at 1.7 m/s and capped
+         the car at that speed (measured 2026-11-12). Now ~1 N per wheel at 10 m/s. -->
     <!-- Ackermann Steering Plugin -->
     <plugin
       filename="gz-sim-ackermann-steering-system"
@@ -460,10 +463,13 @@
       <kingpin_width>0.1651</kingpin_width>
       <steering_limit>0.786</steering_limit>
       <wheel_radius>0.033</wheel_radius>
-      <min_velocity>-2.0</min_velocity>
-      <max_velocity>2.0</max_velocity>
-      <min_acceleration>-5.0</min_acceleration>
-      <max_acceleration>5.0</max_acceleration>
+      <min_velocity>-3.0</min_velocity>
+      <max_velocity>20.0</max_velocity>
+      <!-- Speed ramp kept just under tyre grip (~4.1 m/s^2 drive, ~4.5 braking measured),
+           like an ESC with traction control: at 5.0 the driven wheels spun or locked,
+           which inflated wheel odometry and spun the car when braking into bends. -->
+      <min_acceleration>-4.0</min_acceleration>
+      <max_acceleration>3.8</max_acceleration>
       <steer_p_gain>50.0</steer_p_gain>
       <topic>/model/rc_ackermann_vehicle/cmd_vel</topic>
       <odom_topic>/model/rc_ackermann_vehicle/odom</odom_topic>
@@ -582,60 +588,9 @@
       <child>imu_link</child>
     </joint>
     
-    <!-- RGBD Camera (similar to OAK-D Lite) -->
-    <link name="camera_link">
+    <include><uri>model://oak_d_lite</uri><name>oak_device</name>
       <pose relative_to="rear_axle_center">0.219 0 0.05 0 0 0</pose>
-      <inertial>
-        <mass>0.001</mass>
-        <inertia>
-          <ixx>0.000001</ixx>
-          <iyy>0.000001</iyy>
-          <izz>0.000001</izz>
-        </inertia>
-      </inertial>
-      
-      <visual name="camera_visual">
-        <geometry>
-          <box>
-            <size>0.03 0.05 0.02</size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.2 0.2 0.2 1</ambient>
-          <diffuse>0.3 0.3 0.3 1</diffuse>
-        </material>
-      </visual>
-      
-      <!-- RGB Camera -->
-      <sensor name="rgbd_camera" type="rgbd_camera">
-        <camera>
-          <horizontal_fov>1.204</horizontal_fov>
-          <image>
-            <width>640</width>
-            <height>400</height>
-            <format>R8G8B8</format>
-          </image>
-          <clip>
-            <near>0.1</near>
-            <far>10.0</far>
-          </clip>
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.007</stddev>
-          </noise>
-        </camera>
-        <always_on>1</always_on>
-        <update_rate>15</update_rate>
-        <visualize>false</visualize>
-        <topic>camera</topic>
-      </sensor>
-    </link>
-    
-    <joint name="camera_joint" type="fixed">
-      <parent>chassis</parent>
-      <child>camera_link</child>
-    </joint>
-    
+    </include>
+    <joint name="camera_joint" type="fixed"><parent>chassis</parent><child>oak_device::oak</child></joint>
   </model>
 </sdf>

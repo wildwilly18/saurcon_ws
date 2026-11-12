@@ -49,4 +49,18 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME}
 )
 
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+install(PROGRAMS scripts/oak_depth.py DESTINATION lib/${PROJECT_NAME})
+
+if(BUILD_TESTING)
+  enable_testing()
+  add_executable(test_dead_reckoning test/test_dead_reckoning.cpp src/state_estimator.cpp)
+  target_include_directories(test_dead_reckoning PRIVATE src)
+  target_link_libraries(test_dead_reckoning Eigen3::Eigen)
+  add_test(NAME dead_reckoning COMMAND test_dead_reckoning)
+  find_package(Python3 REQUIRED COMPONENTS Interpreter)
+  add_test(NAME launch_guards COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_launch_guards.py)
+  add_test(NAME depth_model COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_depth.py)
+endif()
+
 ament_package()

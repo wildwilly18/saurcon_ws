@@ -6,7 +6,7 @@
 namespace saurcon_nav
 {
 
-StateEstimator::StateEstimator()
+StateEstimator::StateEstimator(bool use_aruco) : use_aruco_(use_aruco)
 {
     imu_buffer.resize(100);
     odom_buffer.resize(100);
@@ -59,6 +59,13 @@ void StateEstimator::duringNavState(SaurconNavState state, double dt){
             break;
 
         case SaurconNavState::SURVEY:
+            if (!use_aruco_) {
+                initializePose(0.0, 0.0, 0.0, 0.001, 0.001);
+                imu_consumed_ = imu_counts;
+                current_state_ = SaurconNavState::NAVIGATE;
+                onNavStateChange(current_state_);
+                break;
+            }
             survey_spin_counts_++;
             if(initializeStart()){
                 printf("[StateEstimator] SURVEY -> NAVIGATE  (X=%.2f Y=%.2f Theta=%.2f)\n",
@@ -83,8 +90,12 @@ void StateEstimator::duringNavState(SaurconNavState state, double dt){
             const double v_now     = odom_buffer.empty() ? 0.0 : odom_buffer.front().v_b;
             const double omega_now = imu_buffer.empty()  ? 0.0
                                      : imu_buffer.front().w_b(2) - gyro_bias_(2);
-            const bool stationary = std::abs(v_now)     < stationary_speed_ &&
+            const bool wheels_still = std::abs(v_now) < stationary_speed_;
+            const bool stationary = wheels_still &&
                                     std::abs(omega_now) < stationary_yawrate_;
+            if (wheels_still) {
+                refineGyroBias();
+            }
             if (stationary || dt <= 0.0) {
                 imu_consumed_ = imu_counts;   // do not integrate these samples later
                 predictionUpdateBypass();
@@ -124,6 +135,7 @@ void StateEstimator::doReset(){
     aruco_init_counts_   = 0;
     survey_spin_counts_  = 0;
     gyro_bias_.setZero();
+    bias_samples_        = 0;
     gz_readings.clear();
     X_k_p_.setZero();
     X_k_m_.setZero();
@@ -170,6 +182,7 @@ void StateEstimator::add_measure(IMU_t measure){
 }
 
 void StateEstimator::add_measure(Aruco_loc_t measure){
+    if (!use_aruco_) return;
     measure.seq = localization_counts;
 
     localization_buffer.push_front(measure);
@@ -407,6 +420,20 @@ bool StateEstimator::stateIsFinite() const {
     return X_k_p_.allFinite() && P_k_p_.allFinite();
 }
 
+// Fold the IMU samples received since the last cycle into the gyro bias estimate.
+// Called only while the wheels are stopped. Does not consume the samples.
+void StateEstimator::refineGyroBias(){
+    if(!gyro_bias_ready) return;
+    size_t pending = imu_counts - imu_consumed_;
+    pending = std::min(pending, imu_buffer.size());
+    for(size_t i = pending; i-- > 0; ){
+        const Eigen::Vector3d& w = imu_buffer[i].w_b;
+        if((w - gyro_bias_).cwiseAbs().maxCoeff() > bias_gate_) continue;
+        bias_samples_ = std::min(bias_samples_ + 1, max_bias_samples_);
+        gyro_bias_ += (w - gyro_bias_) / static_cast<double>(bias_samples_);
+    }
+}
+
 // Mean bias-corrected yaw rate over the IMU samples received since the last
 // prediction step, so no sample is dropped when the IMU is faster than the filter.
 double StateEstimator::meanGyroZ(){
@@ -524,6 +551,7 @@ bool StateEstimator::initializeIMU(){
             gyro_bias_(0) = x_sum / n_samples;
             gyro_bias_(1) = y_sum / n_samples;
             gyro_bias_(2) = z_sum / n_samples;
+            bias_samples_ = gz_readings.size();
 
             gyro_bias_ready = true;
         }

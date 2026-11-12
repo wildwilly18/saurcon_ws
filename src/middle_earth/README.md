@@ -86,6 +86,32 @@ ros2 topic pub /model/rc_ackermann_vehicle/cmd_vel geometry_msgs/msg/Twist \
   "{linear: {x: 0.5}, angular: {z: 0.2}}"
 ```
 
+## Raceway cones
+
+Both worlds are raceways lined with gates of two 1:10 scale traffic cones
+(`models/rc_cone`: 71 mm tall, orange, 24 g so the car can knock them over),
+1.2 m between cone centres and square to the track:
+
+| World | Gates at markers | Added between | Total gates | Cones |
+|---|---:|---:|---:|---:|
+| `racetrack.world` | 14 | 28 | 42 | 84 |
+| `basement.world` | 12 | 24 | 36 | 72 |
+
+Added gates sit at thirds of the arc length between consecutive marker gates
+along the track centreline (racetrack: the stadium line the lap driver follows;
+basement: the 4.5 m × 3.5 m oval the markers sit on). The gates are generated;
+to change them, run
+
+```bash
+python3 scripts/add_cone_gates.py --width 1.2 --between 2 --plot gates.png \
+    worlds/racetrack.world worlds/basement.world
+```
+
+which replaces the previously generated block (`--dry-run` only plots).
+`scripts/sim_eval/make_world.py --no-markers` keeps the cones and removes only
+the markers. `scripts/sim_eval/cone_watch.py` reports any cone that moves or
+tips during a run.
+
 ## Topics
 
 Bridged to ROS 2 by `config/bridge_config.yaml`:
