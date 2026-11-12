@@ -100,22 +100,47 @@ private:
     void predictionUpdate(double dt);
     void predictionUpdateBypass();
     void measurementUpdate();
+    void applyLocalization(const Aruco_loc_t& meas);
+    void initializePose(double x, double y, double theta,
+                        double xy_std, double theta_std);
+
+    // Numerical health helpers
+    static void conditionCovariance(Eigen::MatrixXd& P);
+    bool sigmaRoot(const Eigen::MatrixXd& P, Eigen::MatrixXd& L);
+    bool stateIsFinite() const;
+    double meanGyroZ();
 
     // UKF with 4 states [X, Y, Theta, V_body]
-    // Gyro (bias-corrected) is the process input driving Theta. Odometry is a measurement of V.
+    // Gyro (bias-corrected) and odometry speed are the process inputs: the gyro drives
+    // Theta and the odometry speed drives X/Y and overwrites the V state each step.
     Eigen::VectorXd X_k_m_ = Eigen::VectorXd::Zero(4);
     Eigen::VectorXd X_k_p_ = Eigen::VectorXd::Zero(4);
 
     Eigen::MatrixXd P_k_m_ = Eigen::MatrixXd::Zero(4,4);
     Eigen::MatrixXd P_k_p_ = Eigen::MatrixXd::Zero(4,4);
 
-    // Q: X and Y have no direct process noise (deterministic given Theta and V).
-    // Theta noise comes from gyro rate uncertainty. V noise from the constant-V model assumption.
+    // Q: Theta noise comes from gyro rate uncertainty, V noise from the constant-V model
+    // assumption. X and Y get a small noise that grows with speed (wheel slip, odometry
+    // scale error) so position uncertainty keeps growing between ArUco fixes.
     Eigen::MatrixXd Q_k_ = Eigen::MatrixXd::Zero(4,4);
     double gyro_q_std_ = 1E-3;
     double odom_q_std_ = 1E-2;
     double q_theta_{gyro_q_std_ * gyro_q_std_};   // gyro angular rate noise variance (rad/s)^2
     double q_v_{odom_q_std_ * odom_q_std_};        // velocity model noise variance (m/s)^2
+    double q_xy_base_std_  = 0.01;                 // m / sqrt(s) while moving
+    double q_xy_speed_std_ = 0.05;                 // m / sqrt(s) per (m/s) of speed
+
+    // Stationary detection (zero-velocity bypass)
+    double stationary_speed_   = 0.01;             // m/s
+    double stationary_yawrate_ = 0.02;             // rad/s
+
+    // Used when no ArUco fix was available at start: pose is essentially unknown.
+    double unknown_xy_std_    = 10.0;
+    double unknown_theta_std_ = 3.14159265358979;
+
+    // Re-initialise from ArUco after this many consecutive gated-out fixes.
+    const size_t max_consecutive_rejects_ = 15;
+    size_t consecutive_rejects_{0};
 
 
     // P: State Initial Probablities
@@ -165,7 +190,9 @@ private:
 
     //IMU initialization
     std::vector<Eigen::Vector3d> gz_readings;
-    uint16_t imu_last_seq{0};
+    size_t imu_last_seq{0};
+    size_t imu_consumed_{0};   // IMU samples already used by the prediction step
+    size_t loc_consumed_{0};   // localization measurements already used
 
     bool imu_ready{false};
     bool odom_ready{false};
@@ -173,11 +200,8 @@ private:
     bool gyro_bias_ready{false};
     bool localization_ready{false};
 
-    double last_localization_time{0.0};
-
     bool first_loop{true};
 
-    size_t aruco_last_seq_{0};
     size_t aruco_init_counts_{0};
     size_t survey_spin_counts_{0};
     const size_t survey_timeout_count{250};  // 5 s at 50 Hz — fallback to (0,0,0)

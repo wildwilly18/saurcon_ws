@@ -39,3 +39,8 @@ Thumbs.db
 *.bak
 *.tmp
 *.~*
+# Build artefacts inside packages
+/src/middle_earth/build/
+/src/middle_earth/install/
+/src/middle_earth/log/
+/src/saurcon_perception/*.exe

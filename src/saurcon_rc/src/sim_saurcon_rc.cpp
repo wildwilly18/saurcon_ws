@@ -7,6 +7,7 @@
 #include <sensor_msgs/msg/joint_state.hpp>
 #include "../include/types/saurcon_types.hpp"
 
+#include <algorithm>
 #include <mutex>
 
 class SaurconRcSim : public rclcpp::Node {
@@ -91,7 +92,12 @@ private:
 		SaurconRCState new_state = static_cast<SaurconRCState>(msg->data);
 		if (new_state != current_state_) {
 			RCLCPP_INFO(this->get_logger(), "State change: %s -> %s", state_name(current_state_).c_str(), state_name(new_state).c_str());
+			const bool was_running = is_run_state(current_state_);
 			current_state_ = new_state;
+			if (was_running && !is_run_state(new_state)) {
+				// Commands are no longer forwarded, so stop the vehicle explicitly.
+				pub_gz_cmd_->publish(geometry_msgs::msg::Twist());
+			}
 			publish_sim_state();
 		} else {
 			//RCLCPP_INFO(this->get_logger(), "Already in state: %s", state_name(current_state_).c_str());
@@ -123,6 +129,12 @@ private:
 			RCLCPP_WARN_ONCE(this->get_logger(), "joint_state_cb: could not find all expected joints by name.");
 			return;
 		}
+		const size_t max_vel_idx = static_cast<size_t>(std::max(rl_vel_idx, rr_vel_idx));
+		const size_t max_pos_idx = static_cast<size_t>(std::max(fl_steer_idx, fr_steer_idx));
+		if (msg->velocity.size() <= max_vel_idx || msg->position.size() <= max_pos_idx) {
+			RCLCPP_WARN_ONCE(this->get_logger(), "joint_state_cb: velocity/position arrays shorter than name array.");
+			return;
+		}
 		std::lock_guard<std::mutex> lock(rc_odom_mutex_);
 		// Average rear wheel velocities (rad/s) * wheel_radius (0.033m) = m/s.
 		constexpr double wheel_radius = 0.033;
@@ -147,6 +159,10 @@ private:
 		msg.data = static_cast<uint8_t>(current_state_);
 		pub_sim_state_output_->publish(msg);
 		RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 10000, "Published sim state: %s", state_name(current_state_).c_str());
+	}
+
+	static bool is_run_state(SaurconRCState state) {
+		return state == SaurconRCState::RUN_CONTROL || state == SaurconRCState::RUN_AUTONOMOUS;
 	}
 
 	std::string state_name(SaurconRCState state) {

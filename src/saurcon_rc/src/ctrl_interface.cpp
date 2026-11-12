@@ -33,6 +33,12 @@ public:
 private:
   void joy_callback(const sensor_msgs::msg::Joy::SharedPtr msg)
   {
+    if (msg->axes.size() <= throttle_idx || msg->axes.size() <= steer_idx) {
+      RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 5000,
+        "Joy message has only %zu axes. Ignoring.", msg->axes.size());
+      return;
+    }
+
     auto twist_msg = geometry_msgs::msg::Twist();
 
     twist_msg.linear.x = msg->axes[throttle_idx];

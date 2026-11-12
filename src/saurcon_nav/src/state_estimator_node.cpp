@@ -4,6 +4,8 @@
 #include "geometry_msgs/msg/twist_stamped.hpp"
 #include "geometry_msgs/msg/pose_with_covariance_stamped.hpp"
 #include "nav_msgs/msg/odometry.hpp"
+#include "geometry_msgs/msg/transform_stamped.hpp"
+#include "tf2_ros/transform_broadcaster.h"
 
 #include <cmath>
 #include <chrono>
@@ -34,6 +36,8 @@ public:
 
         odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>(
             "/saurcon/nav_state", 10);
+
+        tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
     }
 
 private:
@@ -76,11 +80,28 @@ private:
     }
 
     void spin_cb(){
-        engine_.spin(dt_);
+        // Step the filter by the time that actually elapsed on the node clock
+        // (simulation time when use_sim_time is set), not by the nominal period.
+        const rclcpp::Time now = this->now();
+        double dt = dt_;
+        if (have_last_spin_) {
+            dt = (now - last_spin_time_).seconds();
+            if (dt < 0.0) dt = 0.0;          // clock jumped back (sim reset)
+            if (dt > kMaxDt) dt = kMaxDt;    // long stall: do not extrapolate far
+        }
+        last_spin_time_ = now;
+        have_last_spin_ = true;
+
+        engine_.spin(dt);
+
+        // Only publish once the filter has a pose; before that the state is all zeros.
+        if (engine_.getCurrentState() != saurcon_nav::SaurconNavState::NAVIGATE) {
+            return;
+        }
 
         nav_msgs::msg::Odometry msg;
-        msg.header.stamp    = this->now();
-        msg.header.frame_id = "odom";
+        msg.header.stamp    = now;
+        msg.header.frame_id = "map";   // pose is expressed in the ArUco marker-map frame
         msg.child_frame_id  = "base_link";
 
         const auto& X = engine_.getX();
@@ -102,12 +123,26 @@ private:
         msg.pose.covariance[0]  = P(saurcon_nav::STATE_IDX::X,     saurcon_nav::STATE_IDX::X);
         msg.pose.covariance[7]  = P(saurcon_nav::STATE_IDX::Y,     saurcon_nav::STATE_IDX::Y);
         msg.pose.covariance[35] = P(saurcon_nav::STATE_IDX::Theta, saurcon_nav::STATE_IDX::Theta);
+        msg.twist.covariance[0] = P(saurcon_nav::STATE_IDX::V,     saurcon_nav::STATE_IDX::V);
 
         odom_pub_->publish(msg);
+
+        geometry_msgs::msg::TransformStamped tf;
+        tf.header = msg.header;
+        tf.child_frame_id = msg.child_frame_id;
+        tf.transform.translation.x = msg.pose.pose.position.x;
+        tf.transform.translation.y = msg.pose.pose.position.y;
+        tf.transform.translation.z = 0.0;
+        tf.transform.rotation = msg.pose.pose.orientation;
+        tf_broadcaster_->sendTransform(tf);
     }
 
     saurcon_nav::StateEstimator engine_;
     double dt_{0.02};
+    static constexpr double kMaxDt = 0.2;
+    rclcpp::Time last_spin_time_;
+    bool have_last_spin_{false};
+    std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr                           imu_sub_;
     rclcpp::Subscription<geometry_msgs::msg::TwistStamped>::SharedPtr                odom_sub_;

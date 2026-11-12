@@ -34,7 +34,7 @@ vehicle:
   
   # Ackermann geometry
   wheelbase: 0.254     # Distance between front and rear axles
-  track_width: 0.14  # Distance between left and right wheels
+  track_width: 0.1651 # Distance between left and right wheels
   
   # Performance limits
   max_steering_angle: 0.786  # Maximum steering angle in radians (~34 degrees)

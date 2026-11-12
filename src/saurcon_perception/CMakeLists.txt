@@ -50,14 +50,6 @@ target_link_libraries(aruco_test
   Eigen3::Eigen
 )
 
-# Copy executable to workspace root after building
-add_custom_command(TARGET aruco_test POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy
-  $<TARGET_FILE:aruco_test>
-  ${CMAKE_SOURCE_DIR}/aruco_test.exe
-  COMMENT "Copying aruco_test to workspace root"
-)
-
 # Install aruco_test executable
 install(TARGETS aruco_test
   DESTINATION lib/${PROJECT_NAME}
@@ -75,13 +67,11 @@ target_link_libraries(aruco_class_test
   Eigen3::Eigen
 )
 
-# Copy executable to workspace root after building
-add_custom_command(TARGET aruco_class_test POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy
-  $<TARGET_FILE:aruco_class_test>
-  ${CMAKE_SOURCE_DIR}/aruco_class_test.exe
-  COMMENT "Copying aruco_class_test to workspace root"
+# Lets the test find config/ and data/ no matter where it is run from
+target_compile_definitions(aruco_class_test PRIVATE
+  SAURCON_PERCEPTION_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
+
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/ArucoPose.msg"

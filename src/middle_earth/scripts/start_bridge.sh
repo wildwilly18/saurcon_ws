@@ -1,23 +1,16 @@
 #!/bin/bash
 
-# Start ROS 2 <-> Gazebo Bridge
-# This bridges topics between Gazebo and ROS 2
+# Start the ROS 2 <-> Gazebo bridge for the rc_ackermann_vehicle model.
+# Requires a sourced ROS 2 environment (source /opt/ros/jazzy/setup.bash).
 
-CONFIG_FILE="/home/wilson/saurcon_ws/src/middle_earth/config/bridge_config.yaml"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_FILE="$SCRIPT_DIR/../config/bridge_config.yaml"
 
 echo "Starting ROS 2 <-> Gazebo bridge..."
 echo "Config file: $CONFIG_FILE"
 echo ""
 echo "Bridged topics:"
-echo "  ROS 2 -> Gazebo:"
-echo "    /cmd_vel (geometry_msgs/Twist)"
-echo ""
-echo "  Gazebo -> ROS 2:"
-echo "    /imu (sensor_msgs/Imu)"
-echo "    /camera/image (sensor_msgs/Image)"
-echo "    /camera/depth (sensor_msgs/Image)"
-echo "    /camera/points (sensor_msgs/PointCloud2)"
-echo "    /camera/camera_info (sensor_msgs/CameraInfo)"
+grep -E '^- ros_topic_name' "$CONFIG_FILE" | sed -E 's/^- ros_topic_name: "(.*)"/  \1/'
 echo ""
 
-ros2 run ros_gz_bridge parameter_bridge --ros-args -p config_file:=$CONFIG_FILE
+ros2 run ros_gz_bridge parameter_bridge --ros-args -p config_file:="$CONFIG_FILE"

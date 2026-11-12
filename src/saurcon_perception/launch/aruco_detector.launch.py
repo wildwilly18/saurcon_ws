@@ -3,45 +3,30 @@ from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 
+# Marker size, dictionary and camera intrinsics are read from the JSON files in
+# config/ (marker_params.json, camera_params.json), not from launch parameters.
+
 def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument(
-            'marker_size',
-            default_value='0.1524',
-            description='Physical size of ArUco markers in meters'
-        ),
-        DeclareLaunchArgument(
-            'camera_frame',
-            default_value='camera_link',
-            description='Frame ID for camera'
-        ),
-        DeclareLaunchArgument(
             'image_topic',
-            default_value='/camera/image_raw',
+            default_value='/camera/image',
             description='Input image topic'
         ),
         DeclareLaunchArgument(
-            'camera_info_topic',
-            default_value='/camera/camera_info',
-            description='Camera info topic'
+            'aruco_topic',
+            default_value='/aruco_poses',
+            description='Output topic for detected marker poses'
         ),
-        
+
         Node(
             package='saurcon_perception',
-            executable='aruco_detector_node',
+            executable='aruco_detector',
             name='aruco_detector',
             output='screen',
             parameters=[{
-                'marker_size': LaunchConfiguration('marker_size'),
-                'dictionary_id': 4,  # DICT_4X4_50
-                'camera_frame': LaunchConfiguration('camera_frame'),
-                'publish_visualization': True,
-                'min_marker_id': 0,
-                'max_marker_id': 19,
+                'camera_topic': LaunchConfiguration('image_topic'),
+                'aruco_topic': LaunchConfiguration('aruco_topic'),
             }],
-            remappings=[
-                ('image_raw', LaunchConfiguration('image_topic')),
-                ('camera_info', LaunchConfiguration('camera_info_topic')),
-            ]
         ),
     ])

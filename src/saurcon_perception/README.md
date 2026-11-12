@@ -6,21 +6,22 @@ ROS2 perception package for the Saurcon project. Includes ArUco marker detection
 
 ```
 saurcon_perception/
-├── ARUCO_CONFIG.md              # ArUco marker specifications
-├── README.md                    # This file
-├── CMakeLists.txt              # Build configuration
-├── package.xml                 # ROS2 package metadata
-├── include/
-│   └── aruco_detector/
-│       └── aruco_detector.hpp  # Detector class header
+├── ARUCO_CONFIG.md               # ArUco marker specifications
+├── CMakeLists.txt
+├── package.xml
 ├── src/
-│   ├── aruco_detector.cpp      # Detector implementation
-│   ├── aruco_detector_node.cpp # ROS2 node wrapper
-│   └── aruco_test.cpp          # Standalone test program
+│   ├── aruco_detector.hpp/.cpp   # Detector class (OpenCV, no ROS)
+│   ├── aruco_detector_node.cpp   # ROS 2 node: image -> marker poses
+│   ├── aruco_localizer_node.cpp  # ROS 2 node: marker poses -> vehicle pose in the map
+│   ├── aruco_class_test.cpp      # Detector test on the images in data/test_images
+│   └── aruco_test.cpp            # Standalone OpenCV test program
+├── msg/                          # ArucoPose, ArucoPoseArray
 ├── launch/
-│   └── aruco_detector.launch.py # Launch file
+│   └── aruco_detector.launch.py
 └── config/
-    └── aruco_params.yaml       # Configuration parameters
+    ├── camera_params.json        # Intrinsics and camera mounting transform
+    ├── marker_params.json        # Dictionary and marker size
+    └── marker_map.csv            # World pose of every marker
 ```
 
 ## Features
@@ -48,7 +49,7 @@ saurcon_perception/
 cd ~/your_ros2_ws
 
 # Copy or symlink this package to src/
-ln -s /home/wilson/saurcon_perception src/saurcon_perception
+ln -s /path/to/saurcon_perception src/saurcon_perception
 
 # Build
 colcon build --packages-select saurcon_perception
@@ -76,61 +77,44 @@ The standalone test program (`aruco_test`) is automatically built with the packa
 ./build/saurcon_perception/aruco_test image path/to/image.jpg
 ```
 
-### ROS2 Node
+### ROS2 Nodes
 
 ```bash
-# Launch with default parameters
-ros2 launch saurcon_perception aruco_detector.launch.py
+# Detector only
+ros2 launch saurcon_perception aruco_detector.launch.py image_topic:=/camera/image
 
-# Launch with custom parameters
-ros2 launch saurcon_perception aruco_detector.launch.py \
-    marker_size:=0.1524 \
-    camera_frame:=camera_link \
-    image_topic:=/camera/image_raw \
-    camera_info_topic:=/camera/camera_info
+# Individual nodes
+ros2 run saurcon_perception aruco_detector
+ros2 run saurcon_perception aruco_localizer
+
+# Detector test on the bundled images (works from any directory)
+ros2 run saurcon_perception aruco_class_test
 ```
 
 ### Topics
 
-**Subscribed:**
-- `image_raw` (sensor_msgs/Image): Input camera image
-- `camera_info` (sensor_msgs/CameraInfo): Camera calibration
-
-**Published:**
-- `aruco_poses` (geometry_msgs/PoseArray): Detected marker poses
-- `aruco_debug_image` (sensor_msgs/Image): Annotated image with detections
-- `aruco_markers_viz` (visualization_msgs/MarkerArray): RViz visualization markers
+| Node | Subscribes | Publishes |
+| --- | --- | --- |
+| `aruco_detector` | `/camera/image` (sensor_msgs/Image) | `/aruco_poses` (saurcon_perception/ArucoPoseArray), marker poses in the camera optical frame |
+| `aruco_localizer` | `/aruco_poses` | `/saurcon/aruco_localization` (geometry_msgs/PoseWithCovarianceStamped), vehicle pose in the `map` frame, one message per marker |
 
 ### Parameters
 
-- `marker_size` (double, default: 0.1524): Physical marker size in meters
-- `dictionary_id` (int, default: 4): ArUco dictionary (4 = DICT_4X4_50)
-- `camera_frame` (string, default: "camera_link"): Camera frame ID
-- `publish_visualization` (bool, default: true): Enable RViz markers
-- `min_marker_id` (int, default: 0): Minimum valid marker ID
-- `max_marker_id` (int, default: 19): Maximum valid marker ID
+`aruco_detector`:
+- `camera_topic` (string, default `/camera/image`)
+- `aruco_topic` (string, default `/aruco_poses`)
+- `enable_whitelist_filter` (bool, default true): only report marker IDs listed in `marker_map.csv`
+- `consecutive_frames_required` (int, default 2)
 
-## API Reference
+`aruco_localizer`:
+- `aruco_topic`, `localization_topic`
+- `camera_params`, `marker_map_csv`: paths to the config files
+- `position_std` (m, default 0.1), `orientation_std` (rad, default 0.1): measurement noise for a nearby marker
+- `noise_range_scale` (m, default 1.5): noise grows as `1 + (range / scale)^2`
 
-### ArucoDetector Class
-
-```cpp
-#include "aruco_detector/aruco_detector.hpp"
-
-// Create detector
-aruco_detector::ArucoDetector detector(cv::aruco::DICT_4X4_50, 0.1524);
-
-// Detect markers
-auto markers = detector.detectMarkers(image, camera_matrix, dist_coeffs);
-
-// Access results
-for (const auto& marker : markers) {
-    int id = marker.id;
-    Eigen::Vector3d position = marker.translation;
-    Eigen::Quaterniond orientation = marker.quaternion;
-    Eigen::Matrix3d rotation = marker.rotation;
-}
-```
+Marker size and dictionary come from `config/marker_params.json`; camera
+intrinsics and mounting from `config/camera_params.json`. They are not launch
+parameters.
 
 ## Configuration
 
@@ -154,12 +138,12 @@ See `ARUCO_CONFIG.md` for detailed marker specifications from the middle_earth s
 
 **Poor pose estimation:**
 - Calibrate camera properly
-- Verify marker size is correct (0.1524m = 6 inches)
+- Verify `marker_length` is the side of the black square, not of the plate it is printed on
 - Ensure markers are flat and not distorted
 
 **Build errors:**
-- Install missing dependencies: `sudo apt install ros-humble-cv-bridge libopencv-dev libeigen3-dev`
-- Source ROS2: `source /opt/ros/humble/setup.bash`
+- Install missing dependencies: `rosdep install --from-paths src --ignore-src -y`
+- Source ROS2: `source /opt/ros/jazzy/setup.bash`
 
 ## License
 
