@@ -23,6 +23,7 @@ from .env import load_tracks
 from .train import race_start_s
 
 W, H, HFOV = 640, 400, 1.204
+CAMERA_HEIGHT = 0.137
 FX = (W / 2) / math.tan(HFOV / 2)
 
 
@@ -42,10 +43,10 @@ def detect_from_pixels(renderer, data, detector):
     return pts, bgr, dets
 
 
-def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_time=60.0):
+def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_time=60.0, seed=None):
     from stable_baselines3 import PPO
     policy = PPO.load(model_path, device='cpu')
-    env = MujocoConeEnv(load_tracks(), randomize=False, max_time=max_time, cone_mode='visual')
+    env = MujocoConeEnv(load_tracks(), randomize=False, max_time=max_time, cone_mode='visual', seed=seed)
     obs, _ = env.reset(options={'track': track, 'start_s': race_start_s(env.tracks[track])})
     renderer = mujoco.Renderer(env.m, H, W); chase = mujoco.Renderer(env.m, H, W) if video else None
     detector = mujoco_detector()
@@ -80,6 +81,26 @@ def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_tim
                 cv2.putText(frame, f't {env.t:5.2f}s  v {env.v:4.1f} m/s  laps {len(env.lap_times)}', (10, 20),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
                 writer.write(frame)
+        elif writer is not None:
+            # Simulated detector (as trained): show the policy's cone memory projected into the
+            # onboard camera (cyan = seen this step, orange = remembered), next to the chase view.
+            renderer.update_scene(env.d, camera='oak_rgb')
+            bgr = cv2.cvtColor(renderer.render(), cv2.COLOR_RGB2BGR)
+            rel, ages = env.memory.relative(env.x, env.y, env.yaw, env.t)
+            for (bx, by), age in zip(rel, ages):
+                Z = bx - CAMERA_X
+                if Z < 0.3:
+                    continue
+                u, v = W / 2 + FX * (-by) / Z, H / 2 + FX * CAMERA_HEIGHT / Z
+                if 0 <= u < W and 0 <= v < H:
+                    cv2.circle(bgr, (int(u), int(v)), 6, (255, 200, 0) if age < 0.06 else (0, 140, 255), 2)
+            behind = int(np.sum(rel[:, 0] - CAMERA_X < 0.3)) if len(rel) else 0
+            chase.update_scene(env.d, camera='chase')
+            frame = np.hstack([bgr, cv2.cvtColor(chase.render(), cv2.COLOR_RGB2BGR)])
+            cv2.putText(frame, f't {env.t:5.2f}s  v {env.v:4.1f} m/s  laps {len(env.lap_times)}  '
+                               f'remembered cones {len(rel)} ({behind} beside/behind)', (10, 20),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.55, (255, 255, 255), 2)
+            writer.write(frame)
         action, _ = policy.predict(obs, deterministic=True)
         obs, _, term, trunc, info = env.step(action)
         if term or trunc or info['laps'] >= laps:
@@ -105,8 +126,9 @@ def main():
     p.add_argument('--track', type=int, default=0)
     p.add_argument('--video')
     p.add_argument('--json')
+    p.add_argument('--seed', type=int, help='detector randomness (missed cones, noise)')
     a = p.parse_args()
-    res = run(a.model, a.detector, a.laps, a.track, a.video)
+    res = run(a.model, a.detector, a.laps, a.track, a.video, seed=a.seed)
     print(json.dumps(res, indent=1))
     if a.json:
         json.dump(res, open(a.json, 'w'), indent=1)
