@@ -8,10 +8,49 @@
 
 namespace json = boost::json;
 
+namespace {
+// Pose-ambiguity rejection thresholds (see getTagsInImage).
+constexpr double kAmbiguityAngleRad   = 15.0 * M_PI / 180.0;
+constexpr double kAmbiguityErrorRatio = 2.0;
+}
+
 aruco_detector::aruco_detector(const std::string& camera_params_path, const std::string& marker_params_path)
 {
     loadCameraParams(camera_params_path);
     loadMarkerParams(marker_params_path);
+
+    // CLAHE-only preprocessing gave the most consistent startup detections in test.
+    clahe_ = cv::createCLAHE(2.5, cv::Size(8, 8));
+
+    // ArUco detection parameters tuned for sim imagery and startup tag visibility.
+    // Inverted-marker detection stays off: with it on, the detector locks onto the
+    // outer edge of the white plate instead of the marker border and misreads range.
+    detector_params_ = cv::aruco::DetectorParameters::create();
+    detector_params_->adaptiveThreshWinSizeMin  = 3;
+    detector_params_->adaptiveThreshWinSizeMax  = 101;
+    detector_params_->adaptiveThreshWinSizeStep = 4;
+    detector_params_->adaptiveThreshConstant    = 7.0;
+    // Ignore markers smaller than ~13 px per side (beyond roughly 4.5 m): their pose
+    // is too noisy to be useful for localization.
+    detector_params_->minMarkerPerimeterRate    = 0.08;
+    // The marker square sits inside a white plate whose edge is only a few pixels
+    // away. With the default (0.05) OpenCV treats the two quads as duplicates at
+    // close range and keeps the plate, which then fails to decode.
+    detector_params_->minMarkerDistanceRate     = 0.02;
+    detector_params_->maxMarkerPerimeterRate    = 4.0;
+    detector_params_->cornerRefinementMethod    = cv::aruco::CORNER_REFINE_SUBPIX;
+    detector_params_->detectInvertedMarker      = false;
+
+    dictionary_ = cv::aruco::getPredefinedDictionary(dictionary_name_);
+
+    // Marker corners in the marker frame, in the order SOLVEPNP_IPPE_SQUARE requires:
+    // top-left, top-right, bottom-right, bottom-left.
+    const float h = static_cast<float>(marker_length_ / 2.0);
+    obj_points_ = cv::Mat(4, 1, CV_32FC3);
+    obj_points_.ptr<cv::Vec3f>(0)[0] = cv::Vec3f(-h,  h, 0);
+    obj_points_.ptr<cv::Vec3f>(0)[1] = cv::Vec3f( h,  h, 0);
+    obj_points_.ptr<cv::Vec3f>(0)[2] = cv::Vec3f( h, -h, 0);
+    obj_points_.ptr<cv::Vec3f>(0)[3] = cv::Vec3f(-h, -h, 0);
 }
 
 aruco_detector::~aruco_detector()
@@ -28,55 +67,15 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
         gray = image.clone();
     }
 
-    // CLAHE-only preprocessing gave the most consistent startup detections in test.
     cv::Mat clahe_image;
-    cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(2.5, cv::Size(8, 8));
-    clahe->apply(gray, clahe_image);
+    clahe_->apply(gray, clahe_image);
 
-    // ArUco detection parameters tuned for sim imagery and startup tag visibility.
     std::vector<int> markerIds;
     std::vector<std::vector<cv::Point2f>> markerCorners, rejectedCandidates;
-    cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create();
-    detectorParams->adaptiveThreshWinSizeMin  = 3;
-    detectorParams->adaptiveThreshWinSizeMax  = 101;
-    detectorParams->adaptiveThreshWinSizeStep = 4;
-    detectorParams->adaptiveThreshConstant    = 7.0;
-    detectorParams->errorCorrectionRate       = 0.54;
-    detectorParams->minMarkerPerimeterRate    = 0.01;
-    detectorParams->maxMarkerPerimeterRate    = 4.0;
-    detectorParams->cornerRefinementMethod    = cv::aruco::CORNER_REFINE_SUBPIX;
-    detectorParams->detectInvertedMarker      = true;
-
-    cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(dictionary_name_);
-    
-    cv::aruco::detectMarkers(clahe_image, dictionary, markerCorners, markerIds, detectorParams, rejectedCandidates);
-
-    // Debug visualization - draw detected markers
-    cv::Mat debugImage;
-    cv::cvtColor(clahe_image, debugImage, cv::COLOR_GRAY2BGR);
-    if(!markerIds.empty()){
-        cv::aruco::drawDetectedMarkers(debugImage, markerCorners, markerIds);
-    }
-    if(!rejectedCandidates.empty()){
-        cv::aruco::drawDetectedMarkers(debugImage, rejectedCandidates, cv::noArray(), cv::Scalar(0, 0, 255));
-    }
-    
-    // Only save debug images when markers detected or rejected (not every frame)
-    //static int frame_count = 0;
-    if(!markerIds.empty() || !rejectedCandidates.empty()){
-        //cv::imwrite("data/output/debug_frame_" + std::to_string(frame_count++) + ".png", debugImage);
-    }
-
-    //std::cout << "Detected " << markerIds.size() << " markers, " << rejectedCandidates.size() << " rejected" << std::endl;
+    cv::aruco::detectMarkers(clahe_image, dictionary_, markerCorners, markerIds, detector_params_, rejectedCandidates);
 
     //If no markers found simply return
     if(markerIds.empty()){ return tags;}
-
-    cv::Mat objPoints(4,1, CV_32FC3);
-    objPoints.ptr<cv::Vec3f>(0)[0] = cv::Vec3f(-marker_length_/2.f, marker_length_/2.f, 0);
-    objPoints.ptr<cv::Vec3f>(0)[1] = cv::Vec3f(marker_length_/2.f, marker_length_/2.f, 0);
-    objPoints.ptr<cv::Vec3f>(0)[2] = cv::Vec3f(marker_length_/2.f, -marker_length_/2.f, 0);
-    objPoints.ptr<cv::Vec3f>(0)[3] = cv::Vec3f(-marker_length_/2.f, -marker_length_/2.f, 0);
 
     cv::Mat imageCamMatrix = makeCameraMatrixForImage(clahe_image);
 
@@ -87,7 +86,33 @@ std::vector<ArucoPose_t> aruco_detector::getTagsInImage(cv::Mat& image){
         //std::cout << "Solving tag ID : " << markerIds.at(i) << std::endl;
         cv::Vec3d rvec;
         cv::Vec3d tvec;
-        cv::solvePnP(objPoints, markerCorners.at(i), imageCamMatrix, distCoeffs_, rvec, tvec);
+        // IPPE_SQUARE is the solver intended for a single planar square marker. It
+        // returns both candidate poses of the plane, best reprojection error first.
+        std::vector<cv::Vec3d> rvecs, tvecs;
+        std::vector<double> reproj_err;
+        const int n_solutions = cv::solvePnPGeneric(
+            obj_points_, markerCorners.at(i), imageCamMatrix, distCoeffs_, rvecs, tvecs,
+            false, cv::SOLVEPNP_IPPE_SQUARE, cv::noArray(), cv::noArray(), reproj_err);
+        if(n_solutions < 1){
+            continue;
+        }
+        rvec = rvecs[0];
+        tvec = tvecs[0];
+
+        // A small or distant marker can be explained almost equally well by two
+        // orientations mirrored about the line of sight. If the solver cannot tell
+        // them apart and they disagree noticeably, the orientation (and therefore
+        // the vehicle position derived from it) is unreliable: skip the detection.
+        if(n_solutions > 1 && reproj_err.size() > 1){
+            const cv::Matx33d R0 = rodriguesToMatx33d(rvecs[0]);
+            const cv::Matx33d R1 = rodriguesToMatx33d(rvecs[1]);
+            const double cos_angle = R0(0,2)*R1(0,2) + R0(1,2)*R1(1,2) + R0(2,2)*R1(2,2);
+            const bool differ    = cos_angle < std::cos(kAmbiguityAngleRad);
+            const bool ambiguous = reproj_err[1] < kAmbiguityErrorRatio * reproj_err[0] + 1e-6;
+            if(differ && ambiguous){
+                continue;
+            }
+        }
 
         //std::cout << "  Marker in camera frame: " << tvec << std::endl;
 
@@ -162,38 +187,22 @@ void aruco_detector::loadCameraParams(const std::string& filepath){
         0.0, fy, cy,
         0.0, 0.0, 1.0);
     
-    // Initialize distortion coefficients (zero for simulation)
+    // Distortion coefficients: optional "distortion" array [k1, k2, p1, p2, k3] in the
+    // intrinsics block; zero (ideal pinhole, as in simulation) when absent.
     distCoeffs_ = cv::Mat::zeros(5, 1, CV_64F);
-    
-    // Load transform
-    cam_translation_[0] = j.at("transform").at("translation").at("x").as_double();
-    cam_translation_[1] = j.at("transform").at("translation").at("y").as_double();
-    cam_translation_[2] = j.at("transform").at("translation").at("z").as_double();
-    
-    cam_rotation_[0] = j.at("transform").at("rotation").at("roll").as_double();
-    cam_rotation_[1] = j.at("transform").at("rotation").at("pitch").as_double();
-    cam_rotation_[2] = j.at("transform").at("rotation").at("yaw").as_double();
-    
+    const auto& intr = j.at("camera").at("intrinsics").as_object();
+    if (intr.contains("distortion")) {
+        const auto& d = intr.at("distortion").as_array();
+        for (size_t i = 0; i < d.size() && i < 5; ++i) {
+            distCoeffs_.at<double>(static_cast<int>(i), 0) = d[i].to_number<double>();
+        }
+    }
+
+    // The camera mounting transform in this file is applied by aruco_localizer_node;
+    // the detector reports marker poses in the camera optical frame.
     std::cout << "Loaded camera params from: " << filepath << std::endl;
     std::cout << "  Config image: " << configured_image_width_ << "x" << configured_image_height_ << std::endl;
     std::cout << "  Horizontal FOV: " << horizontal_fov_rad_ << " rad" << std::endl;
-
-    //Set up camera to vehicle xform
-    // Camera frame: X=right, Y=down, Z=forward
-    // Vehicle frame: X=forward, Y=left, Z=up
-    // Transformation: Camera's Z → Vehicle's X, Camera's -X → Vehicle's Y, Camera's -Y → Vehicle's Z
-    cv::Matx33d R_vc(
-        0,  0,  1,   // Vehicle X = Camera Z (forward)
-       -1,  0,  0,   // Vehicle Y = -Camera X (left)
-        0, -1,  0    // Vehicle Z = -Camera Y (up)
-    );
-    cv::Vec3d   t_vc = cam_translation_;
-    T_vc_ = makeT(R_vc, t_vc);
-    
-    std::cout << "Camera to Vehicle Transform:" << std::endl;
-    std::cout << "  Translation: " << t_vc << std::endl;
-    std::cout << "  Rotation matrix:" << std::endl;
-    std::cout << "    " << R_vc << std::endl;
 }
 
 void aruco_detector::loadMarkerParams(const std::string& filepath)

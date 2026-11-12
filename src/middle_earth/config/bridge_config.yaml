@@ -1,43 +1,58 @@
-# ROS 2 <-> Gazebo bridge configuration
-# Maps Gazebo topics to ROS 2 topics
+# ROS 2 <-> Gazebo bridge configuration for the rc_ackermann_vehicle model.
+# Used by saurcon_rc/launch/full_sim_saurcon.launch.py and scripts/start_bridge.sh.
+# Gazebo topic names must match models/rc_ackermann_vehicle/model.sdf.
 
-# CMD_VEL - Command velocity (ROS 2 -> Gazebo)
-- ros_topic_name: "cmd_vel"
-  gz_topic_name: "/cmd_vel"
+# Simulation clock (Gazebo -> ROS 2), for nodes running with use_sim_time
+- ros_topic_name: "/clock"
+  gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: GZ_TO_ROS
+
+# Command velocity (ROS 2 -> Gazebo)
+- ros_topic_name: "/model/rc_ackermann_vehicle/cmd_vel"
+  gz_topic_name: "/model/rc_ackermann_vehicle/cmd_vel"
   ros_type_name: "geometry_msgs/msg/Twist"
   gz_type_name: "gz.msgs.Twist"
   direction: ROS_TO_GZ
 
-# IMU - Inertial Measurement Unit (Gazebo -> ROS 2)
-- ros_topic_name: "imu"
-  gz_topic_name: "/imu"
+# Wheel odometry from the Ackermann plugin (Gazebo -> ROS 2)
+- ros_topic_name: "/model/rc_ackermann_vehicle/odom"
+  gz_topic_name: "/model/rc_ackermann_vehicle/odom"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+
+# IMU (Gazebo -> ROS 2)
+- ros_topic_name: "/model/rc_ackermann_vehicle/imu"
+  gz_topic_name: "/model/rc_ackermann_vehicle/imu"
   ros_type_name: "sensor_msgs/msg/Imu"
   gz_type_name: "gz.msgs.IMU"
   direction: GZ_TO_ROS
 
-# RGBD Camera - Image (Gazebo -> ROS 2)
-- ros_topic_name: "camera/image"
+# Joint states (Gazebo -> ROS 2)
+- ros_topic_name: "/model/rc_ackermann_vehicle/joint_states"
+  gz_topic_name: "/model/rc_ackermann_vehicle/joint_states"
+  ros_type_name: "sensor_msgs/msg/JointState"
+  gz_type_name: "gz.msgs.Model"
+  direction: GZ_TO_ROS
+
+# RGBD camera - colour image (Gazebo -> ROS 2)
+- ros_topic_name: "/camera/image"
   gz_topic_name: "/camera/image"
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
 
-# RGBD Camera - Depth (Gazebo -> ROS 2)
-- ros_topic_name: "camera/depth"
+# RGBD camera - depth image (Gazebo -> ROS 2)
+- ros_topic_name: "/camera/depth_image"
   gz_topic_name: "/camera/depth_image"
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
 
-# RGBD Camera - Point Cloud (Gazebo -> ROS 2)
-- ros_topic_name: "camera/points"
-  gz_topic_name: "/camera/points"
-  ros_type_name: "sensor_msgs/msg/PointCloud2"
-  gz_type_name: "gz.msgs.PointCloudPacked"
-  direction: GZ_TO_ROS
-
-# Camera Info (Gazebo -> ROS 2)
-- ros_topic_name: "camera/camera_info"
+# RGBD camera - camera info (Gazebo -> ROS 2)
+- ros_topic_name: "/camera/camera_info"
   gz_topic_name: "/camera/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"

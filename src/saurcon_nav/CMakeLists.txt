@@ -17,6 +17,7 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
 find_package(Eigen3 REQUIRED)
 
 # State estimator node
@@ -31,6 +32,7 @@ ament_target_dependencies(state_estimator_node
   sensor_msgs
   geometry_msgs
   nav_msgs
+  tf2_ros
 )
 
 target_link_libraries(state_estimator_node

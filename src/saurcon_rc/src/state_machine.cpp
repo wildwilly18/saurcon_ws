@@ -1,4 +1,5 @@
 #include "saurcon_rc/state_machine.hpp"
+#include <algorithm>
 
 using namespace std;
 
@@ -8,6 +9,18 @@ StateMachine::StateMachine()
   previous_state_(SaurconState::STARTUP)
   {
     RCLCPP_INFO(get_logger(), "State Machine Initialized");
+
+    throttle_idx = static_cast<size_t>(this->declare_parameter<int>("throttle_axis", 1));
+    steer_idx    = static_cast<size_t>(this->declare_parameter<int>("steer_axis",    3));
+    view_idx     = static_cast<size_t>(this->declare_parameter<int>("view_button",   6));
+    menu_idx     = static_cast<size_t>(this->declare_parameter<int>("menu_button",   7));
+
+    // Start every timestamp on the node clock: a default-constructed rclcpp::Time
+    // uses a different clock type and cannot be subtracted from now().
+    last_rc_heartbeat_      = this->now();
+    last_ctrl_heartbeat_    = this->now();
+    menu_pressed_start_time = this->now();
+    view_pressed_start_time = this->now();
 
     state_timer_ = this->create_wall_timer(
         30ms, std::bind(&StateMachine::handleCurrentState, this)
@@ -61,7 +74,14 @@ void StateMachine::setState(SaurconState newState)
     onExit(current_state_);
     previous_state_ = current_state_;
     current_state_  = newState;
+
+    // Never carry a stale drive command across a state change.
+    ctrl_msg = stop_msg;
+
     onEnter(newState);
+
+    // Tell the RC about the new state right away rather than waiting for the 1 Hz timer.
+    pub_state_cmd->publish(rc_state_cmd_handler());
 }
 
 SaurconState StateMachine::getState() const { return current_state_;}
@@ -73,7 +93,7 @@ void StateMachine::handleCurrentState()
         case SaurconState::STARTUP:        handle_STARTUP();        break;
         case SaurconState::RUN_CONTROL:    handle_RUN_CONTROL();    break;
         case SaurconState::RUN_AUTONOMOUS: break;
-        case SaurconState::FAULT:          break;
+        case SaurconState::FAULT:          handle_FAULT();          break;
         default: break;
     }
 }
@@ -88,6 +108,7 @@ void StateMachine::onEnter(SaurconState state){
     
     switch(state) {
         case SaurconState::STARTUP: onEnter_STARTUP(); break;
+        case SaurconState::FAULT:   onEnter_FAULT();   break;
         default: break;
     }
 }
@@ -140,8 +161,9 @@ void StateMachine::handle_STANDBY(){
 }
 
 void StateMachine::handle_RUN_CONTROL(){
-    //Always verify we have heartbeat
-    //StateMachine::check_heartbeat();
+    // Always verify we still hear from the controller and the RC.
+    check_heartbeat();
+    if (current_state_ != SaurconState::RUN_CONTROL) return;
 
     // Watch for button presses to send us back into Standby mode.
     if (menu_held) {
@@ -162,22 +184,42 @@ void StateMachine::handle_RUN_CONTROL(){
         }
     }   
 
-    if(1){
+    if (current_state_ == SaurconState::RUN_CONTROL) {
         // While in Run Control push joy messages onto the control message twist
         ctrl_msg.linear.x = joy_msg.linear.x;
         ctrl_msg.angular.z = joy_msg.angular.z;
     }
 }
 
-void StateMachine::handle_FAULT(){
-    ctrl_msg.linear.x  = 0;
-    ctrl_msg.angular.z = 0;
+void StateMachine::onEnter_FAULT(){
+    ctrl_msg = stop_msg;
+    RCLCPP_ERROR(get_logger(), "FAULT state entered! Hold the view button for 2 s to return to STANDBY.");
+}
 
-    RCLCPP_ERROR(get_logger(), "FAULT state entered! System has faulted. Reset!");
+void StateMachine::handle_FAULT(){
+    ctrl_msg = stop_msg;
+
+    // Recovery: hold the view button for 2 s to go back to STANDBY.
+    if (view_held && !view_transition_triggered) {
+        if((this->now() - this->view_pressed_start_time).seconds() >= 2.0) {
+            view_transition_triggered = true;
+            setState(SaurconState::STANDBY);
+        }
+    }
 }
 
 void StateMachine::control_input_cb(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
+    // Ignore messages from devices that do not have the axes/buttons we map.
+    const size_t max_axis   = std::max(throttle_idx, steer_idx);
+    const size_t max_button = std::max(view_idx, menu_idx);
+    if (msg->axes.size() <= max_axis || msg->buttons.size() <= max_button) {
+        RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
+            "Joy message has %zu axes / %zu buttons; need at least %zu / %zu. Ignoring.",
+            msg->axes.size(), msg->buttons.size(), max_axis + 1, max_button + 1);
+        return;
+    }
+
     //Set Heartbeat
     last_ctrl_heartbeat_ = this->now();
 

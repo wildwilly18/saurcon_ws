@@ -14,11 +14,13 @@ namespace fs = std::filesystem;
 int main(int argc, char** argv){
     std::cout << "====== ARUCO Class Test ======" << std::endl;
 
-    std::string camera_json = "config/camera_params.json";
-    std::string marker_json = "config/marker_params.json";
+    // SAURCON_PERCEPTION_SOURCE_DIR is set by CMake so the test runs from any directory.
+    const fs::path pkg_dir = SAURCON_PERCEPTION_SOURCE_DIR;
+    std::string camera_json = (pkg_dir / "config/camera_params.json").string();
+    std::string marker_json = (pkg_dir / "config/marker_params.json").string();
     auto detector = aruco_detector(camera_json, marker_json);
 
-    const fs::path debug_dir = "/home/wilson-desktop/saurcon_ws/src/saurcon_perception/data/output/class_test_debug";
+    const fs::path debug_dir = pkg_dir / "data/output/class_test_debug";
     fs::create_directories(debug_dir);
 
     cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create();
@@ -30,7 +32,8 @@ int main(int argc, char** argv){
     detectorParams->minMarkerPerimeterRate    = 0.01;
     detectorParams->maxMarkerPerimeterRate    = 4.0;
     detectorParams->cornerRefinementMethod    = cv::aruco::CORNER_REFINE_SUBPIX;
-    detectorParams->detectInvertedMarker      = true;
+    detectorParams->detectInvertedMarker      = false;
+    detectorParams->minMarkerDistanceRate     = 0.02;
     cv::Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_50);
 
     std::vector<std::string> image_paths;
@@ -40,9 +43,9 @@ int main(int argc, char** argv){
         }
     } else {
         image_paths = {
-            "/home/wilson-desktop/saurcon_ws/src/saurcon_perception/data/test_images/frame_000006_1780227470.301049.png",
-            "/home/wilson-desktop/saurcon_ws/src/saurcon_perception/data/test_images/frame_000029_1780227471.813807.png",
-            "/home/wilson-desktop/saurcon_ws/src/saurcon_perception/data/test_images/frame_000045_1780227472.873918.png"
+            (pkg_dir / "data/test_images/frame_000006_1780227470.301049.png").string(),
+            (pkg_dir / "data/test_images/frame_000029_1780227471.813807.png").string(),
+            (pkg_dir / "data/test_images/frame_000045_1780227472.873918.png").string()
         };
     }
 
@@ -127,7 +130,7 @@ int main(int argc, char** argv){
             0.0, 0.0, 1.0);
         cv::Mat distCoeffs = cv::Mat::zeros(5, 1, CV_64F);
 
-        const float marker_len = 0.1524f;  // Matches marker_params.json and sim marker size.
+        const float marker_len = 0.12192f;  // Matches marker_params.json (black square of the sim marker).
         cv::Mat objPoints(4, 1, CV_32FC3);
         objPoints.ptr<cv::Vec3f>(0)[0] = cv::Vec3f(-marker_len / 2.0f, marker_len / 2.0f, 0.0f);
         objPoints.ptr<cv::Vec3f>(0)[1] = cv::Vec3f( marker_len / 2.0f, marker_len / 2.0f, 0.0f);

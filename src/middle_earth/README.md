@@ -10,11 +10,12 @@ middle_earth/
 │   └── rc_ackermann_vehicle/    # RC car model with Ackermann steering
 ├── worlds/
 │   └── basement.world           # 6m x 8m basement environment
-├── launch/
-│   └── basement_sim.launch      # Main launch file
 ├── config/
-│   └── vehicle_params.yaml      # Configurable vehicle parameters
+│   ├── vehicle_params.yaml      # Reference vehicle parameters
+│   └── bridge_config.yaml       # ROS 2 <-> Gazebo topic bridge
 ├── scripts/
+│   ├── start_simulation.sh      # Gazebo + bridge
+│   ├── start_bridge.sh          # Bridge only
 │   └── teleop_vehicle.py        # Keyboard teleoperation
 ├── plugins/                      # Custom Gazebo plugins
 ├── meshes/                       # 3D mesh files
@@ -47,29 +48,30 @@ Edit `config/vehicle_params.yaml` to adjust vehicle dimensions:
 ## Usage
 
 ### Prerequisites
+
+ROS 2 Jazzy with Gazebo Harmonic (`ros-jazzy-ros-gz`). The workspace-level
+`scripts/setup.sh` installs both.
+
 ```bash
-# Ensure ROS and Gazebo are installed
-sudo apt-get install ros-noetic-gazebo-ros-pkgs ros-noetic-gazebo-ros-control
+source /opt/ros/jazzy/setup.bash
 ```
 
 ### Launch Simulation
-```bash
-# Source ROS workspace
-source /opt/ros/noetic/setup.bash
 
-# Launch the simulation
-roslaunch middle_earth basement_sim.launch
+```bash
+# Basement world + ROS 2 bridge
+./scripts/start_simulation.sh
 ```
+
+The full stack (racetrack world, state machine, ArUco localisation, state
+estimator) is launched from the workspace with
+`ros2 launch saurcon_rc full_sim_saurcon.launch.py`.
 
 ### Control the Vehicle
 
 #### Option 1: Keyboard Teleoperation
 ```bash
-# Make script executable
-chmod +x scripts/teleop_vehicle.py
-
-# Run teleop
-./scripts/teleop_vehicle.py
+python3 scripts/teleop_vehicle.py
 ```
 
 **Controls:**
@@ -80,22 +82,20 @@ chmod +x scripts/teleop_vehicle.py
 
 #### Option 2: ROS Command Line
 ```bash
-# Publish velocity commands directly
-rostopic pub /cmd_vel geometry_msgs/Twist "linear:
-  x: 0.5
-  y: 0.0
-  z: 0.0
-angular:
-  x: 0.0
-  y: 0.0
-  z: 0.2"
+ros2 topic pub /model/rc_ackermann_vehicle/cmd_vel geometry_msgs/msg/Twist \
+  "{linear: {x: 0.5}, angular: {z: 0.2}}"
 ```
 
 ## Topics
 
-- `/cmd_vel` - Command velocity (Twist)
-- `/odom` - Odometry data
-- `/gazebo/model_states` - Model states
+Bridged to ROS 2 by `config/bridge_config.yaml`:
+
+- `/model/rc_ackermann_vehicle/cmd_vel` - Command velocity (Twist, ROS → Gazebo)
+- `/model/rc_ackermann_vehicle/odom` - Wheel odometry
+- `/model/rc_ackermann_vehicle/imu` - IMU
+- `/model/rc_ackermann_vehicle/joint_states` - Wheel and steering joints
+- `/camera/image`, `/camera/depth_image`, `/camera/camera_info` - RGBD camera
+- `/clock` - Simulation time
 
 ## Notes
 

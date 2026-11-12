@@ -54,12 +54,12 @@ private:
     int configured_image_width_ = 0;
     int configured_image_height_ = 0;
     
-    // Camera transform (from camera_params.json)
-    cv::Vec3d cam_translation_;
-    cv::Vec3d cam_rotation_;  // roll, pitch, yaw
+    // Reused across frames (built once in the constructor)
+    cv::Ptr<cv::CLAHE> clahe_;
+    cv::Ptr<cv::aruco::DetectorParameters> detector_params_;
+    cv::Ptr<cv::aruco::Dictionary> dictionary_;
+    cv::Mat obj_points_;
 
-    cv::Matx44d T_vc_ = cv::Matx44d::zeros();
-    
     // Marker parameters
     cv::aruco::PREDEFINED_DICTIONARY_NAME dictionary_name_;
     double marker_length_;

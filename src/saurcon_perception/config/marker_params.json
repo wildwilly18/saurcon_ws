@@ -1,8 +1,8 @@
 {
   "marker": {
     "dictionary": "DICT_4X4_50",
-    "marker_length": 0.1524,
+    "marker_length": 0.12192,
     "length_unit": "meters",
-    "comment": "Matches simulated marker visual size (6 inches)"
+    "comment": "Side of the black marker square. The simulated plate is 0.1524 m (6 in) and the texture has a 10% white margin on each side, so the marker itself is 0.8 * 0.1524 m"
   }
 }

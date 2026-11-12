@@ -668,7 +668,8 @@
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_0.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_0.png</albedo_map><emissive_map>model://materials/textures/aruco_0.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -682,7 +683,8 @@
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_1.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_1.png</albedo_map><emissive_map>model://materials/textures/aruco_1.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -696,7 +698,8 @@
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_2.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_2.png</albedo_map><emissive_map>model://materials/textures/aruco_2.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -704,13 +707,14 @@
 
     <model name="aruco_3">
       <static>true</static>
-      <pose>9 2 0.3048 0 0 1.57</pose>
+      <pose>9 2 0.3048 0 0 -1.5708</pose>
       <link name="marker_link">
         <visual name="visual">
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_3.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_3.png</albedo_map><emissive_map>model://materials/textures/aruco_3.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -724,7 +728,8 @@
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_4.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_4.png</albedo_map><emissive_map>model://materials/textures/aruco_4.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -738,7 +743,8 @@
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_5.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_5.png</albedo_map><emissive_map>model://materials/textures/aruco_5.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -752,7 +758,8 @@
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_6.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_6.png</albedo_map><emissive_map>model://materials/textures/aruco_6.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -766,7 +773,8 @@
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_7.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_7.png</albedo_map><emissive_map>model://materials/textures/aruco_7.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -780,7 +788,8 @@
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_8.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_8.png</albedo_map><emissive_map>model://materials/textures/aruco_8.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -794,7 +803,8 @@
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_9.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_9.png</albedo_map><emissive_map>model://materials/textures/aruco_9.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -802,13 +812,14 @@
 
     <model name="aruco_10">
       <static>true</static>
-      <pose>-12.5 2 0.3048 0 0 1.57</pose>
+      <pose>-12.5 2 0.3048 0 0 1.5708</pose>
       <link name="marker_link">
         <visual name="visual">
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_10.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_10.png</albedo_map><emissive_map>model://materials/textures/aruco_10.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -816,13 +827,14 @@
 
     <model name="aruco_11">
       <static>true</static>
-      <pose>-10.5 0 0.3048 0 0 0</pose>
+      <pose>-10.5 0 0.3048 0 0 3.14159</pose>
       <link name="marker_link">
         <visual name="visual">
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_11.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_11.png</albedo_map><emissive_map>model://materials/textures/aruco_11.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -830,13 +842,14 @@
 
     <model name="aruco_12">
       <static>true</static>
-      <pose>-7 0 0.3048 0 0 0</pose>
+      <pose>-7 0 0.3048 0 0 3.14159</pose>
       <link name="marker_link">
         <visual name="visual">
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_12.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_12.png</albedo_map><emissive_map>model://materials/textures/aruco_12.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -844,13 +857,14 @@
 
     <model name="aruco_13">
       <static>true</static>
-      <pose>-3.5 0 0.3048 0 0 0</pose>
+      <pose>-3.5 0 0.3048 0 0 3.14159</pose>
       <link name="marker_link">
         <visual name="visual">
           <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
-            <pbr><metal><albedo_map>model://materials/textures/aruco_13.png</albedo_map></metal></pbr>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_13.png</albedo_map><emissive_map>model://materials/textures/aruco_13.png</emissive_map></metal></pbr>
           </material>
         </visual>
       </link>
@@ -987,7 +1001,7 @@
 
     <!-- Include RC Ackermann Vehicle -->
     <include>
-      <uri>file:///home/wilson-desktop/saurcon_ws/src/middle_earth/models/rc_ackermann_vehicle</uri>
+      <uri>model://rc_ackermann_vehicle</uri>
       <name>rc_vehicle</name>
       <pose>-1 0 0.05 0 0 0</pose>
     </include>

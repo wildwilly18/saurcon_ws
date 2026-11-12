@@ -4,11 +4,17 @@ from launch_ros.actions import Node
 from launch.actions import ExecuteProcess
 from datetime import datetime
 
-def generate_launch_description():
-    # Timestamped bag name
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    bag_name = f"rosbag_{timestamp}"
 
+def bag_output_path():
+    """Timestamped bag path under $SAURCON_BAG_DIR (default: ~/saurcon_bags)."""
+    bags_dir = os.environ.get('SAURCON_BAG_DIR',
+                              os.path.join(os.path.expanduser('~'), 'saurcon_bags'))
+    os.makedirs(bags_dir, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    return os.path.join(bags_dir, f"rosbag_{timestamp}")
+
+
+def generate_launch_description():
     return LaunchDescription([
         # joy_node
         Node(
@@ -38,7 +44,8 @@ def generate_launch_description():
         ExecuteProcess(
             cmd=[
                 'ros2', 'bag', 'record',
-                '-a'
+                '-a',
+                '-o', bag_output_path()
             ],
             output='screen'
         ),

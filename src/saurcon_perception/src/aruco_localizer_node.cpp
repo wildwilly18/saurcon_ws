@@ -10,6 +10,7 @@
 #include <sstream>
 #include <map>
 #include <cmath>
+#include <algorithm>
 
 // ---------------------------------------------------------------------------
 // ArucoLocalizerNode
@@ -39,12 +40,16 @@ public:
 		this->declare_parameter("localization_topic", "/saurcon/aruco_localization");
 		this->declare_parameter("camera_params",      pkg_share + "/config/camera_params.json");
 		this->declare_parameter("marker_map_csv",     pkg_share + "/config/marker_map.csv");
-		// Measurement noise: how accurate is an ArUco-derived pose (1-sigma)
-		this->declare_parameter("position_std",    0.1);  // metres
-		this->declare_parameter("orientation_std", 0.1);  // radians
+		// Measurement noise: how accurate is an ArUco-derived pose (1-sigma) for a
+		// marker at close range. Both grow with distance to the marker:
+		//   std(range) = std * (1 + (range / noise_range_scale)^2)
+		this->declare_parameter("position_std",      0.1);  // metres
+		this->declare_parameter("orientation_std",   0.1);  // radians
+		this->declare_parameter("noise_range_scale", 1.5);  // metres
 
 		pos_std_ = this->get_parameter("position_std").as_double();
 		ori_std_ = this->get_parameter("orientation_std").as_double();
+		noise_range_scale_ = std::max(1e-3, this->get_parameter("noise_range_scale").as_double());
 
 		loadCameraTransform(this->get_parameter("camera_params").as_string());
 		loadMarkerMap(this->get_parameter("marker_map_csv").as_string());
@@ -74,6 +79,7 @@ private:
 
 	double pos_std_;
 	double ori_std_;
+	double noise_range_scale_{1.5};
 
 	rclcpp::Subscription<saurcon_perception::msg::ArucoPoseArray>::SharedPtr sub_;
 	rclcpp::Publisher<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr pub_;
@@ -93,14 +99,24 @@ private:
 		double ty = j.at("transform").at("translation").at("y").as_double();
 		double tz = j.at("transform").at("translation").at("z").as_double();
 
-		// Camera X=right, Y=down, Z=forward  →  Vehicle X=forward, Y=left, Z=up
-		Eigen::Matrix3d R_vc;
-		R_vc <<  0,  0,  1,
-		        -1,  0,  0,
-		         0, -1,  0;
+		double roll  = j.at("transform").at("rotation").at("roll").as_double();
+		double pitch = j.at("transform").at("rotation").at("pitch").as_double();
+		double yaw   = j.at("transform").at("rotation").at("yaw").as_double();
+
+		// Camera optical frame X=right, Y=down, Z=forward  →  camera_link X=forward, Y=left, Z=up
+		Eigen::Matrix3d R_link_optical;
+		R_link_optical <<  0,  0,  1,
+		                  -1,  0,  0,
+		                   0, -1,  0;
+
+		// Mounting rotation of camera_link in the vehicle frame (roll, pitch, yaw; ZYX order).
+		Eigen::Matrix3d R_mount = (
+			Eigen::AngleAxisd(yaw,   Eigen::Vector3d::UnitZ()) *
+			Eigen::AngleAxisd(pitch, Eigen::Vector3d::UnitY()) *
+			Eigen::AngleAxisd(roll,  Eigen::Vector3d::UnitX())).toRotationMatrix();
 
 		T_vc_.setIdentity();
-		T_vc_.block<3,3>(0,0) = R_vc;
+		T_vc_.block<3,3>(0,0) = R_mount * R_link_optical;
 		T_vc_.block<3,1>(0,3) = Eigen::Vector3d(tx, ty, tz);
 
 		RCLCPP_INFO(this->get_logger(),
@@ -144,21 +160,28 @@ private:
 			std::vector<std::string> tokens;
 			while (std::getline(ss, tok, ',')) tokens.push_back(tok);
 
-			// Skip the header row (first non-comment line starting with 'id')
-			if (tokens[0] == "id") continue;
+			// Skip blank rows and the header row (first non-comment line starting with 'id')
+			if (tokens.empty() || tokens[0] == "id") continue;
 
 			if (tokens.size() < 7) {
 				RCLCPP_WARN(this->get_logger(), "Skipping malformed CSV line: %s", line.c_str());
 				continue;
 			}
 
-			int    id    = std::stoi(tokens[0]);
-			double x     = std::stod(tokens[1]);
-			double y     = std::stod(tokens[2]);
-			double z     = std::stod(tokens[3]);
-			double phi   = std::stod(tokens[4]);  // roll  (SDF convention)
-			double theta = std::stod(tokens[5]);  // pitch (SDF convention)
-			double psi   = std::stod(tokens[6]);  // yaw   (SDF convention)
+			int    id = 0;
+			double x = 0, y = 0, z = 0, phi = 0, theta = 0, psi = 0;
+			try {
+				id    = std::stoi(tokens[0]);
+				x     = std::stod(tokens[1]);
+				y     = std::stod(tokens[2]);
+				z     = std::stod(tokens[3]);
+				phi   = std::stod(tokens[4]);  // roll  (SDF convention)
+				theta = std::stod(tokens[5]);  // pitch (SDF convention)
+				psi   = std::stod(tokens[6]);  // yaw   (SDF convention)
+			} catch (const std::exception&) {
+				RCLCPP_WARN(this->get_logger(), "Skipping non-numeric CSV line: %s", line.c_str());
+				continue;
+			}
 
 			// SDF frame: q_sdf = Rz(psi) * Ry(theta) * Rx(phi)
 			Eigen::Quaterniond q_sdf =
@@ -250,8 +273,13 @@ private:
 			out.pose.pose.orientation.w = q_out.w();
 
 			// Diagonal covariance [x, y, z, roll, pitch, yaw] (6x6, row-major)
-			double pvar = pos_std_ * pos_std_;
-			double ovar = ori_std_ * ori_std_;
+			// The marker's orientation is observed less and less well as it gets
+			// smaller in the image, and the vehicle position derived from it is off
+			// by (orientation error x range), so inflate the noise with range.
+			const double range = T_cm.block<3,1>(0,3).norm();
+			const double scale = 1.0 + (range / noise_range_scale_) * (range / noise_range_scale_);
+			double pvar = (pos_std_ * scale) * (pos_std_ * scale);
+			double ovar = (ori_std_ * scale) * (ori_std_ * scale);
 			out.pose.covariance[0]  = pvar;  // x
 			out.pose.covariance[7]  = pvar;  // y
 			out.pose.covariance[14] = pvar;  // z  (less trusted for a ground robot)

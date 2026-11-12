@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-import rclpy
 from rclpy.serialization import deserialize_message
 from rosidl_runtime_py.utilities import get_message
 import rosbag2_py
+import array
 import csv
-import os
+import json
 from pathlib import Path
 import numpy as np
 from cv_bridge import CvBridge
@@ -127,55 +127,79 @@ def extract_rosbag_to_csv_and_images(bag_path, output_dir):
     print(f"Total depth images saved: {depth_count}")
     print(f"CSV files saved to: {output_path}")
 
+# Types rclpy uses for array fields (primitive arrays arrive as array.array or
+# numpy arrays, arrays of messages as lists).
+SEQUENCE_TYPES = (list, tuple, np.ndarray, array.array)
+
+
+def _is_message(value):
+    return hasattr(value, 'get_fields_and_field_types')
+
+
+def _is_fixed_array(field_type):
+    """True for fixed-size arrays such as 'double[36]' (not 'sequence<...>')."""
+    return field_type.endswith(']') and not field_type.startswith('sequence')
+
+
+def _to_plain(value):
+    """Convert a field value to plain Python types that json can serialise."""
+    if _is_message(value):
+        return {name: _to_plain(getattr(value, name))
+                for name in value.get_fields_and_field_types()}
+    if isinstance(value, (bytes, bytearray)):
+        return list(value)
+    if isinstance(value, SEQUENCE_TYPES):
+        return [_to_plain(v) for v in value]
+    if isinstance(value, np.generic):
+        return value.item()
+    return value
+
+
 def get_message_fields(msg, prefix=''):
-    """Recursively get field names from a message."""
+    """Recursively get column names from a message.
+
+    Fixed-size arrays get one column per element. Variable-length arrays get a
+    single column holding a JSON list, so every row of a topic has the same
+    number of columns regardless of how many elements each message carries.
+    """
     fields = []
-    
-    for field in msg.get_fields_and_field_types():
-        field_name = f"{prefix}{field}" if prefix else field
+
+    for field, field_type in msg.get_fields_and_field_types().items():
+        field_name = f"{prefix}{field}"
         field_value = getattr(msg, field)
-        
-        # Check if it's a nested message
-        if hasattr(field_value, 'get_fields_and_field_types'):
+
+        if _is_message(field_value):
             fields.extend(get_message_fields(field_value, f"{field_name}."))
-        # Check if it's a list/array
-        elif isinstance(field_value, (list, tuple, np.ndarray)):
-            if len(field_value) > 0 and hasattr(field_value[0], 'get_fields_and_field_types'):
-                # Array of messages
-                for i in range(len(field_value)):
-                    fields.extend(get_message_fields(field_value[i], f"{field_name}[{i}]."))
-            else:
-                # Simple array
-                for i in range(len(field_value)):
-                    fields.append(f"{field_name}[{i}]")
+        elif isinstance(field_value, SEQUENCE_TYPES) and _is_fixed_array(field_type) \
+                and not any(_is_message(v) for v in field_value):
+            fields.extend(f"{field_name}[{i}]" for i in range(len(field_value)))
         else:
             fields.append(field_name)
-    
+
     return fields
 
+
 def extract_message_data(msg):
-    """Recursively extract data from a message."""
+    """Recursively extract data from a message (same column layout as get_message_fields)."""
     data = []
-    
-    for field in msg.get_fields_and_field_types():
+
+    for field, field_type in msg.get_fields_and_field_types().items():
         field_value = getattr(msg, field)
-        
-        # Check if it's a nested message
-        if hasattr(field_value, 'get_fields_and_field_types'):
+
+        if _is_message(field_value):
             data.extend(extract_message_data(field_value))
-        # Check if it's a list/array
-        elif isinstance(field_value, (list, tuple, np.ndarray)):
-            if len(field_value) > 0 and hasattr(field_value[0], 'get_fields_and_field_types'):
-                # Array of messages
-                for item in field_value:
-                    data.extend(extract_message_data(item))
+        elif isinstance(field_value, (bytes, bytearray)):
+            data.append(json.dumps(list(field_value)))
+        elif isinstance(field_value, SEQUENCE_TYPES):
+            if _is_fixed_array(field_type) and not any(_is_message(v) for v in field_value):
+                data.extend(_to_plain(field_value))
             else:
-                # Simple array
-                data.extend(field_value)
+                data.append(json.dumps(_to_plain(field_value)))
         else:
             data.append(field_value)
-    
+
     return data
+
 
 if __name__ == '__main__':
     import sys
