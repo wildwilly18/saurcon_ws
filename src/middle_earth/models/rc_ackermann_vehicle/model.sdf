@@ -592,5 +592,21 @@
       <pose relative_to="rear_axle_center">0.219 0 0.05 0 0 0</pose>
     </include>
     <joint name="camera_joint" type="fixed"><parent>chassis</parent><child>oak_device::oak</child></joint>
+
+    <!-- Chase camera for videos (scripts/sim_eval/gz_camera_recorder.py): 0.9 m behind and
+         0.38 m above the chassis, pitched down. always_on=false: it renders only while
+         something subscribes, so normal runs do not pay for it. 0.1 g link. -->
+    <link name="chase_camera_link">
+      <pose relative_to="chassis">-0.9 0 0.38 0 0.38 0</pose>
+      <inertial><mass>0.0001</mass><inertia><ixx>1e-9</ixx><iyy>1e-9</iyy><izz>1e-9</izz>
+        <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+      <sensor name="chase" type="camera">
+        <topic>/chase/image</topic><update_rate>20</update_rate><always_on>false</always_on>
+        <camera><horizontal_fov>1.1</horizontal_fov>
+          <image><width>640</width><height>400</height><format>R8G8B8</format></image>
+          <clip><near>0.05</near><far>60</far></clip></camera>
+      </sensor>
+    </link>
+    <joint name="chase_camera_joint" type="fixed"><parent>chassis</parent><child>chase_camera_link</child></joint>
   </model>
 </sdf>

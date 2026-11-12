@@ -37,6 +37,10 @@ setsid python3 "$D/logger.py" "$OUT" > "$OUT/logger.log" 2>&1 9>&- &
 pids+=("$!")
 setsid python3 "$D/capture_map.py" "$OUT" > "$OUT/map_capture.log" 2>&1 9>&- &
 pids+=("$!")
+if [ "${CHASE:-0}" = "1" ]; then   # chase-camera video frames (renders only while subscribed)
+  setsid python3 "$D/gz_camera_recorder.py" /chase/image "$OUT/chase" > "$OUT/chase.log" 2>&1 9>&- &
+  pids+=("$!")
+fi
 setsid python3 "$D/${DRIVER:-driver.py}" 20 > "$OUT/driver.log" 2>&1 9>&- &
 pids+=("$!")
 wait "${pids[-1]}"
