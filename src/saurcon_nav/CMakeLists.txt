@@ -50,7 +50,7 @@ install(TARGETS
 )
 
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
-install(PROGRAMS scripts/oak_depth.py DESTINATION lib/${PROJECT_NAME})
+install(PROGRAMS scripts/oak_depth.py scripts/map_cleaner.py DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   enable_testing()
@@ -64,6 +64,7 @@ if(BUILD_TESTING)
   find_package(Python3 REQUIRED COMPONENTS Interpreter)
   add_test(NAME launch_guards COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_launch_guards.py)
   add_test(NAME depth_model COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_depth.py)
+  add_test(NAME map_cleaner COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_map_cleaner.py)
 endif()
 
 ament_package()

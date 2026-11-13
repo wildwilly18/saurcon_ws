@@ -74,6 +74,9 @@ def setup(context):
             # onto a look-alike place while the car is stationary.
             **({'initial_pose': initial_pose} if initial_pose else {}),
         }], remappings=image_remaps + [('odom', '/saurcon/nav_state' if visual else '/saurcon/odom_nav'), ('map', '/map')]))
+    # /map with small unknown holes inside observed free space filled (/map_clean); /map is unchanged
+    nodes.append(Node(package='saurcon_nav', executable='map_cleaner.py', name='map_cleaner', output='screen',
+                      parameters=[{'use_sim_time': True}]))
     return nodes
 
 
