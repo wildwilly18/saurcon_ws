@@ -1,8 +1,27 @@
 <?xml version="1.0"?><sdf version="1.9"><model name="oak_d_lite">
 <link name="oak">
 <inertial><mass>0.0579</mass><inertia><ixx>0.000044</ixx><iyy>0.0000055</iyy><izz>0.000042</izz></inertia></inertial>
-<visual name="body"><pose>-0.00875 0 0 0 0 0</pose><geometry><box><size>0.0175 0.091 0.028</size></box></geometry><material><diffuse>0.15 0.15 0.15 1</diffuse></material></visual>
-</link>
+      <visual name="housing">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://oak_d_lite/meshes/housing.dae</uri></mesh></geometry>
+        <material><ambient>0.88 0.89 0.85 1</ambient><diffuse>0.88 0.89 0.85 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
+      </visual>
+      <visual name="face">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://oak_d_lite/meshes/face.dae</uri></mesh></geometry>
+        <material><ambient>0.018 0.021 0.025 1</ambient><diffuse>0.018 0.021 0.025 1</diffuse><specular>0.18 0.18 0.18 1</specular></material>
+      </visual>
+      <visual name="lens_rings">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://oak_d_lite/meshes/lens_rings.dae</uri></mesh></geometry>
+        <material><ambient>0.032 0.036 0.043 1</ambient><diffuse>0.032 0.036 0.043 1</diffuse><specular>0.42 0.42 0.42 1</specular></material>
+      </visual>
+      <visual name="lenses">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://oak_d_lite/meshes/lenses.dae</uri></mesh></geometry>
+        <material><ambient>0.008 0.016 0.028 1</ambient><diffuse>0.008 0.016 0.028 1</diffuse><specular>0.75 0.75 0.75 1</specular></material>
+      </visual>
+    </link>
 <link name="oak_rgb_camera_frame"><pose>0 0 0 0 0 0</pose>
  <inertial><mass>0.001</mass><inertia><ixx>1e-7</ixx><iyy>1e-7</iyy><izz>1e-7</izz></inertia></inertial>
  <sensor name="rgb" type="rgbd_camera"><gz_frame_id>oak_rgb_camera_optical_frame</gz_frame_id>

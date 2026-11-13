@@ -29,7 +29,51 @@
           </friction>
         </surface>
       </collision>
-
+      <visual name="frame">
+        <pose>0 0 -0.04 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/frame.dae</uri></mesh></geometry>
+        <material><ambient>0.88 0.89 0.85 1</ambient><diffuse>0.88 0.89 0.85 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
+      </visual>
+      <visual name="bumper">
+        <pose>0 0 -0.04 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/bumper.dae</uri></mesh></geometry>
+        <material><ambient>0.86 0.018 0.012 1</ambient><diffuse>0.86 0.018 0.012 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="electronics">
+        <pose>0 0 -0.04 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/electronics.dae</uri></mesh></geometry>
+        <material><ambient>0.018 0.021 0.025 1</ambient><diffuse>0.018 0.021 0.025 1</diffuse><specular>0.18 0.18 0.18 1</specular></material>
+      </visual>
+      <visual name="hardware">
+        <pose>0 0 -0.04 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/hardware.dae</uri></mesh></geometry>
+        <material><ambient>0.48 0.5 0.52 1</ambient><diffuse>0.48 0.5 0.52 1</diffuse><specular>0.65 0.65 0.65 1</specular></material>
+      </visual>
+      <visual name="bracket">
+        <pose>0 0 -0.04 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/bracket.dae</uri></mesh></geometry>
+        <material><ambient>0.025 0.46 0.14 1</ambient><diffuse>0.025 0.46 0.14 1</diffuse><specular>0.16 0.16 0.16 1</specular></material>
+      </visual>
+      <visual name="servo_label">
+        <pose>0 0 -0.04 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/servo_label.dae</uri></mesh></geometry>
+        <material><ambient>0.66 0.025 0.22 1</ambient><diffuse>0.66 0.025 0.22 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
+      </visual>
+      <visual name="battery_label">
+        <pose>0 0 -0.04 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/battery_label.dae</uri></mesh></geometry>
+        <material><ambient>0.88 0.89 0.85 1</ambient><diffuse>0.88 0.89 0.85 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
+      </visual>
+      <visual name="wire_red">
+        <pose>0 0 -0.04 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/wire_red.dae</uri></mesh></geometry>
+        <material><ambient>0.86 0.018 0.012 1</ambient><diffuse>0.86 0.018 0.012 1</diffuse><specular>0.2 0.2 0.2 1</specular></material>
+      </visual>
+      <visual name="wire_yellow">
+        <pose>0 0 -0.04 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/wire_yellow.dae</uri></mesh></geometry>
+        <material><ambient>0.9 0.63 0.02 1</ambient><diffuse>0.9 0.63 0.02 1</diffuse><specular>0.12 0.12 0.12 1</specular></material>
+      </visual>
     </link>
     
     <!-- Middle Chassis -->
@@ -58,17 +102,7 @@
           </friction>
         </surface>
       </collision>
-      <visual name="visual">
-        <geometry>
-          <box>
-            <size>0.18 0.13 0.04</size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.2 0.4 1.0 1</ambient>
-          <diffuse>0.3 0.5 1.0 1</diffuse>
-        </material>
-      </visual>
+
     </link>
 
     <!-- Front Chassis -->
@@ -97,17 +131,7 @@
           </friction>
         </surface>
       </collision>
-      <visual name="visual">
-        <geometry>
-          <box>
-            <size>0.11 0.08 0.04</size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.2 0.4 1.0 1</ambient>
-          <diffuse>0.3 0.5 1.0 1</diffuse>
-        </material>
-      </visual>
+
     </link>
 
     <!-- Back Chassis -->
@@ -136,17 +160,7 @@
           </friction>
         </surface>
       </collision>
-      <visual name="visual">
-        <geometry>
-          <box>
-            <size>0.11 0.08 0.04</size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.2 0.4 1.0 1</ambient>
-          <diffuse>0.3 0.5 1.0 1</diffuse>
-        </material>
-      </visual>
+
     </link>
     
     <!-- Rear Right Wheel -->
@@ -177,18 +191,20 @@
           </friction>
         </surface>
       </collision>
-      
-      <visual name="visual">
-        <geometry>
-          <cylinder>
-            <radius>0.033</radius>
-            <length>0.04</length>
-          </cylinder>
-        </geometry>
-        <material>
-          <ambient>0.1 0.1 0.1 1</ambient>
-          <diffuse>0.2 0.2 0.2 1</diffuse>
-        </material>
+      <visual name="tyre">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/tyre.dae</uri></mesh></geometry>
+        <material><ambient>0.025 0.028 0.031 1</ambient><diffuse>0.025 0.028 0.031 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="rim">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/rim.dae</uri></mesh></geometry>
+        <material><ambient>0.032 0.036 0.043 1</ambient><diffuse>0.032 0.036 0.043 1</diffuse><specular>0.42 0.42 0.42 1</specular></material>
+      </visual>
+      <visual name="wheel_hardware">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/wheel_hardware.dae</uri></mesh></geometry>
+        <material><ambient>0.48 0.5 0.52 1</ambient><diffuse>0.48 0.5 0.52 1</diffuse><specular>0.65 0.65 0.65 1</specular></material>
       </visual>
     </link>
     
@@ -219,17 +235,20 @@
           </friction>
         </surface>
       </collision>
-      <visual name="visual">
-        <geometry>
-          <cylinder>
-            <radius>0.033</radius>
-            <length>0.04</length>
-          </cylinder>
-        </geometry>
-        <material>
-          <ambient>0.1 0.1 0.1 1</ambient>
-          <diffuse>0.2 0.2 0.2 1</diffuse>
-        </material>
+      <visual name="tyre">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/tyre.dae</uri></mesh></geometry>
+        <material><ambient>0.025 0.028 0.031 1</ambient><diffuse>0.025 0.028 0.031 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="rim">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/rim.dae</uri></mesh></geometry>
+        <material><ambient>0.032 0.036 0.043 1</ambient><diffuse>0.032 0.036 0.043 1</diffuse><specular>0.42 0.42 0.42 1</specular></material>
+      </visual>
+      <visual name="wheel_hardware">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/wheel_hardware.dae</uri></mesh></geometry>
+        <material><ambient>0.48 0.5 0.52 1</ambient><diffuse>0.48 0.5 0.52 1</diffuse><specular>0.65 0.65 0.65 1</specular></material>
       </visual>
     </link>
     
@@ -261,18 +280,20 @@
           </friction>
         </surface>
       </collision>
-      
-      <visual name="visual">
-        <geometry>
-          <cylinder>
-            <radius>0.033</radius>
-            <length>0.04</length>
-          </cylinder>
-        </geometry>
-        <material>
-          <ambient>0.1 0.1 0.1 1</ambient>
-          <diffuse>0.2 0.2 0.2 1</diffuse>
-        </material>
+      <visual name="tyre">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/tyre.dae</uri></mesh></geometry>
+        <material><ambient>0.025 0.028 0.031 1</ambient><diffuse>0.025 0.028 0.031 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="rim">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/rim.dae</uri></mesh></geometry>
+        <material><ambient>0.032 0.036 0.043 1</ambient><diffuse>0.032 0.036 0.043 1</diffuse><specular>0.42 0.42 0.42 1</specular></material>
+      </visual>
+      <visual name="wheel_hardware">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/wheel_hardware.dae</uri></mesh></geometry>
+        <material><ambient>0.48 0.5 0.52 1</ambient><diffuse>0.48 0.5 0.52 1</diffuse><specular>0.65 0.65 0.65 1</specular></material>
       </visual>
     </link>
     
@@ -304,18 +325,20 @@
           </friction>
         </surface>
       </collision>
-      
-      <visual name="visual">
-        <geometry>
-          <cylinder>
-            <radius>0.033</radius>
-            <length>0.04</length>
-          </cylinder>
-        </geometry>
-        <material>
-          <ambient>0.1 0.1 0.1 1</ambient>
-          <diffuse>0.2 0.2 0.2 1</diffuse>
-        </material>
+      <visual name="tyre">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/tyre.dae</uri></mesh></geometry>
+        <material><ambient>0.025 0.028 0.031 1</ambient><diffuse>0.025 0.028 0.031 1</diffuse><specular>0.06 0.06 0.06 1</specular></material>
+      </visual>
+      <visual name="rim">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/rim.dae</uri></mesh></geometry>
+        <material><ambient>0.032 0.036 0.043 1</ambient><diffuse>0.032 0.036 0.043 1</diffuse><specular>0.42 0.42 0.42 1</specular></material>
+      </visual>
+      <visual name="wheel_hardware">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/wheel_hardware.dae</uri></mesh></geometry>
+        <material><ambient>0.48 0.5 0.52 1</ambient><diffuse>0.48 0.5 0.52 1</diffuse><specular>0.65 0.65 0.65 1</specular></material>
       </visual>
     </link>
     
@@ -330,6 +353,11 @@
           <izz>0.0001</izz>
         </inertia>
       </inertial>
+      <visual name="left_knuckle">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/left_knuckle.dae</uri></mesh></geometry>
+        <material><ambient>0.88 0.89 0.85 1</ambient><diffuse>0.88 0.89 0.85 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
+      </visual>
     </link>
     
     <!-- Front Right Steering Knuckle -->
@@ -343,6 +371,11 @@
           <izz>0.0001</izz>
         </inertia>
       </inertial>
+      <visual name="right_knuckle">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry><mesh><uri>model://rc_ackermann_vehicle/meshes/right_knuckle.dae</uri></mesh></geometry>
+        <material><ambient>0.88 0.89 0.85 1</ambient><diffuse>0.88 0.89 0.85 1</diffuse><specular>0.15 0.15 0.15 1</specular></material>
+      </visual>
     </link>
     
     <!-- Rear Left Wheel Joint -->
