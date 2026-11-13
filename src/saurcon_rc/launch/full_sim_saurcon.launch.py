@@ -89,11 +89,46 @@ def estimators(context, sim_time):
     return nodes
 
 
+RTAB_MAP_ORIGIN = '-1.127 0 0'      # world pose of the RTAB-Map frame: the rear axle at the racetrack spawn
+
+
+def policy_map_origin(context):
+    """World pose (x y yaw) of the frame /saurcon/nav_state is in, for the map-based racing policy.
+
+    The policy needs a global pose. ArUco localization reports the pose in the world (marker map)
+    frame: origin 0 0 0. RTAB-Map with fused SLAM reports it in the map frame, which starts where
+    mapping started: `policy_map_origin` (default the racetrack spawn, RTAB_MAP_ORIGIN). Every other
+    configuration publishes odometry on /saurcon/nav_state, which drifts and is not a map pose:
+    rejected rather than silently used.
+    """
+    truthy = lambda name: LaunchConfiguration(name, default='false').perform(context).lower() == 'true'
+    given = LaunchConfiguration('policy_map_origin', default='').perform(context).strip()
+    if truthy('visual_odometry'):
+        raise ValueError('policy_model needs a map pose; with visual_odometry:=true /saurcon/nav_state is '
+                         'visual odometry. Use slam:=true fuse_slam:=true, or use_aruco:=true')
+    if truthy('use_aruco'):
+        if given and [float(v) for v in given.split()] != [0.0, 0.0, 0.0]:
+            raise ValueError('use_aruco:=true reports world coordinates; policy_map_origin must be empty or "0 0 0"')
+        return '0 0 0'
+    if truthy('slam'):
+        if not truthy('fuse_slam'):
+            raise ValueError('policy_model with slam:=true needs fuse_slam:=true: without it /saurcon/nav_state '
+                             'is wheel/gyro odometry, not the RTAB-Map pose')
+        origin = given or RTAB_MAP_ORIGIN
+        if len(origin.split()) != 3:
+            raise ValueError(f'policy_map_origin is "x y yaw" (got "{origin}")')
+        [float(v) for v in origin.split()]
+        return origin
+    raise ValueError('policy_model needs localization: use_aruco:=true, or slam:=true with fuse_slam:=true '
+                     '(without either, /saurcon/nav_state is odometry only)')
+
+
 def policy(context, ws_path):
     """RL racing policy node, run with the RL virtual environment's Python (needs torch)."""
     model = LaunchConfiguration('policy_model').perform(context)
     if not model:
         return []
+    origin = policy_map_origin(context)
     python = os.path.join(ws_path, '.venv-rl', 'bin', 'python')
     if not os.path.exists(python):
         raise RuntimeError(f'{python} not found; run scripts/setup.sh to create the RL environment')
@@ -101,6 +136,7 @@ def policy(context, ws_path):
         cmd=[python, '-m', 'saurcon_rl.policy_node', '--ros-args',
              '-p', 'use_sim_time:=true', '-p', f'model:={os.path.abspath(model)}',
              '-p', f"speed_limit:={LaunchConfiguration('policy_speed_limit').perform(context)}",
+             '-p', f"map_origin:=[{', '.join(str(float(v)) for v in origin.split())}]",
              '-p', f"world:={LaunchConfiguration('world').perform(context)}"],
         name='race_policy', output='screen')]
 
@@ -114,8 +150,10 @@ def cone_policy(context, ws_path):
     python = os.path.join(ws_path, '.venv-rl', 'bin', 'python')
     return [ExecuteProcess(
         cmd=[python, '-m', 'saurcon_rl.cone_policy_node', '--ros-args', '-p', 'use_sim_time:=true',
-             '-p', f'model:={os.path.abspath(model)}',
-             '-p', f"speed_limit:={LaunchConfiguration('policy_speed_limit', default='12.0').perform(context)}"],
+             '-p', f"model:={model if model == 'classical' else os.path.abspath(model)}",
+             '-p', f"speed_limit:={LaunchConfiguration('policy_speed_limit', default='12.0').perform(context)}"]
+            + (['-p', f'debug_csv:={dbg}'] if (dbg := LaunchConfiguration('cone_debug_csv', default='').perform(context))
+               and model == 'classical' else []),
         name='cone_policy', output='screen')]
 
 
@@ -177,6 +215,9 @@ def generate_launch_description():
         # Path to a trained saurcon_rl policy (.zip). When set, the policy node drives
         # in RUN_AUTONOMOUS (hold view for 2 s in STANDBY).
         DeclareLaunchArgument("policy_model", default_value=""),
+        DeclareLaunchArgument("policy_map_origin", default_value="",
+                              description='World pose "x y yaw" of the RTAB-Map frame for policy_model '
+                                          '(default: the racetrack spawn, -1.127 0 0; ArUco uses 0 0 0)'),
         # Cone detection + cone map: none | rtab | truth | both (truth needs /gt_pose,
         # published by scripts/sim_eval/gt_bridge.py). Scores go to cone_output_dir.
         DeclareLaunchArgument("cone_mapping", default_value="none"),

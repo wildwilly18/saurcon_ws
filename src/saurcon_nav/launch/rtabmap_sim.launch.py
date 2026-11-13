@@ -58,6 +58,14 @@ def setup(context):
             'RGBD/OptimizeMaxError': '3.0', 'Rtabmap/DetectionRate': '2.0',
             'Grid/FromDepth': 'true', 'Grid/RangeMax': '4.0', 'Grid/CellSize': '0.05',
             'Grid/MaxGroundHeight': '0.03', 'Grid/MaxObstacleHeight': '1.5',
+            # Clear the cells between the camera and every depth hit, not only cells where floor
+            # points landed: the camera is 14 cm up, so it sees the floor at a grazing angle and
+            # most of the floor it looks across otherwise stays unknown.
+            'Grid/RayTracing': 'true',
+            # The car's own footprint: points inside it are dropped, and the cells under every
+            # map node (where the car has been) are marked free.
+            'Grid/FootprintLength': '0.45', 'Grid/FootprintWidth': '0.30', 'Grid/FootprintHeight': '0.25',
+            'GridGlobal/FootprintRadius': '0.25',
             'Vis/MinInliers': '20',
             'Mem/IncrementalMemory': 'true' if mode == 'mapping' else 'false',
             'Mem/InitWMWithAllNodes': 'false' if mode == 'mapping' else 'true',

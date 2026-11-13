@@ -1,5 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "state_estimator.hpp"
+#include "map_odom.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "geometry_msgs/msg/twist_stamped.hpp"
 #include "geometry_msgs/msg/pose_with_covariance_stamped.hpp"
@@ -17,18 +18,11 @@
 #include <string>
 
 namespace {
-// Planar pose helpers: (x, y, yaw).
-struct Pose2 { double x{0}, y{0}, th{0}; };
+using saurcon_nav::Pose2;
+using saurcon_nav::compose;
+using saurcon_nav::inverse;
 double yawOf(const geometry_msgs::msg::Quaternion& q){
     return std::atan2(2.0*(q.w*q.z + q.x*q.y), 1.0 - 2.0*(q.y*q.y + q.z*q.z));
-}
-Pose2 compose(const Pose2& a, const Pose2& b){            // a ⊕ b
-    const double c = std::cos(a.th), s = std::sin(a.th);
-    return {a.x + c*b.x - s*b.y, a.y + s*b.x + c*b.y, a.th + b.th};
-}
-Pose2 inverse(const Pose2& a){
-    const double c = std::cos(a.th), s = std::sin(a.th);
-    return {-c*a.x - s*a.y, s*a.x - c*a.y, -a.th};
 }
 Pose2 fromTf(const geometry_msgs::msg::TransformStamped& t){
     return {t.transform.translation.x, t.transform.translation.y, yawOf(t.transform.rotation)};
@@ -248,11 +242,23 @@ private:
         tf.transform.translation.z = 0.0;
         tf.transform.rotation = msg.pose.pose.orientation;
         if (map_to_odom_) {
-            // map -> odom = (map -> base_link) ⊕ (odom -> base_link)^-1
+            // map -> odom = (map -> base_link) ⊕ (odom -> base_link)^-1, both at the same instant.
+            // The newest odometry transform is usually a little older than `now`; evaluate the
+            // global pose at its stamp from the recent history, or the car's motion in between
+            // would be built into the correction (100 ms at 5 m/s = 0.5 m). The result is
+            // stamped `now`: map -> odom is the correction that holds from then on.
+            global_history_.add(now.seconds(), Pose2{msg.pose.pose.position.x, msg.pose.pose.position.y, yaw});
             try {
                 const auto ob = tf_buffer_->lookupTransform("odom", "base_link", tf2::TimePointZero);
-                const Pose2 mo = compose(Pose2{msg.pose.pose.position.x, msg.pose.pose.position.y, yaw},
-                                         inverse(fromTf(ob)));
+                const double t_odom = rclcpp::Time(ob.header.stamp).seconds();
+                Pose2 global_then;
+                if (!global_history_.at(t_odom, global_then)) {
+                    RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
+                        "map -> odom not published: no global pose at the odometry stamp (%.3f s, now %.3f s)",
+                        t_odom, now.seconds());
+                    return;
+                }
+                const Pose2 mo = saurcon_nav::mapToOdom(global_then, fromTf(ob));
                 tf.header.frame_id = "map";
                 tf.child_frame_id = "odom";
                 tf.transform.translation.x = mo.x;
@@ -279,6 +285,7 @@ private:
     double min_loc_yaw_std_{0.0};
     std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
     std::unique_ptr<tf2_ros::TransformListener> tf_listener_;
+    saurcon_nav::PoseHistory global_history_{1.0, 0.03};   // global poses of the last second
     rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_nav_pub_;
     double dt_{0.02};
     static constexpr double kMaxDt = 0.2;

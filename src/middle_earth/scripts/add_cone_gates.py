@@ -18,7 +18,10 @@ square to the line at that point. The centreline is known per world:
 Re-running replaces the block this script generated before, so the width and the
 number of intermediate gates can be changed freely.
 
-usage: add_cone_gates.py [--width 0.6] [--between 2] [--plot out.png] world [world ...]
+Bend gates (--bend-extra N): N more gates between each pair of consecutive gates
+where the track curves, so the bends are marked more densely than the straights.
+
+usage: add_cone_gates.py [--width 1.2] [--between 2] [--bend-extra 1] [--plot out.png] world [world ...]
 """
 import argparse
 import math
@@ -68,12 +71,12 @@ def gate(name, x, y, yaw_line, width):
             for side, s in (('a', 1.0), ('b', -1.0))]
 
 
-def plan(text, width, between):
-    """Return (marker_cones, added_cones, centreline) as lists of (name, x, y, yaw)."""
+def plan(text, width, between, bend_extra=0):
+    """Return (marker_cones, added_cones, bend_cones, centreline, world); cones are (name, x, y, yaw)."""
     world = WORLD.search(text).group(1)
     mk = markers(text)
     pts = centreline(world)
-    added = []
+    added, bend = [], []
     if True:
         s = [0.0]
         for (x0, y0), (x1, y1) in zip(pts, pts[1:] + pts[:1]):
@@ -95,12 +98,26 @@ def plan(text, width, between):
         pos = {m: (x, y) for m, x, y, _ in mk}
         marker_cones = [c for a0, m in order
                         for c in gate(f'cone_gate_{m}', *pos[m], at(a0)[2], width)]
+        gate_arcs = [a0 for a0, _ in order]
         for (a0, m0), (a1, m1) in (zip(order, order[1:] + order[:1]) if between > 0 else []):
             gap = (a1 - a0) % length
             for k in range(1, between + 1):
                 x, y, tangent = at(a0 + gap * k / (between + 1))
                 added += gate(f'cone_gate_{m0}to{m1}_{k}', x, y, tangent, width)
-    return marker_cones, added, pts, world
+                gate_arcs.append((a0 + gap * k / (between + 1)) % length)
+        # --bend-extra N: N more gates between each pair of consecutive gates where the
+        # track curves (the track direction changes across the interval). In a bend the
+        # camera's narrow view loses the gates ahead sooner, so they are packed closer.
+        gate_arcs.sort()
+        for i, (b0, b1) in enumerate(zip(gate_arcs, gate_arcs[1:] + gate_arcs[:1])):
+            gap = (b1 - b0) % length
+            turn = (at(b1)[2] - at(b0)[2] + math.pi) % (2 * math.pi) - math.pi
+            if bend_extra <= 0 or abs(turn) < 0.05:
+                continue
+            for k in range(1, bend_extra + 1):
+                x, y, tangent = at(b0 + gap * k / (bend_extra + 1))
+                bend += gate(f'cone_gate_bend{i}_{k}', x, y, tangent, width)
+    return marker_cones, added, bend, pts, world
 
 
 def include(name, x, y, yaw):
@@ -116,23 +133,26 @@ def main():
     p.add_argument('worlds', nargs='+', type=Path)
     p.add_argument('--width', type=float, default=1.2, help='distance between the two cone centres (m)')
     p.add_argument('--between', type=int, default=2, help='extra gates between consecutive marker gates')
+    p.add_argument('--bend-extra', type=int, default=0,
+                   help='extra gates between consecutive gates in the bends')
     p.add_argument('--plot', type=Path, help='save a top-down plot of all gates')
     p.add_argument('--dry-run', action='store_true', help='plot/report only; do not modify the worlds')
     a = p.parse_args()
     plots = []
     for path in a.worlds:
         text = re.sub(re.escape(BEGIN) + r'.*?' + re.escape(END), '', path.read_text(), flags=re.S)
-        marker_cones, added, pts, world = plan(text, a.width, a.between)
+        marker_cones, added, bend, pts, world = plan(text, a.width, a.between, a.bend_extra)
         if not marker_cones:
             raise SystemExit(f'{path}: no ArUco markers found')
         if not a.dry_run:
-            block = BEGIN + ''.join(include(*c) for c in marker_cones + added) + END
+            block = BEGIN + ''.join(include(*c) for c in marker_cones + added + bend) + END
             idx = text.rindex('  </world>')
             path.write_text(text[:idx] + block + text[idx:])
-        print(f'{path}: {len(marker_cones) // 2} marker gates + {len(added) // 2} added gates '
-              f'= {(len(marker_cones) + len(added)) // 2} gates, {len(marker_cones) + len(added)} cones, '
+        n = len(marker_cones) + len(added) + len(bend)
+        print(f'{path}: {len(marker_cones) // 2} marker gates + {len(added) // 2} added + '
+              f'{len(bend) // 2} bend gates = {n // 2} gates, {n} cones, '
               f'{a.width} m wide{" (dry run)" if a.dry_run else ""}')
-        plots.append((path, world, text, marker_cones, added, pts))
+        plots.append((path, world, text, marker_cones, added, bend, pts))
     if a.plot:
         draw(plots, a.plot)
 
@@ -142,7 +162,7 @@ def draw(plots, out):
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     INK, INK2, SURF, GRID = '#0b0b0b', '#52514e', '#fcfcfb', '#e4e3df'
-    BLUE, ORANGE = '#2a78d6', '#eb6834'
+    BLUE, ORANGE, GREEN = '#2a78d6', '#eb6834', '#1f9e6b'
     plt.rcParams.update({'figure.facecolor': SURF, 'axes.facecolor': SURF, 'axes.edgecolor': GRID,
                          'axes.labelcolor': INK2, 'xtick.color': INK2, 'ytick.color': INK2,
                          'text.color': INK, 'axes.grid': True, 'grid.color': GRID,
@@ -151,12 +171,13 @@ def draw(plots, out):
     ratios = [max(x for x, _ in pts) - min(x for x, _ in pts) + 2 for *_, pts in plots]
     fig, axes = plt.subplots(1, len(plots), figsize=(15, 5.6), gridspec_kw={'width_ratios': ratios})
     axes = [axes] if len(plots) == 1 else axes
-    for ax, (path, world, text, marker_cones, added, pts) in zip(axes, plots):
+    for ax, (path, world, text, marker_cones, added, bend, pts) in zip(axes, plots):
         xs, ys = zip(*(pts + pts[:1]))
         ax.plot(xs, ys, color=GRID, lw=10, solid_capstyle='round', zorder=1)
         ax.plot(xs, ys, color=INK2, lw=1, ls=(0, (4, 3)), label='Driving line', zorder=2)
         for cones, colour, label, z in ((marker_cones, BLUE, 'Existing gates (at markers)', 4),
-                                        (added, ORANGE, 'Added gates', 3)):
+                                        (added, ORANGE, 'Added gates', 3),
+                                        (bend, GREEN, 'Bend gates', 3)):
             for a, b in zip(cones[::2], cones[1::2]):
                 ax.plot([a[1], b[1]], [a[2], b[2]], color=colour, lw=1, alpha=0.6, zorder=z)
             ax.scatter([c[1] for c in cones], [c[2] for c in cones], s=26, color=colour,
@@ -165,12 +186,13 @@ def draw(plots, out):
             ax.annotate(str(m), (x, y), textcoords='offset points', xytext=(0, 0), ha='center',
                         va='center', fontsize=7, color=SURF, fontweight='bold', zorder=7,
                         bbox=dict(boxstyle='circle,pad=0.25', fc=INK, ec='none'))
-        n = (len(marker_cones) + len(added)) // 2
-        ax.set_title(f'{path.name}: {len(marker_cones) // 2} existing + {len(added) // 2} added = {n} gates',
+        n = (len(marker_cones) + len(added) + len(bend)) // 2
+        extra = f' + {len(bend) // 2} bend' if bend else ''
+        ax.set_title(f'{path.name}: {len(marker_cones) // 2} existing + {len(added) // 2} added{extra} = {n} gates',
                      loc='left')
         ax.set_aspect('equal'); ax.set_xlabel('x (m)'); ax.set_ylabel('y (m)')
         ax.margins(0.06)
-    axes[0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.16), ncol=3)
+    axes[0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.16), ncol=4)
     fig.suptitle('Cone gate layout (dots are cones; black circles mark ArUco marker IDs)',
                  x=0.01, ha='left', fontsize=13, fontweight='bold')
     fig.tight_layout(); fig.savefig(out, dpi=130); plt.close(fig)

@@ -6,6 +6,9 @@ runs cones.ConeDetector on them, and feeds the detections (no map, no
 localization) to the policy. Also measures the real detector against the true
 cones, which checks the simulated detector the policy was trained with.
 
+--model classical drives with the classical cone follower (saurcon_rl.cone_follower)
+instead of a learned policy; the video then also shows its centreline path (green).
+
 usage: MUJOCO_GL=egl python -m saurcon_rl.cone_drive --model rl_runs/cones_v1/best_model.zip
            [--detector render|sim] [--laps 2] [--track 0] [--video out.mp4] [--json out.json]
 """
@@ -43,9 +46,28 @@ def detect_from_pixels(renderer, data, detector):
     return pts, bgr, dets
 
 
+def draw_path(bgr, follower):
+    """Project the follower's path (base_link, on the floor) into the onboard image."""
+    pts = []
+    for bx, by in follower.path:
+        Z = bx - CAMERA_X
+        if Z > 0.25:
+            pts.append((int(W / 2 + FX * (-by) / Z), int(H / 2 + FX * CAMERA_HEIGHT / Z)))
+    for a, b in zip(pts, pts[1:]):
+        cv2.line(bgr, a, b, (60, 220, 60), 2)
+    if follower.target is not None and follower.target[0] - CAMERA_X > 0.25:
+        Z = follower.target[0] - CAMERA_X
+        cv2.circle(bgr, (int(W / 2 + FX * (-follower.target[1]) / Z), int(H / 2 + FX * CAMERA_HEIGHT / Z)), 7, (60, 220, 60), -1)
+
+
 def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_time=60.0, seed=None):
-    from stable_baselines3 import PPO
-    policy = PPO.load(model_path, device='cpu')
+    follower = policy = None
+    if model_path == 'classical':
+        from .cone_follower import ConeFollower
+        follower = ConeFollower()
+    else:
+        from stable_baselines3 import PPO
+        policy = PPO.load(model_path, device='cpu')
     env = MujocoConeEnv(load_tracks(), randomize=False, max_time=max_time, cone_mode='visual', seed=seed)
     obs, _ = env.reset(options={'track': track, 'start_s': race_start_s(env.tracks[track])})
     renderer = mujoco.Renderer(env.m, H, W); chase = mujoco.Renderer(env.m, H, W) if video else None
@@ -72,7 +94,11 @@ def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_tim
             mem.update(np.column_stack([env.x + c * pts[:, 0] - sn * pts[:, 1], env.y + sn * pts[:, 0] + c * pts[:, 1]]), env.t)
             rel, ages = mem.relative(env.x, env.y, env.yaw, env.t)
             obs = encode(rel, env.v, env.state[4], env.steer, env.prev_action, ages)
+            if follower is not None:
+                action = follower.action(rel, env.v, env.state[4])
             if writer is not None:
+                if follower is not None:
+                    draw_path(bgr, follower)
                 for d in dets:
                     cv2.circle(bgr, (int(d.u), int(d.v)), 6, (255, 200, 0), 2)
                     cv2.putText(bgr, f'{d.range:.1f}', (int(d.u) - 10, int(d.v) + 18), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
@@ -81,7 +107,11 @@ def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_tim
                 cv2.putText(frame, f't {env.t:5.2f}s  v {env.v:4.1f} m/s  laps {len(env.lap_times)}', (10, 20),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
                 writer.write(frame)
-        elif writer is not None:
+        else:
+            if follower is not None:
+                rel, _ = env.memory.relative(env.x, env.y, env.yaw, env.t)
+                action = follower.action(rel, env.v, env.state[4])
+        if detector_mode != 'render' and writer is not None:
             # Simulated detector (as trained): show the policy's cone memory projected into the
             # onboard camera (cyan = seen this step, orange = remembered), next to the chase view.
             renderer.update_scene(env.d, camera='oak_rgb')
@@ -94,6 +124,8 @@ def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_tim
                 u, v = W / 2 + FX * (-by) / Z, H / 2 + FX * CAMERA_HEIGHT / Z
                 if 0 <= u < W and 0 <= v < H:
                     cv2.circle(bgr, (int(u), int(v)), 6, (255, 200, 0) if age < 0.06 else (0, 140, 255), 2)
+            if follower is not None:
+                draw_path(bgr, follower)
             behind = int(np.sum(rel[:, 0] - CAMERA_X < 0.3)) if len(rel) else 0
             chase.update_scene(env.d, camera='chase')
             frame = np.hstack([bgr, cv2.cvtColor(chase.render(), cv2.COLOR_RGB2BGR)])
@@ -101,7 +133,8 @@ def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_tim
                                f'remembered cones {len(rel)} ({behind} beside/behind)', (10, 20),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.55, (255, 255, 255), 2)
             writer.write(frame)
-        action, _ = policy.predict(obs, deterministic=True)
+        if policy is not None:
+            action, _ = policy.predict(obs, deterministic=True)
         obs, _, term, trunc, info = env.step(action)
         if term or trunc or info['laps'] >= laps:
             break
@@ -120,7 +153,7 @@ def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_tim
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('--model', required=True)
+    p.add_argument('--model', required=True, help="policy .zip, or 'classical' for the classical cone follower")
     p.add_argument('--detector', choices=['render', 'sim'], default='render')
     p.add_argument('--laps', type=int, default=2)
     p.add_argument('--track', type=int, default=0)

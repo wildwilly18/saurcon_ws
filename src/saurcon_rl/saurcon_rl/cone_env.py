@@ -38,6 +38,27 @@ STALL_SPEED, STALL_S, STALL_GRACE_S = 0.3, 2.0, 1.0   # m/s, s stopped, s after 
 K_CONES = 12
 MEMORY_S = 2.0                    # seconds a detected cone is remembered after its last sighting
 CONE_OBS_DIM = 5 + 4 * K_CONES
+# Smooth driving (2026-11-13). The first cone policies steered bang-bang: the command changed
+# ~8 deg every 50 ms step and flipped sign on a third of the steps, which the old penalty
+# 0.02*|da|^2 barely charged, and in Gazebo the car weaved +/-0.4-1 m on the straights.
+STEER_RATE_W = 0.5       # per step, times (change of the normalised steering action)^2
+YAW_EXCESS_W = 0.05      # per step, times (yaw rate - speed * track curvature)^2, (rad/s)^2
+# Steering slew limit: the car's MG90S micro servo turns ~60 deg in 0.1 s; through the linkage
+# take ~8 rad/s at the road wheels. Applied identically in MuJoCo, Gazebo and the ROS node.
+STEER_RATE_MAX = 8.0     # rad/s
+
+
+def slew_steer(prev_norm, target_norm, dt=0.05):
+    """Rate-limit a normalised steering action (-1..1) like the servo."""
+    from .env import STEER_MAX
+    step = STEER_RATE_MAX * dt / STEER_MAX
+    return float(np.clip(target_norm, prev_norm - step, prev_norm + step))
+
+
+def smooth_penalty(steer_norm, prev_steer_norm, yaw_rate, v, curvature):
+    """Reward penalty for unsmooth driving (on top of the base 0.02*|da|^2)."""
+    return (STEER_RATE_W * (steer_norm - prev_steer_norm) ** 2
+            + YAW_EXCESS_W * (yaw_rate - v * curvature) ** 2)
 
 
 class ConeMemory:
@@ -118,7 +139,11 @@ class MujocoConeEnv(MujocoRaceEnv):
         return super().reset(seed=seed, options=options)
 
     def step(self, action):
-        obs, reward, terminated, truncated, info = super().step(action)
+        a = np.clip(np.asarray(action, np.float32), -1, 1).copy()
+        prev_steer = float(self.prev_action[1])
+        a[1] = slew_steer(prev_steer, float(a[1]), CTRL_DT)
+        obs, reward, terminated, truncated, info = super().step(a)
+        reward -= smooth_penalty(float(a[1]), prev_steer, self.state[4], self.v, float(self.track.curvature[self.i]))
         # Stalling ends the episode like a crash. With frequent missed detections, parking
         # (zero reward, no crash) became a stable trap during training; a per-step time
         # penalty would instead make crashing early look better than driving carefully.

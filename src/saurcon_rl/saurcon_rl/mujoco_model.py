@@ -44,16 +44,17 @@ def build_mjcf(cones=None, cone_mode='visual', friction=1.4, drive_torque=2.0,
       <body name="{side}_rear_wheel" pos="{REAR_AXLE_X} {y:.5f} {0.03 - 0.003:.4f}">
         <joint name="{side}_rear_spin" type="hinge" axis="0 1 0" damping="0.0001"/>
         <geom class="wheel" mass="0.3"/>
-        <geom class="tyre"/><geom class="rim"/><geom class="spoke"/><geom class="spoke" euler="1.5708 0 1.5708"/>
+        <geom class="tyre"/><geom class="rim"/><geom class="spoke"/><geom class="spoke" euler="0 1.0472 0"/><geom class="spoke" euler="0 2.0944 0"/><geom class="hub"/>
       </body>''' for side, y in (('left', TRACK / 2), ('right', -TRACK / 2)))
     front = ''.join(f'''
       <body name="{side}_knuckle" pos="{-REAR_AXLE_X} {y:.5f} {0.04 - 0.003:.4f}">
         <joint name="{side}_steer" type="hinge" axis="0 0 1" range="{-STEER_JOINT_LIMIT} {STEER_JOINT_LIMIT}" damping="{steer_damping}"/>
-        <geom type="sphere" size="0.008" mass="0.1" contype="0" conaffinity="0" rgba="0.2 0.2 0.22 1"/>
+        <geom type="sphere" size="0.008" mass="0.1" contype="0" conaffinity="0" rgba="0.92 0.92 0.9 1"/>
+        <geom class="vis" type="box" size="0.009 0.006 0.016" pos="0 {-0.024 if y > 0 else 0.024:.3f} -0.01" material="pla"/>
         <body name="{side}_front_wheel" pos="0 0 -0.01">
           <joint name="{side}_front_spin" type="hinge" axis="0 1 0" damping="0.0001"/>
           <geom class="wheel" mass="0.3"/>
-          <geom class="tyre"/><geom class="rim"/><geom class="spoke"/><geom class="spoke" euler="1.5708 0 1.5708"/>
+          <geom class="tyre"/><geom class="rim"/><geom class="spoke"/><geom class="spoke" euler="0 1.0472 0"/><geom class="spoke" euler="0 2.0944 0"/><geom class="hub"/>
         </body>
       </body>''' for side, y in (('left', TRACK / 2), ('right', -TRACK / 2)))
     cone_xml, cone_asset = '', ''
@@ -86,15 +87,21 @@ def build_mjcf(cones=None, cone_mode='visual', friction=1.4, drive_torque=2.0,
     <texture name="grid" type="2d" builtin="checker" rgb1="0.56 0.56 0.54" rgb2="0.52 0.52 0.5" width="512" height="512"
              mark="edge" markrgb="0.6 0.6 0.58"/>
     <material name="floor" texture="grid" texrepeat="60 60" reflectance="0"/>
-    <!-- Visual-only car materials. Deep blue body: nothing on the car can be mistaken for the
-         red-orange cones by the detector. -->
-    <material name="body" rgba="0.08 0.22 0.62 1" specular="0.7" shininess="0.7"/>
-    <material name="stripe" rgba="0.95 0.95 0.95 1" specular="0.5"/>
+    <!-- Visual-only car materials, after the real car (photos 2026-11-13): white 3D-printed
+         chassis and decks, red printed front bumper, green bracket, MG90S servo, OAK-D Lite in a
+         white cradle, black tyres on black rims. The red bumper is cone-coloured but sits well
+         below the OAK camera's field of view (checked: nothing of the car is in its image). -->
+    <material name="pla" rgba="0.92 0.92 0.9 1" specular="0.25" shininess="0.3"/>
+    <material name="red" rgba="0.93 0.13 0.07 1" specular="0.4" shininess="0.5"/>
+    <material name="green" rgba="0.16 0.62 0.32 1" specular="0.3"/>
     <material name="carbon" rgba="0.07 0.07 0.08 1" specular="0.3" shininess="0.3"/>
-    <material name="glass" rgba="0.12 0.16 0.22 0.9" specular="1" shininess="1"/>
+    <material name="servo" rgba="0.05 0.05 0.06 1" specular="0.6" shininess="0.6"/>
+    <material name="label" rgba="0.86 0.2 0.55 1" specular="0.6"/>
+    <material name="battery" rgba="0.72 0.74 0.76 1" specular="0.8" shininess="0.7"/>
     <material name="tyre" rgba="0.04 0.04 0.04 1" specular="0.05"/>
-    <material name="rim" rgba="0.78 0.78 0.82 1" specular="0.9" shininess="0.9"/>
-    <material name="oak" rgba="0.25 0.26 0.28 1" specular="0.4"/>
+    <material name="rim" rgba="0.1 0.1 0.11 1" specular="0.6" shininess="0.6"/>
+    <material name="hub" rgba="0.55 0.55 0.58 1" specular="0.9" shininess="0.9"/>
+    <material name="oak" rgba="0.12 0.12 0.13 1" specular="0.4"/>
     <material name="lens" rgba="0.02 0.02 0.03 1" specular="1" shininess="1"/>
     {cone_asset}
   </asset>
@@ -110,8 +117,9 @@ def build_mjcf(cones=None, cone_mode='visual', friction=1.4, drive_torque=2.0,
     <default class="vis">
       <geom contype="0" conaffinity="0" density="0" group="1"/>
       <default class="tyre"><geom type="cylinder" size="{WHEEL_R} {WHEEL_W / 2}" euler="1.5708 0 0" material="tyre"/></default>
-      <default class="rim"><geom type="cylinder" size="{WHEEL_R * 0.62:.4f} {WHEEL_W / 2 + 0.0008:.4f}" euler="1.5708 0 0" material="rim"/></default>
-      <default class="spoke"><geom type="box" size="{WHEEL_R * 0.6:.4f} {WHEEL_W / 2 + 0.0012:.4f} 0.0025" material="carbon"/></default>
+      <default class="rim"><geom type="cylinder" size="{WHEEL_R * 0.66:.4f} {WHEEL_W / 2 + 0.0008:.4f}" euler="1.5708 0 0" material="rim"/></default>
+      <default class="spoke"><geom type="box" size="{WHEEL_R * 0.64:.4f} {WHEEL_W / 2 + 0.0012:.4f} 0.0018" material="tyre"/></default>
+      <default class="hub"><geom type="cylinder" size="0.006 {WHEEL_W / 2 + 0.0016:.4f}" euler="1.5708 0 0" material="hub"/></default>
     </default>
     <default class="cone"><geom contype="3" conaffinity="3" friction="0.8 0.01 0.0001"/></default>
   </default>
@@ -122,26 +130,58 @@ def build_mjcf(cones=None, cone_mode='visual', friction=1.4, drive_torque=2.0,
     <body name="car" pos="0 0 0.006">
       <freejoint name="car_free"/>
       <geom name="chassis" type="box" size="0.2 0.1 0.02" pos="0 0 0.037" mass="4.0" contype="2" conaffinity="2" rgba="0 0 0 0"/>
-      <!-- Visual body (geometry only; the chassis box above carries mass and contacts) -->
-      <geom class="vis" name="plate" type="box" size="0.2 0.072 0.004" pos="0 0 0.027" material="carbon"/>
-      <geom class="vis" name="shell" type="ellipsoid" size="0.175 0.088 0.034" pos="0.005 0 0.058" material="body"/>
-      <geom class="vis" name="stripe_l" type="box" size="0.07 0.006 0.001" pos="0.01 0.022 0.0912" material="stripe"/>
-      <geom class="vis" name="stripe_r" type="box" size="0.07 0.006 0.001" pos="0.01 -0.022 0.0912" material="stripe"/>
-      <geom class="vis" name="canopy" type="ellipsoid" size="0.065 0.048 0.024" pos="-0.03 0 0.086" material="glass"/>
-      <geom class="vis" name="nose" type="ellipsoid" size="0.04 0.07 0.014" pos="0.17 0 0.04" material="body"/>
-      <geom class="vis" name="bumper" type="capsule" fromto="0.205 -0.065 0.03 0.205 0.065 0.03" size="0.008" material="carbon"/>
-      <geom class="vis" name="diffuser" type="box" size="0.02 0.07 0.008" pos="-0.19 0 0.035" material="carbon"/>
-      <geom class="vis" name="strut_l" type="box" size="0.006 0.003 0.024" pos="-0.17 0.05 0.11" material="carbon"/>
-      <geom class="vis" name="strut_r" type="box" size="0.006 0.003 0.024" pos="-0.17 -0.05 0.11" material="carbon"/>
-      <geom class="vis" name="wing" type="box" size="0.03 0.105 0.003" pos="-0.172 0 0.136" euler="0 0.12 0" material="body"/>
-      <geom class="vis" name="endplate_l" type="box" size="0.032 0.002 0.014" pos="-0.172 0.106 0.13" material="carbon"/>
-      <geom class="vis" name="endplate_r" type="box" size="0.032 0.002 0.014" pos="-0.172 -0.106 0.13" material="carbon"/>
-      <!-- OAK-D Lite on a mast, lens at the oak_rgb camera (kept behind the camera's view) -->
-      <geom class="vis" name="mast" type="cylinder" fromto="0.075 0 0.09 0.075 0 0.118" size="0.004" material="carbon"/>
-      <geom class="vis" name="oak_body" type="box" size="0.0085 0.045 0.0135" pos="0.081 0 0.13" material="oak"/>
+      <!-- Visual body (geometry only; the chassis box above carries mass and contacts).
+           Chassis frame: x forward from mid-wheelbase, axles at x = -/+0.127. -->
+      <!-- lower tray with the battery pack, open sides -->
+      <geom class="vis" name="tray_floor" type="box" size="0.15 0.046 0.003" pos="-0.02 0 0.024" material="pla"/>
+      <geom class="vis" name="tray_rail_l" type="box" size="0.15 0.003 0.004" pos="-0.02 0.046 0.03" material="pla"/>
+      <geom class="vis" name="tray_rail_r" type="box" size="0.15 0.003 0.004" pos="-0.02 -0.046 0.03" material="pla"/>
+      <geom class="vis" name="tray_top_l" type="box" size="0.15 0.003 0.003" pos="-0.02 0.046 0.058" material="pla"/>
+      <geom class="vis" name="tray_top_r" type="box" size="0.15 0.003 0.003" pos="-0.02 -0.046 0.058" material="pla"/>
+      <geom class="vis" name="tray_post_fl" type="box" size="0.006 0.003 0.014" pos="0.06 0.046 0.044" material="pla"/>
+      <geom class="vis" name="tray_post_fr" type="box" size="0.006 0.003 0.014" pos="0.06 -0.046 0.044" material="pla"/>
+      <geom class="vis" name="tray_post_rl" type="box" size="0.006 0.003 0.014" pos="-0.1 0.046 0.044" material="pla"/>
+      <geom class="vis" name="tray_post_rr" type="box" size="0.006 0.003 0.014" pos="-0.1 -0.046 0.044" material="pla"/>
+      <geom class="vis" name="battery" type="box" size="0.07 0.036 0.016" pos="-0.02 0 0.043" material="battery"/>
+      <geom class="vis" name="battery_label" type="box" size="0.04 0.0365 0.008" pos="-0.03 0 0.043" material="carbon"/>
+      <!-- upper deck on standoffs -->
+      <geom class="vis" name="deck" type="box" size="0.12 0.05 0.003" pos="-0.03 0 0.075" material="pla"/>
+      <geom class="vis" name="deck_rail_l" type="box" size="0.12 0.004 0.006" pos="-0.03 0.05 0.081" material="pla"/>
+      <geom class="vis" name="deck_rail_r" type="box" size="0.12 0.004 0.006" pos="-0.03 -0.05 0.081" material="pla"/>
+      <geom class="vis" name="post_fl" type="cylinder" fromto="0.07 0.04 0.026 0.07 0.04 0.072" size="0.0025" material="carbon"/>
+      <geom class="vis" name="post_fr" type="cylinder" fromto="0.07 -0.04 0.026 0.07 -0.04 0.072" size="0.0025" material="carbon"/>
+      <geom class="vis" name="post_rl" type="cylinder" fromto="-0.13 0.04 0.026 -0.13 0.04 0.072" size="0.0025" material="carbon"/>
+      <geom class="vis" name="post_rr" type="cylinder" fromto="-0.13 -0.04 0.026 -0.13 -0.04 0.072" size="0.0025" material="carbon"/>
+      <!-- computer box with the green bracket, behind the camera -->
+      <geom class="vis" name="pi_case" type="box" size="0.06 0.042 0.016" pos="-0.04 0 0.095" material="pla"/>
+      <geom class="vis" name="bracket" type="box" size="0.035 0.044 0.004" pos="0.005 0 0.082" material="green"/>
+      <geom class="vis" name="bracket_tab" type="box" size="0.012 0.004 0.012" pos="0.02 -0.046 0.09" material="green"/>
+      <!-- OAK-D Lite (91 x 28 x 17.5 mm) in a white cradle on a stand; lens at the oak_rgb camera -->
+      <geom class="vis" name="oak_stand" type="box" size="0.012 0.022 0.012" pos="0.072 0 0.093" material="pla"/>
+      <geom class="vis" name="cradle" type="box" size="0.012 0.052 0.0175" pos="0.0765 0 0.131" material="pla"/>
+      <geom class="vis" name="oak_body" type="box" size="0.0035 0.0455 0.014" pos="0.0865 0 0.131" material="oak"/>
       <geom class="vis" name="oak_lens" type="cylinder" size="0.0045 0.001" pos="0.0905 0 0.131" euler="0 1.5708 0" material="lens"/>
       <geom class="vis" name="oak_lens_l" type="cylinder" size="0.0035 0.001" pos="0.0905 0.0375 0.131" euler="0 1.5708 0" material="lens"/>
       <geom class="vis" name="oak_lens_r" type="cylinder" size="0.0035 0.001" pos="0.0905 -0.0375 0.131" euler="0 1.5708 0" material="lens"/>
+      <!-- front end: crossmember, wishbones, MG90S servo, red truss bumper -->
+      <geom class="vis" name="front_plate" type="box" size="0.03 0.03 0.004" pos="0.125 0 0.034" material="pla"/>
+      <geom class="vis" name="arm_fl" type="capsule" fromto="0.105 0.022 0.045 0.127 0.058 0.04" size="0.0035" material="pla"/>
+      <geom class="vis" name="arm_rl" type="capsule" fromto="0.15 0.022 0.045 0.127 0.058 0.04" size="0.0035" material="pla"/>
+      <geom class="vis" name="arm_fr" type="capsule" fromto="0.105 -0.022 0.045 0.127 -0.058 0.04" size="0.0035" material="pla"/>
+      <geom class="vis" name="arm_rr" type="capsule" fromto="0.15 -0.022 0.045 0.127 -0.058 0.04" size="0.0035" material="pla"/>
+      <geom class="vis" name="link_l" type="capsule" fromto="0.115 0.006 0.052 0.115 0.055 0.05" size="0.0022" material="pla"/>
+      <geom class="vis" name="link_r" type="capsule" fromto="0.115 -0.006 0.052 0.115 -0.055 0.05" size="0.0022" material="pla"/>
+      <geom class="vis" name="servo" type="box" size="0.006 0.0115 0.0145" pos="0.122 0 0.06" material="servo"/>
+      <geom class="vis" name="servo_label" type="box" size="0.0005 0.009 0.006" pos="0.1282 0 0.063" material="label"/>
+      <geom class="vis" name="servo_horn" type="box" size="0.004 0.009 0.0015" pos="0.118 0 0.0475" material="pla"/>
+      <geom class="vis" name="bumper_bar" type="box" size="0.006 0.088 0.007" pos="0.212 0 0.022" material="red"/>
+      <geom class="vis" name="bumper_strut_l" type="box" size="0.034 0.004 0.006" pos="0.18 0.04 0.022" euler="0 0 -0.85" material="red"/>
+      <geom class="vis" name="bumper_strut_r" type="box" size="0.034 0.004 0.006" pos="0.18 -0.04 0.022" euler="0 0 0.85" material="red"/>
+      <geom class="vis" name="bumper_spine" type="box" size="0.03 0.005 0.006" pos="0.18 0 0.022" material="red"/>
+      <geom class="vis" name="bumper_tip_l" type="box" size="0.004 0.004 0.006" pos="0.206 0.09 0.022" material="red"/>
+      <geom class="vis" name="bumper_tip_r" type="box" size="0.004 0.004 0.006" pos="0.206 -0.09 0.022" material="red"/>
+      <!-- rear axle -->
+      <geom class="vis" name="rear_axle" type="cylinder" fromto="-0.127 0.07 0.03 -0.127 -0.07 0.03" size="0.003" material="hub"/>
       <site name="base_link" pos="{REAR_AXLE_X} 0 0.037" size="0.01"/>
       <camera name="chase" mode="trackcom" pos="-0.9 0 0.38" xyaxes="0 -1 0 0.38 0 0.92"/>
       <camera name="side" mode="trackcom" pos="0.25 -0.75 0.22" xyaxes="0.95 0.31 0 -0.06 0.2 0.98"/>
