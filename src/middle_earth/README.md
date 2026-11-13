@@ -103,7 +103,7 @@ basement: the 4.5 m × 3.5 m oval the markers sit on). On the racetrack one more
 sits midway between consecutive gates wherever the track turns (`--bend-extra 1`;
 named `cone_gate_bend*`). The racetrack was widened from 1.2 m to 2.2 m so the gate
 cones are not at the edge of the OAK-D's ±33° view (see
-`docs/course/09_perception_driven_racing.md`, section 8). The gates are generated;
+`docs/course/09_perception_driven_racing.md`, §5). The gates are generated;
 to change them, run
 
 ```bash

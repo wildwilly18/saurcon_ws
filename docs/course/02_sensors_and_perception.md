@@ -1,120 +1,186 @@
-# Chapter 2 — Sensors and Perception
+# Lecture 2 — Sensors and Measurement Models
 
-**Notebook:** [02_camera_geometry_and_pnp.ipynb](notebooks/02_camera_geometry_and_pnp.ipynb)
+*Notebook:* [02_camera_geometry_and_pnp.ipynb](notebooks/02_camera_geometry_and_pnp.ipynb)
 
-## Learning objectives
+*Reading:* [Hartley04] ch. 6; [Szeliski22] §2.1 and §12.1; [Collins14]; [Thrun05] ch. 5–6.
 
-- Model wheel odometry and gyroscope errors, and explain why they drift.
-- Project 3-D points with the pinhole model; convert between field of view and focal length.
-- Derive stereo depth and its error growth with range.
-- Recover a marker's pose with PnP, and recognise the planar pose ambiguity.
-- Explain camera vs. optical frames and why the distinction causes bugs.
+*Further reading:* [Lepetit09] for the general (non-planar) PnP problem.
+
+## Outcomes
+
+After this lecture you can (i) write error models for wheel odometry and a MEMS gyroscope and
+predict how their errors grow with time; (ii) project points with the pinhole model and relate
+focal length to field of view; (iii) derive stereo depth and its range-dependent error, and
+propagate pixel errors to metric errors in general; (iv) recover a planar marker's pose by PnP,
+explain the two-fold ambiguity, and compose the result into a vehicle pose.
 
 ## 1. Proprioceptive sensors
 
-**Wheel odometry.** Speed is $v = r\,\omega$ averaged over the driven wheels. Errors
-come from wheel radius (a 1% radius error is a 1% distance error), slip under
-acceleration and cornering, and quantisation. In SAURCON the ESP32 publishes speed
-and steering angle on `/saurcon/odom`; in simulation `sim_saurcon_rc` computes it
-from Gazebo joint states.
+**Wheel odometry.** Speed is $v = r_w\,\omega_w$ averaged over the driven wheels. Its errors
+have three sources with different statistics: a *scale* error from the wheel radius $r_w$ (a 1%
+radius error is a 1% distance error, systematic and unbounded in distance), *slip* under
+acceleration and cornering (state-dependent, biased toward over-reading when driven wheels
+spin), and *quantisation* of the encoder (white, small). In SAURCON the ESP32 publishes speed
+and steering angle on `/saurcon/odom`; in simulation `sim_saurcon_rc` computes them from
+Gazebo joint states.
 
-**Gyroscope.** A MEMS gyro measures $\omega_\text{meas} = \omega + b + n$, with a
-slowly varying **bias** $b$ and white noise $n$ (standard deviation $\sigma_n$ per
-sample). Integrated heading error grows as
+**Gyroscope.** A MEMS gyro measures
 
-$$\delta\psi(t) = b\,t + \text{random walk with } \sigma\sqrt{t\,\Delta t}.$$
+$$
+\omega_\text{meas} = \omega + b + n,\qquad n\sim\mathcal N(0,\sigma_n^2)\ \text{per sample}, \tag{2.1}
+$$
 
-The bias term dominates: an uncorrected bias of only 0.001 rad/s is 12° after
-200 s. If you estimate the bias by averaging $N$ stationary samples, the estimate
-itself has error $\sigma_n/\sqrt N$ — this exact effect is the case study in
-chapter 3.
+with a slowly varying bias $b$. Integrating at period $\Delta t$ for time $t$ gives a heading
+error
+
+$$
+\delta\psi(t) = b\,t + \sum_{k=1}^{t/\Delta t} n_k\Delta t,\qquad
+\operatorname{std}\Big(\sum n_k\Delta t\Big) = \sigma_n\sqrt{\Delta t\,t}. \tag{2.2}
+$$
+
+The first term grows linearly, the second as $\sqrt t$ (*angle random walk*); the bias term
+dominates beyond a few seconds. A bias of only 0.001 rad/s is 11.5° after 200 s. Averaging $N$
+stationary samples estimates $b$ with error $\sigma_n/\sqrt N$, a fact that becomes a case
+study in L3 §7.
 
 ## 2. The pinhole camera
 
-A point $(X, Y, Z)$ in the **optical frame** (x right, y down, z forward) projects to
-pixel
+A point $\mathbf p = (X, Y, Z)$ in the **optical frame** $\{C\}$ ($x$ right, $y$ down, $z$
+forward) projects to pixel $(u, v)$:
 
-$$u = f_x \frac{X}{Z} + c_x, \qquad v = f_y \frac{Y}{Z} + c_y.$$
+$$
+\lambda\begin{bmatrix}u\\v\\1\end{bmatrix} = K\begin{bmatrix}X\\Y\\Z\end{bmatrix},\qquad
+K = \begin{bmatrix}f_x & 0 & c_x\\ 0 & f_y & c_y\\ 0&0&1\end{bmatrix},\qquad \lambda = Z. \tag{2.3}
+$$
 
 For an image $W$ pixels wide with horizontal field of view $\theta$,
-$f_x = \dfrac{W/2}{\tan(\theta/2)}$. SAURCON's simulated camera is 640 px wide with
-$\theta = 1.204$ rad, so $f_x = 465.7$ px. (A configuration file once said 929.4 —
-consistent with a different resolution, not this camera. Always derive intrinsics
-from the actual stream.)
+$f_x = \dfrac{W/2}{\tan(\theta/2)}$. SAURCON's camera is 640 px wide with $\theta = 1.204$ rad,
+so $f_x = 465.7$ px. A configuration file once said 929.4 px, consistent with a 1280-px stream
+of the same lens, not this one: **derive intrinsics from the stream you actually receive.**
 
-**Camera frame vs. optical frame.** ROS body frames are x forward, y left, z up.
-Optical frames are x right, y down, z forward. The rotation between them is fixed;
-forgetting it is the most common perception bug, and it produces poses that look
-"almost right but rotated 90°".
+**Body vs. optical frames.** ROS body frames are $x$ forward, $y$ left, $z$ up; optical frames
+are $x$ right, $y$ down, $z$ forward. The fixed rotation between them (L0, problem 0.4) is the
+most common source of perception bugs, and its symptom is distinctive: poses that are almost
+right but rotated by 90°.
+
+**Error propagation.** For any measurement $\mathbf y = g(\mathbf x)$ with $\mathbf x$ noisy,
+the first-order covariance is $\Sigma_y = J\,\Sigma_x J^\top$ with $J = \partial g/\partial
+\mathbf x$. We use this repeatedly: for stereo below, for ground-plane cone ranging in L9, and
+for the filter of L3.
 
 ## 3. Stereo depth
 
-Two cameras a **baseline** $B$ apart see a point at disparity $d = u_L - u_R$
-pixels. Depth is
+Two rectified cameras a baseline $B$ apart see a point at disparity $d = u_L - u_R$. From
+similar triangles,
 
-$$Z = \frac{f B}{d}, \qquad \frac{\partial Z}{\partial d} = -\frac{Z^2}{f B}.$$
+$$
+Z = \frac{fB}{d},\qquad \frac{\partial Z}{\partial d} = -\frac{fB}{d^2} = -\frac{Z^2}{fB},\qquad
+\sigma_Z \approx \frac{Z^2}{fB}\,\sigma_d. \tag{2.4}
+$$
 
-So a fixed disparity error $\sigma_d$ gives a depth error that grows with the
-**square** of range: $\sigma_Z \approx Z^2 \sigma_d / (f B)$. The OAK-D Lite has a
-75 mm baseline; with $f \approx 450$ px and $\sigma_d = 0.1$ px the error is 1 mm at
-0.5 m but 5 cm at 5 m. Passive stereo also fails on surfaces without texture (no
-features to match), returning zero (invalid) depth. The simulated OAK-D model
-reproduces both effects in `src/saurcon_nav/scripts/oak_depth.py`.
+Depth error grows with the **square** of range. The OAK-D Lite has $B = 75$ mm; with
+$f\approx 450$ px and a sub-pixel matching error $\sigma_d = 0.1$ px, $\sigma_Z$ is 0.7 mm at
+0.5 m but 7 cm at 5 m. Passive stereo also fails where there is no texture to match, returning
+invalid (zero) depth; small, plain objects such as traffic cones produce holes. SAURCON's
+simulated OAK-D reproduces both effects (`saurcon_nav/scripts/oak_depth.py`), and L9 shows how
+much they matter for ranging cones.
 
-## 4. Fiducials and PnP
+![Figure 2.1](figures/ranging_error.png)
 
-An ArUco marker is a square of known side $s$ with a binary code. Detection finds
-its four corners in the image; **Perspective-n-Point (PnP)** finds the rotation $R$
-and translation $t$ of the marker in the camera frame that best reproject the known
-3-D corners onto them:
+*Figure 2.1.* Range error produced by a one-pixel error, for stereo (2.4), cone-size ranging and ground-plane ranging (9.1), with the OAK-D Lite's parameters. All grow as $Z^2$; ground-plane ranging has the largest lever arm (the 0.137 m camera height). Circles: ground-plane errors measured in Gazebo, smaller than one pixel's worth because the base row is located to sub-pixel consistency.
 
-$$\min_{R,t} \sum_{i=1}^{4} \left\| \pi\!\left(K (R\,P_i + t)\right) - p_i \right\|^2.$$
+## 4. Fiducial markers and Perspective-n-Point
 
-For a single planar square, OpenCV's `SOLVEPNP_IPPE_SQUARE` solver is designed for
-this case and returns **two** solutions. When the marker is small or viewed
-head-on, the two have nearly equal reprojection error but orientations mirrored
-about the line of sight. Picking the wrong one moves the inferred *vehicle* position
-sideways by roughly range × orientation error.
+An ArUco marker [GarridoJurado14] is a square of known side $s$ carrying a binary code.
+Detection finds its four corners $\mathbf p_i$ in the image. **Perspective-n-Point** finds the
+rotation and translation of the marker in the camera frame that best reproject the known 3-D
+corners $\mathbf P_i$:
 
-Given the marker's world pose $T_{wm}$ (from a surveyed map), the vehicle pose is
+$$
+\min_{\mathbf C,\mathbf t}\ \sum_{i=1}^{4}\big\|\pi\big(K(\mathbf C\mathbf P_i + \mathbf t)\big) - \mathbf p_i\big\|^2, \tag{2.5}
+$$
 
-$$T_{wv} = T_{wm}\, (T_{vc}\, T_{cm})^{-1},$$
+where $\pi$ divides by the third coordinate. For a planar target the problem is a homography,
+and the IPPE solver [Collins14] returns its two local minima in closed form. **The planar
+ambiguity:** when the marker is small in the image or viewed nearly head-on, the two solutions
+have nearly equal reprojection error but orientations mirrored about the line of sight. No
+amount of optimisation distinguishes them; only more information (a second marker, motion, a
+prior) can.
 
-where $T_{vc}$ is the camera mounting transform and $T_{cm}$ the PnP result.
+**Composing a vehicle pose.** With the marker's surveyed pose ${}^{W}T_{M}$, the camera mounting
+${}^{B}T_{C}$ and the PnP result ${}^{C}T_{M}$,
 
-## 5. Case studies
+$$
+{}^{W}T_{B} = {}^{W}T_{M}\,\big({}^{B}T_{C}\,{}^{C}T_{M}\big)^{-1}. \tag{2.6}
+$$
 
-**The marker map that was 180° off.** Markers 3 and 10 sat across the track
-ends; the map gave their facing direction with the wrong sign. Seen from the
-correct side, the localizer placed the car mirrored through the marker, 3.6 m away
-with heading reversed. Found by teleporting the car in front of each marker and
-comparing to ground truth — a test worth automating for any map.
+An orientation error $\epsilon$ in ${}^{C}T_{M}$ rotates the inverse about the marker, moving
+the vehicle laterally by approximately $\epsilon\times$range (problem 2.3). Marker
+localization is therefore precise near markers and fragile far from them.
 
-**Wrong marker size.** The texture has a 10% white margin, so the black square is
-0.122 m, not the 0.1524 m plate. At close range the detector locked onto the plate
-edge (which matched 0.1524 m) and range was right; further away it locked onto the
-real square and range was 12–21% long. Two errors cancelling in one regime is a
-classic trap.
+## 5. From the lab
 
-**Ambiguous poses.** Once the filter actually trusted marker fixes, ambiguous PnP
-solutions made the estimate jump by up to 1.6 m. The fix rejects detections whose
-two solutions disagree by more than 15° and are nearly equally good, and inflates
-measurement noise as $1 + (\text{range}/1.5\,\text{m})^2$ — the same square law as
-stereo.
+**Two errors cancelling in one regime.** The marker texture has a 10% white margin, so the black
+square is 0.122 m, not the 0.1524 m plate. At close range the detector locked onto the plate
+edge, which *did* measure 0.1524 m, so range was right; farther away it locked onto the real
+black square and range came out 12–21% long. A test at one distance would have passed.
+**Lesson:** validate across the operating range, not at a convenient point.
 
-## How SAURCON does it
+**The marker map that was 180° off.** Two markers across the track ends had their facing
+direction recorded with the wrong sign. Seen from the correct side, the localizer placed the car
+mirrored through the marker, 3.6 m away and facing backwards. It was found by teleporting the
+car in front of each marker and comparing (2.6) with ground truth, a check worth automating for
+any map.
+
+**Ambiguity under trust.** Once the filter actually trusted marker fixes, ambiguous PnP
+solutions made the estimate jump by up to 1.6 m. The fix rejects detections whose two IPPE
+solutions disagree by more than 15° while having nearly equal error, and inflates the
+measurement noise by $1 + (\text{range}/1.5\,\text{m})^2$, the same square law as (2.4).
+**Lesson:** a measurement model must include its failure modes, not only its noise.
+
+## In SAURCON
 
 | Concept | Where |
 |---|---|
-| OAK-D Lite simulated device | `src/middle_earth/models/oak_d_lite/` (README lists modelling gaps) |
-| Depth post-processing | `src/saurcon_nav/scripts/oak_depth.py` |
-| ArUco detection + PnP | `src/saurcon_perception/src/aruco_detector.cpp` |
-| Marker → vehicle pose | `src/saurcon_perception/src/aruco_localizer_node.cpp` |
+| Simulated OAK-D Lite (RGB, stereo, IMU) | `src/middle_earth/models/oak_d_lite/` |
+| Depth degradation model | `src/saurcon_nav/scripts/oak_depth.py` |
+| ArUco detection and IPPE | `src/saurcon_perception/src/aruco_detector.cpp` |
+| Marker → vehicle pose (2.6) | `src/saurcon_perception/src/aruco_localizer_node.cpp` |
 
-## Exercises
+## Summary
 
-1. ★ Compute $f_x$ for a 1280-px-wide stream with the same FOV. What happens to depth error?
-2. ★ In the notebook, project a 0.122 m marker at 1, 3 and 5 m; how many pixels wide is it?
-3. ★★ Show that for $T_{wv} = T_{wm}(T_{vc}T_{cm})^{-1}$, a yaw error $\epsilon$ in $T_{cm}$ moves the vehicle laterally by about range × $\epsilon$.
-4. ★★ Reproduce the IPPE ambiguity in the notebook: at what range do the two solutions' errors become indistinguishable with 0.3 px corner noise?
-5. ★★★ The OAK-D Lite computes depth aligned to the colour camera. Write the transform chain needed to align depth computed in the left mono camera to the colour image.
+- Odometry error is mostly systematic (scale, slip); gyro heading error is dominated by bias.
+- Stereo depth error grows as $Z^2$; pixel errors always propagate through a Jacobian.
+- Planar PnP has two near-equal solutions; treat the ambiguity as part of the measurement model.
+
+## Problems
+
+**2.1** [T] ★ Compute $f_x$ for a 1280-px stream with the same field of view. How does the
+stereo depth error at 5 m change, all else equal?
+
+**2.2** [C] ★ In notebook 02, project a 0.122 m marker at 1, 3 and 5 m. How many pixels wide is
+it, and what does that imply for corner noise in metres?
+
+**2.3** [T] ★★ Show that for (2.6), a yaw error $\epsilon$ in ${}^{C}T_{M}$ moves the vehicle
+laterally by $\approx \epsilon\,\|{}^{C}\mathbf t_{M}\|$ to first order.
+
+**2.4** [C] ★★ Reproduce the IPPE ambiguity in the notebook: with 0.3 px corner noise, at what
+range do the two solutions' reprojection errors become statistically indistinguishable?
+
+**2.5** [T] ★★ A gyro has $\sigma_n = 0.009$ rad/s at 100 Hz and an unknown constant bias. How
+long must the car stand still for the bias estimate to contribute less than 1° of heading error
+over a 3-minute run?
+
+**2.6** [T] ★★★ The OAK-D Lite computes depth in its left mono camera and aligns it to the
+colour camera. Write the transform chain and the per-pixel operations needed, and identify which
+step creates the depth holes at object boundaries.
+
+### Answers to selected problems
+
+**2.1** $f_x = 931.4$ px. With $f$ doubled, (2.4) halves $\sigma_Z$ for the same $\sigma_d$ in
+pixels: about 3.5 cm at 5 m (in practice $\sigma_d$ in pixels also changes with resolution).
+
+**2.5** The bias error is $\sigma_n/\sqrt N$; over $t = 180$ s it contributes
+$t\,\sigma_n/\sqrt N \le 0.01745$ rad, so $N \ge (180\cdot 0.009/0.01745)^2 \approx 8{,}600$
+samples, i.e. about 86 s at 100 Hz. Standing still that long is impractical, which is why L3
+accumulates bias samples whenever the car is stationary rather than only at start-up.
