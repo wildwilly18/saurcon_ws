@@ -36,3 +36,7 @@ The racetrack world downloads its warehouse models from Gazebo Fuel on first
 launch, so the first start needs an internet connection and takes a while.
 
 Rebuild after code changes with `colcon build --symlink-install`.
+
+RTAB-Map simulation mapping/localization, OAK-D Lite sensor topics and repeatable
+lap evaluation are described in [docs/RTABMAP_USAGE.md](docs/RTABMAP_USAGE.md).
+ArUco remains selectable until the measured replacement meets its baseline.

@@ -1,5 +1,6 @@
 #include "saurcon_rc/state_machine.hpp"
 #include <algorithm>
+#include <tuple>
 
 using namespace std;
 
@@ -21,6 +22,11 @@ StateMachine::StateMachine()
     last_ctrl_heartbeat_    = this->now();
     menu_pressed_start_time = this->now();
     view_pressed_start_time = this->now();
+    last_auto_cmd_          = this->now();
+
+    // Commands from an autonomous driver (e.g. the RL policy). Only used in RUN_AUTONOMOUS.
+    sub_auto_cmd = this->create_subscription<geometry_msgs::msg::Twist>(
+        "/auto_cmd", 10, std::bind(&StateMachine::auto_cmd_cb, this, std::placeholders::_1));
 
     state_timer_ = this->create_wall_timer(
         30ms, std::bind(&StateMachine::handleCurrentState, this)
@@ -92,7 +98,7 @@ void StateMachine::handleCurrentState()
         case SaurconState::STANDBY:        handle_STANDBY();        break;
         case SaurconState::STARTUP:        handle_STARTUP();        break;
         case SaurconState::RUN_CONTROL:    handle_RUN_CONTROL();    break;
-        case SaurconState::RUN_AUTONOMOUS: break;
+        case SaurconState::RUN_AUTONOMOUS: handle_RUN_AUTONOMOUS(); break;
         case SaurconState::FAULT:          handle_FAULT();          break;
         default: break;
     }
@@ -149,7 +155,7 @@ void StateMachine::handle_STARTUP(){
 }
 
 void StateMachine::handle_STANDBY(){
-    //Initilization is done. Look for a menu press and hold or view press and hold to send us to autonomous or rc control
+    // Hold menu for 2 s: RUN_CONTROL (joystick). Hold view for 2 s: RUN_AUTONOMOUS.
     if (menu_held){
         if(!menu_transition_triggered) {
             if((this->now() - this->menu_pressed_start_time).seconds() >= 2.0) {
@@ -158,6 +164,41 @@ void StateMachine::handle_STANDBY(){
             }
         }
     }
+    if (view_held && !view_transition_triggered) {
+        if((this->now() - this->view_pressed_start_time).seconds() >= 2.0) {
+            view_transition_triggered = true;
+            StateMachine::setState(SaurconState::RUN_AUTONOMOUS);
+        }
+    }
+}
+
+void StateMachine::auto_cmd_cb(const geometry_msgs::msg::Twist::SharedPtr msg){
+    auto_msg = *msg;
+    last_auto_cmd_ = this->now();
+}
+
+void StateMachine::handle_RUN_AUTONOMOUS(){
+    // The joystick stays a dead-man switch: losing it (or the RC) faults the car.
+    check_heartbeat();
+    if (current_state_ != SaurconState::RUN_AUTONOMOUS) return;
+
+    // Hold menu or view for 2 s to take back control.
+    for (auto held : {std::make_tuple(menu_held, &menu_transition_triggered, menu_pressed_start_time),
+                      std::make_tuple(view_held, &view_transition_triggered, view_pressed_start_time)}) {
+        if (std::get<0>(held) && !*std::get<1>(held) &&
+            (this->now() - std::get<2>(held)).seconds() >= 2.0) {
+            *std::get<1>(held) = true;
+            setState(SaurconState::STANDBY);
+            return;
+        }
+    }
+
+    if ((this->now() - last_auto_cmd_) > auto_timeout_) {
+        RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "Autonomous commands lost; stopping");
+        ctrl_msg = stop_msg;
+        return;
+    }
+    ctrl_msg = auto_msg;
 }
 
 void StateMachine::handle_RUN_CONTROL(){

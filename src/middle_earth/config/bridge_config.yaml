@@ -37,23 +37,57 @@
   gz_type_name: "gz.msgs.Model"
   direction: GZ_TO_ROS
 
-# RGBD camera - colour image (Gazebo -> ROS 2)
-- ros_topic_name: "/camera/image"
-  gz_topic_name: "/camera/image"
+
+- ros_topic_name: "/oak/rgb/image_raw"
+  gz_topic_name: "/oak_sim/rgb/image"
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
 
-# RGBD camera - depth image (Gazebo -> ROS 2)
-- ros_topic_name: "/camera/depth_image"
-  gz_topic_name: "/camera/depth_image"
-  ros_type_name: "sensor_msgs/msg/Image"
-  gz_type_name: "gz.msgs.Image"
-  direction: GZ_TO_ROS
-
-# RGBD camera - camera info (Gazebo -> ROS 2)
-- ros_topic_name: "/camera/camera_info"
-  gz_topic_name: "/camera/camera_info"
+- ros_topic_name: "/oak_sim/rgb/camera_info"
+  gz_topic_name: "/oak_sim/rgb/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/oak/left/image_raw"
+  gz_topic_name: "/oak_sim/left"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/oak_sim/left/camera_info"
+  gz_topic_name: "/oak_sim/left/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/oak/right/image_raw"
+  gz_topic_name: "/oak_sim/right"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/oak_sim/right/camera_info"
+  gz_topic_name: "/oak_sim/right/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/oak_sim/depth"
+  gz_topic_name: "/oak_sim/rgb/depth_image"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/oak/imu/data"
+  gz_topic_name: "/oak/imu/data"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  gz_type_name: "gz.msgs.IMU"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/camera/image"
+  gz_topic_name: "/oak_sim/rgb/image"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS

@@ -1,0 +1,26 @@
+# Reference profile for the inspected depthai-ros v2 driver, NOT hardware-validated.
+# Actual intrinsics and IMU extrinsics must come from the connected device.
+/oak:
+  ros__parameters:
+    camera:
+      i_pipeline_type: RGBD
+      i_nn_type: none
+      i_enable_imu: true
+    rgb:
+      i_fps: 15.0
+      i_resolution: '1080P'
+      i_output_isp: false
+      i_width: 640
+      i_height: 400
+    left:
+      i_fps: 15.0
+      i_resolution: '480P'
+      i_publish_topic: true
+    right:
+      i_fps: 15.0
+      i_resolution: '480P'
+      i_publish_topic: true
+    stereo:
+      i_align_depth: true
+      i_width: 640
+      i_height: 400

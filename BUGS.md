@@ -392,3 +392,27 @@ missing `package.xml` dependencies, and the `<odometry_topic>` tag in the vehicl
   than 15° and cannot be told apart; the localizer scales noise by
   `1 + (range / 1.5 m)^2`; markers under ~13 px are ignored; the innovation gate is
   5 sigma and position process noise is `0.01 + 0.05·|v|` m/√s.
+
+## RTAB-Map acceptance limits (2026-11-12)
+
+The new simulation integration passes the original 5 cm RMS / 19 cm maximum
+position target on a forward localization lap and on a forward lap starting at
+x=3.5 m. It is not a complete replacement for ArUco yet:
+
+- A reverse-direction lap against the forward-only database failed global
+  localization (about 16 m RMS position and 179 degrees heading error). A few
+  visual matches were reported, so accepted-match counts alone are not proof
+  of a correct pose. Map both directions and/or validate a supplied initial pose
+  before using reverse travel; evaluate against ground truth again.
+- A marker-free mapping lap had no accepted global closure and tracked the
+  drifting wheel/gyro odometry (about 0.41 m RMS). Repetitive rack candidates
+  were rejected by the graph-error gate. More distinctive environmental texture,
+  a stronger map or improved odometry is still needed before marker retirement.
+- Visual odometry also lost tracking in the marker-free scene; it is available
+  as an explicit comparison option, not the default.
+- The OAK model approximates stereo matching and uses assumed IMU extrinsics.
+  Real-device calibration and hardware testing remain deferred.
+
+ArUco remains selectable and enabled by default. Run SLAM with
+`use_aruco:=false slam:=true`. Reproduction commands and measured results are in
+`docs/RTABMAP_USAGE.md` and `docs/RTABMAP_STATUS.md`.

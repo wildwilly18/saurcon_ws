@@ -30,8 +30,8 @@ private:
     //void onEnter_RUN_CONTROL();
     void handle_RUN_CONTROL();
 
-    //void onEnter_RUN_AUTONOMOUS();
-    //void handle_RUN_AUTONOMOUS();
+    void handle_RUN_AUTONOMOUS();
+    void auto_cmd_cb(const geometry_msgs::msg::Twist::SharedPtr msg);
 
     void onEnter_FAULT();
     void handle_FAULT();
@@ -55,6 +55,11 @@ private:
     rclcpp::TimerBase::SharedPtr ctrl_pub_timer_;
 
     rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr  sub_joy;
+    rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_auto_cmd;
+    geometry_msgs::msg::Twist auto_msg;
+    rclcpp::Time last_auto_cmd_;
+    // Autonomous commands older than this are treated as lost and the car stops.
+    const rclcpp::Duration auto_timeout_ = rclcpp::Duration::from_seconds(0.25);
     rclcpp::Subscription<std_msgs::msg::UInt8>::SharedPtr   sub_src_state;
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub_ctrl_cmd; 
     rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr      pub_state_cmd;

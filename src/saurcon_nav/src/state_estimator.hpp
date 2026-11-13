@@ -62,7 +62,7 @@ struct Aruco_loc_t{
 class StateEstimator
 {
 public:
-    StateEstimator();
+    explicit StateEstimator(bool use_aruco = true);
     ~StateEstimator();
 
     // reset interface call
@@ -78,11 +78,16 @@ public:
 
     SaurconNavState getCurrentState() const { return current_state_; }
 
+    double getYawRate() const {
+        return imu_buffer.empty() ? 0.0 : imu_buffer.front().w_b(2) - gyro_bias_(2);
+    }
+
     // Read-only access to estimated state and covariance
     const Eigen::VectorXd& getX() const { return X_k_p_; }
     const Eigen::MatrixXd& getP() const { return P_k_p_; }
 
 private:
+    bool use_aruco_;
     void onNavStateChange(SaurconNavState new_state);
     void duringNavState(SaurconNavState current_state, double dt);
     void doReset();
@@ -133,6 +138,15 @@ private:
     // Stationary detection (zero-velocity bypass)
     double stationary_speed_   = 0.01;             // m/s
     double stationary_yawrate_ = 0.02;             // rad/s
+
+    // Gyro bias refinement. The start-up calibration averages only imu_survey_count
+    // samples (1 s at 100 Hz), which leaves a random bias error of about
+    // noise/sqrt(100). An Ackermann car cannot yaw while its wheels are stopped, so
+    // every IMU sample taken while stationary is a further sample of the bias.
+    size_t bias_samples_{0};                       // samples in the running mean
+    const size_t max_bias_samples_ = 6000;         // caps memory so slow drift is tracked
+    const double bias_gate_ = 0.1;                 // rad/s; reject bumps and knocks
+    void refineGyroBias();
 
     // Used when no ArUco fix was available at start: pose is essentially unknown.
     double unknown_xy_std_    = 10.0;

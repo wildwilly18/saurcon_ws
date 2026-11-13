@@ -86,6 +86,41 @@ ros2 topic pub /model/rc_ackermann_vehicle/cmd_vel geometry_msgs/msg/Twist \
   "{linear: {x: 0.5}, angular: {z: 0.2}}"
 ```
 
+## Raceway cones
+
+Both worlds are raceways lined with gates of two 1:10 scale traffic cones
+(`models/rc_cone`: 71 mm tall, orange, 24 g so the car can knock them over),
+square to the track:
+
+| World | Gate width | Gates at markers | Added between | Added in bends | Total gates | Cones |
+|---|---:|---:|---:|---:|---:|---:|
+| `racetrack.world` | 2.2 m | 14 | 28 | 12 | 54 | 108 |
+| `basement.world` | 1.2 m | 12 | 24 | 0 | 36 | 72 |
+
+Added gates sit at thirds of the arc length between consecutive marker gates
+along the track centreline (racetrack: the stadium line the lap driver follows;
+basement: the 4.5 m × 3.5 m oval the markers sit on). On the racetrack one more gate
+sits midway between consecutive gates wherever the track turns (`--bend-extra 1`;
+named `cone_gate_bend*`). The racetrack was widened from 1.2 m to 2.2 m so the gate
+cones are not at the edge of the OAK-D's ±33° view (see
+`docs/course/09_perception_driven_racing.md`, section 8). The gates are generated;
+to change them, run
+
+```bash
+python3 scripts/add_cone_gates.py --width 2.2 --between 2 --bend-extra 1 --plot gates.png \
+    worlds/racetrack.world
+python3 scripts/add_cone_gates.py --width 1.2 --between 2 worlds/basement.world
+```
+
+which replaces the previously generated block (`--dry-run` only plots). After
+changing the racetrack, regenerate the evaluation worlds derived from it
+(from the workspace root: `python3 scripts/sim_eval/make_world.py
+evaluation/worlds/no_markers.world --no-markers`, and `reverse.world` with
+`--yaw 3.141592653589793`).
+`scripts/sim_eval/make_world.py --no-markers` keeps the cones and removes only
+the markers. `scripts/sim_eval/cone_watch.py` reports any cone that moves or
+tips during a run.
+
 ## Topics
 
 Bridged to ROS 2 by `config/bridge_config.yaml`:

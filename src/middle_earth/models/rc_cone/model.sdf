@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+  1:10 scale traffic cone for the RC raceway.
+
+  Full-size reference: 28 in (711 mm) cone, 14 in (356 mm) square base,
+  ~267 mm body diameter at the base. Scaled 1:10: 71 mm tall overall,
+  36 mm square x 3 mm base, 26.8 mm body diameter, 68 mm body height.
+
+  Light enough (24 g) for the car to knock over. The link origin is on the
+  floor at the centre of the base, so a pose z of 0 places it on the ground.
+  The collision body is a cylinder (cone collisions are not supported by every
+  physics engine); the visual is a true cone.
+-->
+<sdf version="1.11">
+  <model name="rc_cone">
+    <link name="cone">
+      <inertial>
+        <pose>0 0 0.01692 0 0 0</pose>
+        <mass>0.024</mass>
+        <inertia>
+          <ixx>5.583e-06</ixx><iyy>5.583e-06</iyy><izz>1.941e-06</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+
+      <!-- Square base -->
+      <collision name="base_collision">
+        <pose>0 0 0.0015 0 0 0</pose>
+        <geometry><box><size>0.036 0.036 0.003</size></box></geometry>
+        <surface><friction><ode><mu>0.8</mu><mu2>0.8</mu2></ode></friction></surface>
+      </collision>
+      <visual name="base_visual">
+        <pose>0 0 0.0015 0 0 0</pose>
+        <geometry><box><size>0.036 0.036 0.003</size></box></geometry>
+        <material>
+          <ambient>0.05 0.05 0.05 1</ambient>
+          <diffuse>0.08 0.08 0.08 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+
+      <!-- Body: cone from the top of the base to the tip -->
+      <collision name="body_collision">
+        <pose>0 0 0.03 0 0 0</pose>
+        <geometry><cylinder><radius>0.008</radius><length>0.054</length></cylinder></geometry>
+      </collision>
+      <visual name="body_visual">
+        <pose>0 0 0.037 0 0 0</pose>
+        <geometry><cone><radius>0.0134</radius><length>0.068</length></cone></geometry>
+        <material>
+          <ambient>0.55 0.12 0.0 1</ambient>
+          <diffuse>0.85 0.2 0.0 1</diffuse>
+          <specular>0.15 0.15 0.15 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

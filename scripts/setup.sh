@@ -29,9 +29,10 @@ fi
 echo "==> Installing ROS 2 ${ROS_DISTRO}, build tools and Gazebo"
 sudo apt-get update
 sudo apt-get install -y \
-  build-essential cmake \
+  build-essential cmake python3-numpy python3-opencv python3-matplotlib \
   ros-${ROS_DISTRO}-desktop ros-dev-tools \
-  ros-${ROS_DISTRO}-ros-gz
+  python3-venv \
+  ros-${ROS_DISTRO}-ros-gz ros-${ROS_DISTRO}-rtabmap-ros
 
 echo "==> Fetching submodules (micro-ROS agent)"
 git -C "$WS_DIR" submodule update --init --recursive
@@ -53,6 +54,17 @@ if ! id -nG "$USER" | grep -qw input; then
   sudo usermod -aG input "$USER"
   echo "    Added $USER to the 'input' group - log out and back in for it to apply."
 fi
+
+echo "==> RL training environment (.venv-rl: PyTorch CPU, Stable-Baselines3, Gymnasium)"
+if [ ! -x "$WS_DIR/.venv-rl/bin/python" ]; then
+  python3 -m venv --system-site-packages "$WS_DIR/.venv-rl"
+fi
+"$WS_DIR/.venv-rl/bin/pip" install -q --upgrade pip
+"$WS_DIR/.venv-rl/bin/pip" install -q torch --index-url https://download.pytorch.org/whl/cpu
+"$WS_DIR/.venv-rl/bin/pip" install -q 'stable-baselines3>=2.3' 'gymnasium>=0.29' tensorboard mujoco
+# Course notebooks (docs/course): a Matplotlib newer than Ubuntu's, and a Jupyter kernel
+"$WS_DIR/.venv-rl/bin/pip" install -q 'matplotlib>=3.8' ipykernel nbformat nbclient
+"$WS_DIR/.venv-rl/bin/python" -m ipykernel install --user --name saurcon --display-name "SAURCON (.venv-rl)"
 
 echo "==> Building the workspace"
 cd "$WS_DIR"
