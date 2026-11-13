@@ -38,6 +38,21 @@ def centreline_points(world, step=0.01):
     return np.array(pts)
 
 
+def sidecar_centreline(path, step=0.01):
+    """Centreline from a world's `.track.json` (key centerline_xy, a closed loop), resampled
+    every `step` m and oriented counter-clockwise like the built-in tracks."""
+    import json
+    xy = np.asarray(json.loads(Path(path).read_text())['centerline_xy'], float)
+    if np.hypot(*(xy[0] - xy[-1])) < 1e-9:
+        xy = xy[:-1]
+    if 0.5 * np.sum(xy[:, 0] * np.roll(xy[:, 1], -1) - np.roll(xy[:, 0], -1) * xy[:, 1]) < 0:
+        xy = xy[::-1]
+    closed = np.vstack([xy, xy[:1]])
+    s = np.concatenate([[0.0], np.cumsum(np.hypot(*np.diff(closed, axis=0).T))])
+    t = np.arange(0.0, s[-1], step)
+    return np.column_stack([np.interp(t, s, closed[:, 0]), np.interp(t, s, closed[:, 1])])
+
+
 @dataclass
 class Track:
     name: str
@@ -54,7 +69,8 @@ class Track:
     def from_world(cls, path, reverse=False):
         text = Path(path).read_text()
         name = WORLD.search(text).group(1)
-        xy = centreline_points(name)
+        sidecar = Path(path).with_suffix('.track.json')
+        xy = sidecar_centreline(sidecar) if sidecar.exists() else centreline_points(name)
         if reverse:
             xy = xy[::-1].copy()
         d = np.diff(np.vstack([xy, xy[:1]]), axis=0)

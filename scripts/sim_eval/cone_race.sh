@@ -1,20 +1,21 @@
 #!/bin/bash
-# Gazebo race driven by the cone-vision stack: camera -> detector -> policy or classical follower -> /auto_cmd.
-# usage: scripts/sim_eval/cone_race.sh <model.zip | classical> <name> [laps] [extra launch args...]
-#   e.g. scripts/sim_eval/cone_race.sh classical classical_slam 3 \
+# Gazebo race driven by the classical cone follower (saurcon_plan): camera -> detector -> follower -> /auto_cmd.
+# usage: scripts/sim_eval/cone_race.sh <name> [laps] [extra launch args...]
+#   e.g. scripts/sim_eval/cone_race.sh classical_slam 3 \
 #          world:=$PWD/evaluation/worlds/no_markers.world slam:=true cone_mapping:=rtab
+# (A leading "classical" argument, from the older <model> <name> form, is accepted and ignored.)
 # Output: evaluation/cones_gz/<name>/ (deleted first) with log.csv, frames, chase camera (CHASE=1, the
-# default here), launch.log, and for the classical follower follower.csv (its waypoints, for the video).
+# default here), launch.log, and follower.csv (the follower's state and waypoints, for the video).
 # Then: .venv-rl/bin/python scripts/sim_eval/make_race_video.py evaluation/cones_gz/<name> out.mp4
 
 WS=$(cd "$(dirname "$0")/../.." && pwd); cd "$WS"; source /opt/ros/jazzy/setup.bash
-if [ "$1" = classical ]; then MODEL=classical; else MODEL=$(realpath "$1"); fi; NAME=$2; LAPS=${3:-3}; shift $(( $# < 3 ? $# : 3 ))
+[ "${1:-}" = classical ] && shift
+NAME=$1; LAPS=${2:-3}; shift $(( $# < 2 ? $# : 2 ))
 OUT=$WS/evaluation/cones_gz/$NAME; rm -rf "$OUT"; mkdir -p "$(dirname "$OUT")"
-EXTRA=(); [ "$MODEL" = classical ] && EXTRA+=(cone_debug_csv:="$OUT/follower.csv")
 CHASE=${CHASE:-1} DRIVER=race_driver.py RACE_LAPS=$LAPS RACE_TIMEOUT=150 timeout 600 bash scripts/sim_eval/runsim.sh "$WS" "$OUT" \
-  use_aruco:=false slam:=false cone_policy_model:="$MODEL" "${EXTRA[@]}" "$@" > "$OUT.out" 2>&1
+  use_aruco:=false slam:=false cone_follower:=true cone_debug_csv:="$OUT/follower.csv" "$@" > "$OUT.out" 2>&1
 tail -1 "$OUT.out"; grep -E '^RACE' "$OUT/driver.log"
-grep -E 'cone_policy.*(Traceback|Error)|Autonomous commands lost|FAULT state entered' "$OUT/launch.log" | cut -c1-160 | head -4
+grep -E 'cone_follower.*(Traceback|Error)|Autonomous commands lost|FAULT state entered' "$OUT/launch.log" | cut -c1-160 | head -4
 python3 - "$OUT" <<'PY'
 import csv, sys, numpy as np, math
 rows = list(csv.reader(open(sys.argv[1] + '/log.csv')))[1:]
@@ -28,4 +29,4 @@ if len(mv):
 PY
 grep "last 5 s" "$OUT/launch.log" | grep -oE "rgb [0-9]+|stale control steps [0-9]+" | paste - - |
   awk '{rgb+=$2; st+=$6; n++} END{if (n) printf "camera %.1f fps, stale control steps %.1f%%\n", rgb/n/5, st/n}'
-echo "leftover sim processes: $(ps -eo comm | grep -cE 'ruby|state_estimator|cone_policy')"
+echo "leftover sim processes: $(ps -eo comm | grep -cE 'ruby|state_estimator|cone_follower')"

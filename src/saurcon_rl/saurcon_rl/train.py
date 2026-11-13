@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
-"""Train a racing policy with PPO in the fast environment.
+"""Train a racing policy with PPO in simulation.
 
 usage: python -m saurcon_rl.train --out rl_runs/ppo1 [--steps 20000000] [--envs 12]
-                                 [--env bicycle|mujoco|mujoco_cones|gazebo_cones]
-
-gazebo_cones runs one headless Gazebo server per environment (source ROS 2 first); on an
-8 GB GPU use at most 5 environments (the lap evaluation runs a sixth server).
+                                 [--env bicycle|mujoco|mujoco_cones]
 
 Every --eval-every steps it drives the racetrack from the race start with no
 randomisation and logs the standing-start and flying lap times. The policy
@@ -35,9 +32,6 @@ def env_class(name):
     if name == 'mujoco_cones':
         from saurcon_rl.cone_env import MujocoConeEnv
         return MujocoConeEnv
-    if name == 'gazebo_cones':
-        from saurcon_rl.gazebo_cone_env import GazeboConeEnv
-        return GazeboConeEnv
     return ENVS[name]
 
 RACE_START_WORLD = (-1.127, 0.0)   # rear axle at the Gazebo spawn pose
@@ -94,8 +88,6 @@ class LapEval(BaseCallback):
 def make_env(rank, seed, env_name='bicycle'):
     def f():
         torch.set_num_threads(1)
-        if env_name == 'gazebo_cones':     # stagger the Gazebo servers' start-up
-            return env_class(env_name)(seed=seed + rank, start_delay=8.0 * rank)
         return env_class(env_name)(seed=seed + rank)
     return f
 
@@ -108,7 +100,7 @@ def main():
     p.add_argument('--eval-every', type=int, default=250_000)
     p.add_argument('--seed', type=int, default=1)
     p.add_argument('--resume', type=Path)
-    p.add_argument('--env', choices=['bicycle', 'mujoco', 'mujoco_cones', 'gazebo_cones'], default='bicycle')
+    p.add_argument('--env', choices=['bicycle', 'mujoco', 'mujoco_cones'], default='bicycle')
     p.add_argument('--lr', type=float, help='when resuming, override the learning rate (fine-tuning)')
     p.add_argument('--reset-std', type=float,
                    help='when resuming, reset the action noise std (a converged policy barely explores a new simulator)')

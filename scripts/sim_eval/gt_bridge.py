@@ -7,13 +7,16 @@ from gz.transport13 import Node as GzNode
 from gz.msgs10.pose_v_pb2 import Pose_V
 from geometry_msgs.msg import TransformStamped
 from tf2_msgs.msg import TFMessage
+from world_info import world_name
+
+TOPIC=f'/world/{world_name()}/dynamic_pose/info'   # the run's world (SIM_WORLD)
 
 class GroundTruth(RosNode):
     def __init__(self):
         super().__init__('ground_truth_bridge')
         self.pub=self.create_publisher(TFMessage,'/gt_pose',50)
         self.gz=GzNode()
-        if not self.gz.subscribe(Pose_V,'/world/warehouse_racetrack/dynamic_pose/info',self.receive):
+        if not self.gz.subscribe(Pose_V,TOPIC,self.receive):
             raise RuntimeError('Cannot subscribe to Gazebo ground truth')
     def receive(self,msg):
         for pose in msg.pose:
@@ -28,6 +31,6 @@ rclpy.init();node=GroundTruth()
 try:rclpy.spin(node)
 except (KeyboardInterrupt,ExternalShutdownException):pass
 finally:
-    node.gz.unsubscribe('/world/warehouse_racetrack/dynamic_pose/info')
+    node.gz.unsubscribe(TOPIC)
     node.destroy_node()
     if rclpy.ok():rclpy.shutdown()

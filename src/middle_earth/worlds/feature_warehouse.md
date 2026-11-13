@@ -22,22 +22,29 @@ source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 ros2 launch saurcon_rc full_sim_saurcon.launch.py \
   world:=$PWD/src/middle_earth/worlds/feature_warehouse.world \
-  use_aruco:=false slam:=true cone_policy_model:=classical \
-  policy_speed_limit:=1.5 database_path:=$PWD/maps/feature_warehouse.db
+  use_aruco:=false slam:=true cone_follower:=true \
+  follower_speed_limit:=1.5 database_path:=$PWD/maps/feature_warehouse.db
 ```
 
 Hold View for two seconds in STANDBY to enable the classical driver. Start at a
 conservative speed while evaluating this new course. Use a fresh database for
 this environment. Existing maps from the stadium warehouse do not apply.
 
-The world has a distinct name, `warehouse_irregular`. Existing evaluation tools
-that hard-code `warehouse_racetrack`, its start line, or its centreline must be
-adapted before using them for lap scoring or truth overlays. The ordinary ROS
-launch and camera-based classical follower do not require those scoring tools.
-The world-aware evaluation-tool changes in the working tree supply this support;
-they are owned by a separate session and are not included in the texture-fix commit.
-The `.track.json` sidecar supplies the course geometry and spawn pose for that
-integration; it is not an input to the classical controller.
+The world has a distinct name, `warehouse_irregular`. The evaluation tools read the
+world name, spawn pose (start line and map origin) and centreline from the world file and
+its `.track.json` sidecar (`scripts/sim_eval/world_info.py`, `saurcon_plan.track`), so lap
+scoring, ground truth, the cone map's scoring and race videos work here as on the racetrack:
+
+```bash
+scripts/sim_eval/cone_race.sh fw_run 3 \
+  world:=$PWD/src/middle_earth/worlds/feature_warehouse.world slam:=true cone_mapping:=rtab \
+  database_path:=$PWD/maps/feature_warehouse.db
+```
+
+The sidecar is not an input to the classical controller, which drives from the camera alone.
+Measured with the follower (2026-11-13, after its fixes for this track's dense 0.65 m gate
+spacing; `docs/course/09_perception_driven_racing.md`, §7.5): 3-lap mapping, 29 loop
+closures, 0.086 m RMS map error; two 3-lap localization runs, 0.068 and 0.077 m RMS.
 
 Regenerate with `python3 src/middle_earth/scripts/build_feature_warehouse.py`
 (requires NumPy, SciPy, Matplotlib and OpenCV). `feature_warehouse.png` is a generated

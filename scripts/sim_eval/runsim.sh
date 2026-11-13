@@ -15,7 +15,9 @@ source "$WS/install/setup.bash"
 export SAURCON_WS="$WS"
 export GZ_PARTITION="saurcon_eval_$$"
 export ROS_DOMAIN_ID="${ROS_DOMAIN_ID:-42}"
-printf "ROS_DOMAIN_ID=%s\nGZ_PARTITION=%s\n" "$ROS_DOMAIN_ID" "$GZ_PARTITION" > "$OUT/environment.txt"
+for a in "$@"; do case "$a" in world:=*) export SIM_WORLD="${a#world:=}";; esac; done
+export SIM_WORLD="${SIM_WORLD:-$WS/src/middle_earth/worlds/racetrack.world}"
+printf "ROS_DOMAIN_ID=%s\nGZ_PARTITION=%s\nSIM_WORLD=%s\n" "$ROS_DOMAIN_ID" "$GZ_PARTITION" "$SIM_WORLD" > "$OUT/environment.txt"
 pids=()
 cleanup() {
   trap - EXIT INT TERM

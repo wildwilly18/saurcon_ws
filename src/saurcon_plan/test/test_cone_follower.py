@@ -4,7 +4,7 @@ import math
 import numpy as np
 import pytest
 
-from saurcon_rl.cone_follower import ConeFollower
+from saurcon_plan.cone_follower import ConeFollower
 
 L_PATH = np.array([[0.0, 0.0], [1.0, 0.0], [1.0, 1.0]])
 
@@ -70,3 +70,36 @@ def test_bend_ahead_limits_speed():
     k, d_k, _ = f.max_curvature(f.path)
     assert k > 0.25
     assert v_cmd <= math.sqrt(v_corner ** 2 + 2 * f.a_brake * d_k) + 0.3
+
+
+# Feature warehouse, run fw_loc_v5_repeat, t = 51.6 s: entering a left bend, only the outer
+# (right) boundary visible ahead. Gates there are 0.65 m apart along the track, so two cones
+# three apart on one side are ~2.07 m apart, inside the gate-width window. The old crossing
+# test (against the direction to the midpoint) accepted that chord beside the car, and the
+# follower steered at the boundary and left the track.
+BEND_ENTRY = np.array([
+    [-1.75, 1.11], [-5.43, 1.15], [-3.0, 1.88], [-3.39, -0.89], [-4.91, 0.61], [-1.9, -1.23],
+    [-2.64, -1.16], [-4.33, 0.11], [1.47, -0.37], [-3.68, -0.34], [-2.54, 1.56], [-0.15, -1.19],
+    [-1.12, -1.24], [-2.94, -0.71], [-2.15, 1.35], [0.69, -0.84], [1.8, -0.5], [-2.16, -0.93],
+    [-1.37, -1.02], [2.09, 0.25], [-0.51, -0.94], [1.12, -0.25], [0.37, -0.67], [2.82, 0.95],
+    [1.76, 0.3], [3.23, 1.69], [2.29, 0.91], [3.06, 2.23], [2.68, 1.55]])
+
+
+def test_boundary_chord_is_not_a_gate():
+    f = ConeFollower(latency=0.05)
+    v, steer = f.act(BEND_ENTRY, v=2.2, yaw_rate=0.54)
+    pts = f.path[1:]
+    assert len(pts)
+    clearance = np.hypot(*(pts[:, None, :] - BEND_ENTRY[None, :, :]).transpose(2, 0, 1)).min()
+    assert clearance > 0.5                       # the path keeps off the cones (was 0.0: on a cone)
+    assert steer > 0.0                           # turns left, into the bend (was steering right)
+
+
+def test_midpoint_on_a_cone_is_rejected():
+    """Gate cones plus one same-side pair 2.1 m apart beside the car: no midpoint on the boundary."""
+    left = [(x, 1.1) for x in np.arange(-1.0, 5.0, 0.65)]
+    right = [(x, -1.1) for x in np.arange(-1.0, 5.0, 0.65)]
+    cones = np.array(left + right)
+    f = ConeFollower()
+    f.act(cones, v=2.0)
+    assert np.all(np.abs(f.path[1:, 1]) < 0.3)   # stays on the centreline y = 0

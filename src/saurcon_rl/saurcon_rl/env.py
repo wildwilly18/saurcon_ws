@@ -22,12 +22,8 @@ from pathlib import Path
 import gymnasium as gym
 import numpy as np
 
-from .track import Track
-
-WHEELBASE = 0.254
-STEER_MAX = 0.786
-V_MAX = 12.0
-CTRL_DT = 0.05            # policy rate 20 Hz
+from saurcon_plan.track import Track
+from saurcon_plan.vehicle import CTRL_DT, STEER_MAX, V_MAX, WHEELBASE  # noqa: F401 (re-exported)
 PHYS_DT = 0.01
 LOOKAHEAD = np.array([0.5, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 12, 15])
 OBS_DIM = 7 + 2 * len(LOOKAHEAD)
@@ -52,7 +48,7 @@ def load_tracks(worlds=None):
 
 
 def observe(track, i, x, y, yaw, v, yaw_rate, steer, prev_action):
-    """Policy observation from a (possibly estimated) car state. Shared with the ROS node."""
+    """Policy observation from a (possibly estimated) car state."""
     e, dpsi = track.frenet(x, y, yaw, i)
     pts = track.xy[track.ahead(i, LOOKAHEAD)]
     c, s = math.cos(yaw), math.sin(yaw)

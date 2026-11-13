@@ -7,9 +7,9 @@ base. This is a screening metric; inspect annotations for occlusion/association.
 import argparse,csv,json,math,sys
 from pathlib import Path
 import cv2,numpy as np
-sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'src/saurcon_rl'))
-from saurcon_rl.cones import ConeDetector
-from saurcon_rl.track import Track
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'src/saurcon_plan'))
+from saurcon_plan.cones import ConeDetector
+from saurcon_plan.track import Track
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('run',type=Path);p.add_argument('world',type=Path);p.add_argument('out',type=Path);a=p.parse_args();a.out.mkdir(parents=True,exist_ok=True)
 rows=list(csv.reader((a.run/'log.csv').open()));gt=np.array([[float(r[0]),*map(float,r[2:5])] for r in rows if len(r)>4 and r[1]=='gt']);gt=gt[np.argsort(gt[:,0])];gt[:,3]=np.unwrap(gt[:,3])
 frames=[(float(r[0]),int(r[2])) for r in rows if len(r)>2 and r[1]=='frame' and gt[0,0]<=float(r[0])<=gt[-1,0]]

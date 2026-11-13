@@ -22,6 +22,9 @@ import math
 import gymnasium as gym
 import numpy as np
 
+from saurcon_plan.memory import ConeMemory
+from saurcon_plan.vehicle import STEER_RATE_MAX, slew_steer  # noqa: F401 (re-exported)
+
 from .env import CRASH_PENALTY, CTRL_DT, STEER_MAX
 from .mujoco_env import MujocoRaceEnv
 
@@ -43,17 +46,8 @@ CONE_OBS_DIM = 5 + 4 * K_CONES
 # 0.02*|da|^2 barely charged, and in Gazebo the car weaved +/-0.4-1 m on the straights.
 STEER_RATE_W = 0.5       # per step, times (change of the normalised steering action)^2
 YAW_EXCESS_W = 0.05      # per step, times (yaw rate - speed * track curvature)^2, (rad/s)^2
-# Steering slew limit: the car's MG90S micro servo turns ~60 deg in 0.1 s; through the linkage
-# take ~8 rad/s at the road wheels. Applied identically in MuJoCo, Gazebo and the ROS node.
-STEER_RATE_MAX = 8.0     # rad/s
-
-
-def slew_steer(prev_norm, target_norm, dt=0.05):
-    """Rate-limit a normalised steering action (-1..1) like the servo."""
-    from .env import STEER_MAX
-    step = STEER_RATE_MAX * dt / STEER_MAX
-    return float(np.clip(target_norm, prev_norm - step, prev_norm + step))
-
+# Steering slew limit (MG90S servo, saurcon_plan.vehicle): applied identically in MuJoCo and
+# in the planner's ROS node.
 
 def smooth_penalty(steer_norm, prev_steer_norm, yaw_rate, v, curvature):
     """Reward penalty for unsmooth driving (on top of the base 0.02*|da|^2)."""
@@ -61,38 +55,9 @@ def smooth_penalty(steer_norm, prev_steer_norm, yaw_rate, v, curvature):
             + YAW_EXCESS_W * (yaw_rate - v * curvature) ** 2)
 
 
-class ConeMemory:
-    """Recently detected cones in a fixed frame (world in sim, odom on the car).
-
-    update(): merge this frame's detections (same frame) into memory; a detection
-    within `merge_radius` of a remembered cone refreshes it (position averaged).
-    relative(): remembered cones in the given base_link pose, with their ages.
-    """
-    def __init__(self, horizon=MEMORY_S, merge_radius=0.3):
-        self.horizon, self.merge_radius = horizon, merge_radius
-        self.xy = np.zeros((0, 2)); self.seen = np.zeros(0); self.n = np.zeros(0)
-
-    def update(self, points_xy, t):
-        for p in np.asarray(points_xy, float).reshape(-1, 2):
-            if len(self.xy):
-                d = np.hypot(*(self.xy - p).T); j = int(np.argmin(d))
-                if d[j] < self.merge_radius:
-                    self.xy[j] = (self.xy[j] * self.n[j] + p) / (self.n[j] + 1)
-                    self.n[j] = min(self.n[j] + 1, 10); self.seen[j] = t
-                    continue
-            self.xy = np.vstack([self.xy, p]); self.seen = np.append(self.seen, t); self.n = np.append(self.n, 1)
-        keep = t - self.seen <= self.horizon
-        self.xy, self.seen, self.n = self.xy[keep], self.seen[keep], self.n[keep]
-
-    def relative(self, x, y, yaw, t):
-        c, s = math.cos(yaw), math.sin(yaw)
-        d = self.xy - (x, y)
-        return np.column_stack([c * d[:, 0] + s * d[:, 1], -s * d[:, 0] + c * d[:, 1]]), t - self.seen
-
-
 def encode(points_base_xy, v, yaw_rate, steer, prev_action, ages=None):
     """Policy observation from cone positions in the base_link frame (and their ages in seconds).
-    Shared with the ROS / render paths."""
+    Shared with the rendered-pixel path (cone_drive)."""
     pts = np.asarray(points_base_xy, float).reshape(-1, 2)
     ages = np.zeros(len(pts)) if ages is None else np.asarray(ages, float)
     if len(pts):
@@ -134,7 +99,7 @@ class MujocoConeEnv(MujocoRaceEnv):
         self.observation_space = gym.spaces.Box(-np.inf, np.inf, (CONE_OBS_DIM,), np.float32)
 
     def reset(self, seed=None, options=None):
-        self.memory = ConeMemory()
+        self.memory = ConeMemory(horizon=MEMORY_S)
         self.slow_steps = 0
         return super().reset(seed=seed, options=options)
 

@@ -18,7 +18,10 @@ from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from tf2_msgs.msg import TFMessage
 
-START_X = -1.0          # model-origin x of the start line (spawn pose), on the y=0 straight
+from world_info import crossed, start_line
+
+# Start line: 0.5 m ahead of the spawn pose (model origin), square to its heading; 1.5 m either side.
+START = start_line()
 
 
 class RaceDriver(Node):
@@ -34,8 +37,8 @@ class RaceDriver(Node):
         stamp = t.header.stamp.sec + t.header.stamp.nanosec * 1e-9
         if self.prev is not None:
             px, py = self.prev
-            # Crossing the start line forwards on the bottom straight.
-            if abs(y) < 1.5 and px < START_X <= x:
+            # Crossing the start line forwards, near the spawn.
+            if crossed(START, (px, py), (x, y)):
                 self.lap_t.append(stamp)
                 if len(self.lap_t) > 1:
                     self.laps += 1

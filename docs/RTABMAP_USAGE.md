@@ -62,6 +62,22 @@ Without ray tracing about half the track area stayed unknown after four laps; wi
 it 11–14% does. It costs CPU: the cone node's camera rate fell from ~11 to ~9.5
 frames/s with RTAB-Map running. Validate on real stereo depth before relying on it
 on the car.
+
+`map_cleaner.py` (`saurcon_nav`, started with RTAB-Map) publishes two derived grids;
+`/map` itself is never changed:
+
+- `/map_clean`: small unknown holes inside observed free space filled. An unknown region
+  of at most 8 cells (0.02 m²) whose every neighbour is free becomes free. Holes touching an
+  obstacle, the map edge or the large unknown area, and all occupied cells, are left alone.
+  On a 3-lap feature-warehouse map this filled 1,384 speckle cells.
+- `/map_drivable` (needs `cone_mapping:=rtab`): inside the cone corridor 0 (open), outside
+  100 (not drivable). Mapped cones (`/cones_rtab/map`) are assigned left or right of the path
+  RTAB-Map's graph drove (`/rtabmap/mapPath`). At each path point the corridor spans from
+  the right cones to the left cones. Cones facing each other across an infield are never
+  paired, and obstacles RTAB-Map saw inside the lane stay occupied.
+
+Race videos show the cleaned grid with the corridor (`make_race_video.py`; `--raw-map`
+shows `/map` as published). Tests: `src/saurcon_nav/test/test_map_cleaner.py`.
 `fuse_slam:=false` restores RTAB-Map publishing `map -> odom` itself with no
 global UKF. With ArUco (`use_aruco:=true`) there is one instance, fusing ArUco
 in the map frame as before.

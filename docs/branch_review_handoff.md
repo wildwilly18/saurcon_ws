@@ -1,5 +1,11 @@
 # Branch review: fix-agent handoff
 
+> **Later change (2026-11-13):** the ROS 2 RL nodes were removed. `policy_node.py` is gone;
+> `cone_policy_node.py` became `src/saurcon_plan/saurcon_plan/cone_follower_node.py`
+> (classical follower only); `cone_follower.py`, `cones.py`, `track.py` and
+> `cone_mapper_node.py` moved to `src/saurcon_plan/saurcon_plan/`; the watchdog tests are in
+> `src/saurcon_plan/test/test_follower_node.py`. Paths below are as they were at review time.
+
 Reviewed 2026-11-13. This document records findings and proposed acceptance checks; **none of the fixes has been implemented**.
 
 ## Scope and workspace

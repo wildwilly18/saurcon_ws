@@ -27,6 +27,6 @@ class DatabaseGuardTest(unittest.TestCase):
                 with self.assertRaises(ValueError):m.setup(context)
             context=LaunchContext();context.launch_configurations.update(base,mode='localization',initial_pose='0.254 0 0 0 0 3.14159')
             nodes=m.setup(context)
-            self.assertEqual(len(nodes),1)
+            self.assertEqual([n.node_executable for n in nodes],['rtabmap','map_cleaner.py'])
 
 if __name__=='__main__':unittest.main()
