@@ -3,23 +3,14 @@
 <package format="3">
   <name>saurcon_rl</name>
   <version>0.1.0</version>
-  <description>Reinforcement-learning racing policy for SAURCON: fast training environment, PPO training, and a ROS 2 node that drives the car.</description>
+  <description>Reinforcement learning for SAURCON in simulation: bicycle and MuJoCo environments (map-based and cone-vision), PPO training, MuJoCo validation drives and system identification. No ROS nodes; the driving stack's planner is saurcon_plan.</description>
   <maintainer email="wilson.lysford@gmail.com">wilson</maintainer>
   <license>Apache-2.0</license>
 
-  <exec_depend>rclpy</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>nav_msgs</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>visualization_msgs</exec_depend>
-  <exec_depend>tf2_ros</exec_depend>
-  <exec_depend>cv_bridge</exec_depend>
-  <exec_depend>message_filters</exec_depend>
-  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>saurcon_plan</exec_depend>
   <exec_depend>python3-numpy</exec_depend>
-  <exec_depend>saurcon_rc</exec_depend>
-  <exec_depend>saurcon_nav</exec_depend>
-  <!-- torch, stable-baselines3 and gymnasium come from the .venv-rl virtual
+  <exec_depend>python3-opencv</exec_depend>
+  <!-- torch, stable-baselines3, gymnasium and mujoco come from the .venv-rl virtual
        environment created by scripts/setup.sh, not from rosdep. -->
 
   <export>

@@ -1,4 +1,4 @@
-"""Map-policy pose source and origin per localization mode (review finding 4).
+"""full_sim_saurcon.launch.py: the cone follower switch and the map origin read from the world.
 
 Run:  source /opt/ros/jazzy/setup.bash && source install/setup.bash
       python3 -m pytest -q src/saurcon_rc/test
@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 from launch import LaunchContext
 
+WS = Path(__file__).resolve().parents[3]
 spec = importlib.util.spec_from_file_location(
     'full_sim', Path(__file__).parents[1] / 'launch' / 'full_sim_saurcon.launch.py')
 m = importlib.util.module_from_spec(spec)
@@ -17,48 +18,34 @@ spec.loader.exec_module(m)
 
 def ctx(**cfg):
     c = LaunchContext()
-    base = dict(use_aruco='false', slam='false', fuse_slam='true', visual_odometry='false',
-                policy_map_origin='', policy_model='/tmp/model.zip', policy_speed_limit='6',
-                world='/tmp/racetrack.world')
+    base = dict(cone_follower='false', follower_speed_limit='12.0', cone_debug_csv='',
+                world=str(WS / 'src/middle_earth/worlds/racetrack.world'))
     base.update(cfg)
     c.launch_configurations.update(base)
     return c
 
 
-def test_aruco_uses_world_origin():
-    assert m.policy_map_origin(ctx(use_aruco='true')) == '0 0 0'
+def test_follower_off_by_default():
+    assert m.cone_follower(ctx()) == []
 
 
-def test_aruco_rejects_a_map_origin():
-    with pytest.raises(ValueError):
-        m.policy_map_origin(ctx(use_aruco='true', policy_map_origin='-1.127 0 0'))
+def test_follower_node_and_parameters():
+    c = ctx(cone_follower='true', follower_speed_limit='1.5', cone_debug_csv='/tmp/f.csv')
+    node = m.cone_follower(c)[0]
+    assert node.node_package == 'saurcon_plan' and node.node_executable == 'cone_follower'
+    assert m.follower_parameters(c) == {'use_sim_time': True, 'speed_limit': 1.5, 'debug_csv': '/tmp/f.csv'}
+    assert 'debug_csv' not in m.follower_parameters(ctx(cone_follower='true'))
 
 
-def test_rtab_default_origin_is_spawn():
-    assert m.policy_map_origin(ctx(slam='true')) == '-1.127 0 0'
+def test_map_origin_racetrack():
+    assert m.world_map_origin(str(WS / 'src/middle_earth/worlds/racetrack.world')) == '-1.1270 0.0000 0.000000'
 
 
-def test_rtab_origin_configurable():
-    assert m.policy_map_origin(ctx(slam='true', policy_map_origin='2 3 1.57')) == '2 3 1.57'
-    with pytest.raises(ValueError):
-        m.policy_map_origin(ctx(slam='true', policy_map_origin='2 3'))
+def test_map_origin_rotated_spawn():
+    x, y, yaw = (float(v) for v in m.world_map_origin(str(WS / 'src/middle_earth/worlds/feature_warehouse.world')).split())
+    assert yaw == pytest.approx(1.39022, abs=1e-5)
+    assert (x, y) == pytest.approx((12.8022, -0.1249), abs=1e-3)
 
 
-@pytest.mark.parametrize('cfg', [
-    dict(slam='true', fuse_slam='false'),            # nav_state is odometry
-    dict(slam='true', visual_odometry='true'),       # nav_state is visual odometry
-    dict(),                                          # no localization at all
-])
-def test_odometry_only_modes_rejected(cfg):
-    with pytest.raises(ValueError):
-        m.policy_map_origin(ctx(**cfg))
-
-
-def test_origin_reaches_the_node(tmp_path, monkeypatch):
-    monkeypatch.setattr(m.os.path, 'exists', lambda p: True)       # pretend the RL venv exists
-    for cfg, want in ((dict(use_aruco='true'), 'map_origin:=[0.0, 0.0, 0.0]'),
-                      (dict(slam='true'), 'map_origin:=[-1.127, 0.0, 0.0]')):
-        proc = m.policy(ctx(**cfg), str(tmp_path))[0]
-        cmd = ' '.join(''.join(p.perform(ctx(**cfg)) if hasattr(p, 'perform') else str(p) for p in part)
-                       for part in proc.cmd)
-        assert want in cmd
+def test_map_origin_unreadable_world_falls_back():
+    assert m.world_map_origin('/nonexistent.world') == m.RTAB_MAP_ORIGIN

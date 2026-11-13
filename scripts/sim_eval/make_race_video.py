@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compose a race video from a Gazebo run: onboard camera with cone detections | chase camera.
 
-usage: make_race_video.py <run-dir> <output.mp4> [--map-from <slam-run-dir>]
+usage: make_race_video.py <run-dir> <output.mp4> [--map-from <slam-run-dir>] [--raw-map]
 Needs <run>/frames (onboard, from logger.py) and <run>/log.csv (ground truth). The chase
 camera panel is added if the run was recorded with CHASE=1 (scripts/sim_eval/runsim.sh;
 <run>/chase from gz_camera_recorder.py); without it the video is the onboard view only.
@@ -12,7 +12,9 @@ If the classical follower logged its state (<run>/follower.csv, launch cone_debu
 waypoints (the planned centreline) and lookahead target are drawn on the panel too; without SLAM
 the panel is then a top-down track view placed with ground truth. --map-from <slam-run-dir> puts
 that run's final occupancy grid behind it (same track; the map frame starts at the spawn pose in
-both, so the ground-truth pose lines up with it).
+both, so the ground-truth pose lines up with it). The grid is shown with small unknown holes in
+observed free space filled (saurcon_nav map_cleaner.clean_grid, as on /map_clean); --raw-map
+shows RTAB-Map's /map exactly.
 Detections are recomputed on the onboard frames with the same detector the ROS cone
 policy uses (Gazebo colour band, ground-plane ranging; only colour frames are logged).
 """
@@ -24,14 +26,46 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src' / 'saurcon_rl'))
-from saurcon_rl.cones import ConeDetector  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src' / 'saurcon_plan'))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from saurcon_plan.cones import ConeDetector  # noqa: E402
+from world_info import REAR_AXLE_BACK, crossed, map_origin, start_line, to_frame  # noqa: E402
 
-START_X = -1.0            # start line (model-origin x), as in race_driver.py
-REAR_AXLE_BACK = 0.127    # base_link (rear axle) behind the model origin
-MAP_ORIGIN = (-1.127, 0.0)                   # world position of the map frame (start pose, yaw 0)
+# Defaults for the racetrack; main() replaces them with the run's world (spawn, map frame).
+START = (-0.5, 0.0, 0.0)                     # start line: 0.5 m ahead of the spawn, as in race_driver.py
+MAP_ORIGIN = (-1.127, 0.0, 0.0)              # world pose of the map frame (rear axle at the spawn)
 CROP = (-14.0, 12.8, -2.4, 6.6)              # map-frame window shown (x0, x1, y0, y1), m
 PANEL_W = 1280
+RAW_MAP = False                              # --raw-map: show /map without filling small holes
+
+
+def _map_cleaner():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        'map_cleaner', Path(__file__).resolve().parents[2] / 'src/saurcon_nav/scripts/map_cleaner.py')
+    mc = importlib.util.module_from_spec(spec); spec.loader.exec_module(mc)
+    return mc
+
+
+def clean_png(g):
+    """Fill small unknown holes in a saved grid image (127 unknown, 0 occupied, 255 free)."""
+    data = np.where(g == 127, -1, np.where(g < 60, 100, 0)).astype(np.int16)
+    out, _ = _map_cleaner().clean_grid(data)
+    g = g.copy(); g[(data == -1) & (out == 0)] = 255
+    return g
+
+
+def drivable_png(g, origin, res, path_xy, cones_xy):
+    """Drivable mask (True inside the cone corridor) for a saved grid image (row 0 = top), or None."""
+    data = np.flipud(np.where(g == 127, -1, np.where(g < 60, 100, 0))).astype(np.int16)
+    drv, _ = _map_cleaner().drivable_grid(data, origin, res, path_xy, cones_xy)
+    return None if drv is None else np.flipud(drv == 0)
+
+
+def crop_for(cones_map, margin=1.6):
+    """Map-frame window around the track's cones."""
+    lo, hi = cones_map.min(axis=0) - margin, cones_map.max(axis=0) + margin
+    return (float(lo[0]), float(hi[0]), float(lo[1]), float(hi[1]))
 
 
 def map_records(run):
@@ -84,15 +118,17 @@ class MapPanel:
             # no map frame: place the car with ground truth (model origin -> rear axle -> map frame)
             gt = np.array([[float(r[0]), float(r[2]), float(r[3]), float(r[4])]
                            for r in rows if len(r) > 4 and r[1] == 'gt'], float).reshape(-1, 4)
-            gt[:, 1] -= REAR_AXLE_BACK * np.cos(gt[:, 3]) + MAP_ORIGIN[0]
-            gt[:, 2] -= REAR_AXLE_BACK * np.sin(gt[:, 3]) + MAP_ORIGIN[1]
+            rear = gt[:, 1:3] - REAR_AXLE_BACK * np.column_stack([np.cos(gt[:, 3]), np.sin(gt[:, 3])])
+            gt[:, 1:3] = to_frame(rear, MAP_ORIGIN)
+            gt[:, 3] -= MAP_ORIGIN[2]
             self.path = gt
         self.waypoints = load_waypoints(run / 'follower.csv', self.path)
-        self.true = np.asarray(true_world, float).reshape(-1, 2) - np.array(MAP_ORIGIN)
+        self.true = to_frame(true_world, MAP_ORIGIN)
         x0, x1, y0, y1 = CROP
         self.s = PANEL_W / (x1 - x0)
         self.h = int(round((y1 - y0) * self.s))
         self.cache = (None, None)
+        self.drivable = False
 
     def px(self, x, y):
         x0, x1, y0, y1 = CROP
@@ -103,11 +139,18 @@ class MapPanel:
         if not prior:
             return np.full((self.h, PANEL_W, 3), 118, np.uint8)
         t_m, r = prior[-1]
-        if self.cache[0] == r['frame']:
+        # the drivable layer needs the path so far and the cone map at this time
+        path_now = self.path[self.path[:, 0] <= t][:, 1:3] if self.slam else np.zeros((0, 2))
+        cones_now = [c for c in self.cones if c[0] <= t]
+        cones_now = cones_now[-1][1] if cones_now else (self.true if self.slam else np.zeros((0, 2)))
+        key = (r['frame'], len(cones_now), len(path_now) // 200)
+        if self.cache[0] == key:
             return self.cache[1].copy()
         g = cv2.imread(str(Path(r.get('_dir', self.run)) / 'maps' / f"{int(r['frame']):04d}.png"), cv2.IMREAD_GRAYSCALE)
         if g is None:
             return np.full((self.h, PANEL_W, 3), 118, np.uint8)
+        if not RAW_MAP:
+            g = clean_png(g)
         res, ox, oy, H = float(r['resolution']), float(r['origin_x']), float(r['origin_y']), g.shape[0]
         x0, x1, y0, y1 = CROP
         a = res * self.s
@@ -117,7 +160,16 @@ class MapPanel:
         img[:] = (118, 118, 118)                                # unknown
         img[warped > 200] = (236, 234, 230)                     # free
         img[warped < 60] = (20, 20, 20)                         # occupied
-        self.cache = (r['frame'], img)
+        self.drivable = False
+        if not RAW_MAP and len(path_now) > 20 and len(cones_now) >= 4:
+            mask = drivable_png(g, (ox, oy), res, path_now, cones_now)
+            if mask is not None:
+                inside = cv2.warpAffine(mask.astype(np.uint8), M, (PANEL_W, self.h), flags=cv2.INTER_NEAREST) > 0
+                img[~inside] = (img[~inside] * 0.45 + 40).astype(np.uint8)   # outside the cones: not drivable
+                img[inside & (warped >= 60)] = (236, 234, 230)              # inside: open...
+                img[inside & (warped < 60)] = (20, 20, 20)                  # ...except obstacles seen there
+                self.drivable = True
+        self.cache = (key, img)
         return img.copy()
 
     def render(self, t):
@@ -154,7 +206,8 @@ class MapPanel:
         cv2.rectangle(img, (0, 0), (PANEL_W, 26), (0, 0, 0), -1)
         wp_text = ' | waypoints (magenta), lookahead (red ring)' if self.waypoints else ''
         if self.slam:
-            text = (f'RTAB-Map map | loop closures {k} | mapped cones {n} (orange), true cones (green rings), '
+            drv = ' | inside cones open, outside dimmed' if self.drivable else ''
+            text = (f'RTAB-Map map{drv} | closures {k} | mapped cones {n} (orange), true (green rings), '
                     f'path (blue){wp_text}')
         else:
             text = (f'Track, top view (ground truth){" on RTAB-Map occupancy map" if self.background else ""} | '
@@ -167,7 +220,7 @@ class MapPanel:
 def load_waypoints(path, poses):
     """Classical follower waypoints from its debug log, in the panel's frame.
 
-    Each row (cone_policy_node debug_csv): t;x;y;yaw;v;yaw_rate;fallback;a_v;a_steer;target;path;cones,
+    Each row (cone_follower_node debug_csv): t;x;y;yaw;v;yaw_rate;fallback;a_v;a_steer;target;path;cones,
     with the path and target in base_link of the (latency-predicted) pose. They are placed with the
     car's pose in the panel frame at that time (`poses`: t, x, y, yaw), so they line up with the
     drawn car whatever odometry drift there is.
@@ -196,9 +249,27 @@ def load_waypoints(path, poses):
     return out
 
 
+def world_of(run):
+    """The run's world file: SIM_WORLD in environment.txt, else the one named in launch.log."""
+    env = run / 'environment.txt'
+    if env.exists():
+        for line in env.read_text().splitlines():
+            if line.startswith('SIM_WORLD=') and Path(line[10:]).exists():
+                return Path(line[10:])
+    if (run / 'launch.log').exists():
+        from world_info import world_from_launch_log
+        w = world_from_launch_log(run / 'launch.log')
+        return w if w.exists() else None
+    return None
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else list(argv)
+    global RAW_MAP
     background = None
+    RAW_MAP = '--raw-map' in argv
+    if RAW_MAP:
+        argv.remove('--raw-map')
     if '--map-from' in argv:
         k = argv.index('--map-from'); background = argv[k + 1]; del argv[k:k + 2]
     run, out = Path(argv[0]), argv[1]
@@ -215,18 +286,19 @@ def main(argv=None):
     t0 = gt[moving[0], 0] if len(moving) else gt[0, 0]
     t_end = gt[moving[-1] + 1, 0] + 2.0 if len(moving) else gt[-1, 0]   # stop 2 s after the car last moved
     # start-line crossings (forwards, bottom straight) -> lap times
-    cross = [gt[k, 0] for k in range(1, len(gt)) if abs(gt[k, 2]) < 1.5 and gt[k - 1, 1] < START_X <= gt[k, 1]]
+    global START, MAP_ORIGIN, CROP
+    world = world_of(run)
+    if world is not None:
+        START, MAP_ORIGIN = start_line(world), map_origin(world)
+    cross = [gt[k, 0] for k in range(1, len(gt)) if crossed(START, gt[k - 1, 1:3], gt[k, 1:3])]
     panel = None
     records = map_records(run)
     if records or (run / 'follower.csv').exists():
-        sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src' / 'saurcon_rl'))
-        from saurcon_rl.track import Track
-        import re
-        found = re.search(r'(?<![\w\]])(/[^\s:\[\]@"]+\.world)', open(run / 'launch.log', errors='ignore').read())
-        world = found.group(1) if found else None
-        panel = MapPanel(run, Track.from_world(world or str(Path(__file__).resolve().parents[2] /
-                                                              'src/middle_earth/worlds/racetrack.world')).cones, records,
-                         background)
+        from saurcon_plan.track import Track
+        true_cones = Track.from_world(world or Path(__file__).resolve().parents[2] /
+                                      'src/middle_earth/worlds/racetrack.world').cones
+        CROP = crop_for(to_frame(true_cones, MAP_ORIGIN))
+        panel = MapPanel(run, true_cones, records, background)
     fx = 320 / math.tan(1.204 / 2)
     det = ConeDetector(fx, fx, 320, 200, camera_height=0.137)
     writer = None

@@ -6,7 +6,7 @@ runs cones.ConeDetector on them, and feeds the detections (no map, no
 localization) to the policy. Also measures the real detector against the true
 cones, which checks the simulated detector the policy was trained with.
 
---model classical drives with the classical cone follower (saurcon_rl.cone_follower)
+--model classical drives with the classical cone follower (saurcon_plan.cone_follower)
 instead of a learned policy; the video then also shows its centreline path (green).
 
 usage: MUJOCO_GL=egl python -m saurcon_rl.cone_drive --model rl_runs/cones_v1/best_model.zip
@@ -21,7 +21,7 @@ import mujoco
 import numpy as np
 
 from .cone_env import CAMERA_X, MAX_RANGE, ConeMemory, MujocoConeEnv, encode, visible_cones
-from .cones import ConeDetector
+from saurcon_plan.cones import ConeDetector
 from .env import load_tracks
 from .train import race_start_s
 
@@ -63,7 +63,7 @@ def draw_path(bgr, follower):
 def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_time=60.0, seed=None):
     follower = policy = None
     if model_path == 'classical':
-        from .cone_follower import ConeFollower
+        from saurcon_plan.cone_follower import ConeFollower
         follower = ConeFollower()
     else:
         from stable_baselines3 import PPO
@@ -72,7 +72,9 @@ def run(model_path, detector_mode='render', laps=2, track=0, video=None, max_tim
     obs, _ = env.reset(options={'track': track, 'start_s': race_start_s(env.tracks[track])})
     renderer = mujoco.Renderer(env.m, H, W); chase = mujoco.Renderer(env.m, H, W) if video else None
     detector = mujoco_detector()
-    mem = ConeMemory()
+    mem = ConeMemory(horizon=follower.memory_s) if follower is not None else ConeMemory()
+    if follower is not None:
+        env.memory.horizon = follower.memory_s     # simulated-detector path uses the env's memory
     writer = cv2.VideoWriter(video, cv2.VideoWriter_fourcc(*'avc1'), 20, (2 * W, H)) if video else None
     errs, misses, false_pos, seen = [], 0, 0, 0
     info = {}

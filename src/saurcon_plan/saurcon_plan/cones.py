@@ -44,7 +44,7 @@ class ConeDetector:
     hsv_lo: tuple = (15, 150, 110)       # Gazebo cones (racks are hue 7-8)
     hsv_hi: tuple = (32, 255, 255)
     min_px: int = 5                      # blob height in pixels (sets maximum range)
-    max_range: float = 6.5               # the cone policy is trained on cones out to 6.5 m
+    max_range: float = 6.5               # beyond this ranging error grows fast (and the RL policies train on 6.5 m)
     camera_height: float = None          # m above the floor; enables ground-plane ranging
     row_offset: float = 1.0              # px; blob bottom sits ~1 px above the contact (fitted)
 

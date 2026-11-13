@@ -35,8 +35,8 @@ from tf2_msgs.msg import TFMessage
 from tf2_ros import Buffer, TransformException, TransformListener
 from visualization_msgs.msg import Marker, MarkerArray
 
-from saurcon_rl.cones import ConeDetector, ConeMap, planar, score
-from saurcon_rl.track import Track
+from saurcon_plan.cones import ConeDetector, ConeMap, planar, score
+from saurcon_plan.track import Track
 
 MODEL_TO_BASE = -0.127        # base_link (rear axle) is 0.127 m behind the Gazebo model origin
 

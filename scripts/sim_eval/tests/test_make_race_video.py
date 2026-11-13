@@ -1,6 +1,6 @@
 """make_race_video.py on runs with and without SLAM maps (review finding 6).
 
-Run:  PYTHONPATH=src/saurcon_rl:$PYTHONPATH .venv-rl/bin/python -m pytest -q scripts/sim_eval/tests
+Run:  PYTHONPATH=src/saurcon_plan:$PYTHONPATH .venv-rl/bin/python -m pytest -q scripts/sim_eval/tests
 """
 import csv
 import importlib.util

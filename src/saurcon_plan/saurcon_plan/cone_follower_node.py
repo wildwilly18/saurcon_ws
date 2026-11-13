@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-"""Drive with a cone-vision policy in ROS 2: camera in, /auto_cmd out. No map, no localization.
+"""Drive with the classical cone follower in ROS 2: camera in, /auto_cmd out. No map, no localization.
 
-Pipeline (the same as saurcon_rl.cone_drive in MuJoCo):
+Pipeline (the same as saurcon_rl.cone_drive runs in MuJoCo):
   /oak/rgb/image_raw + /oak/stereo/image_raw (aligned depth)
     -> cones.ConeDetector -> cone base points in the camera optical frame
     -> TF base_link <- camera -> (x, y) in base_link
-    -> cone_env.encode(...) with speed and yaw rate from the odometry UKF (/saurcon/odom_nav)
-    -> policy -> /auto_cmd (used by the state machine in RUN_AUTONOMOUS)
+    -> memory.ConeMemory in the odom frame (odometry UKF: TF odom -> base_link, /saurcon/odom_nav)
+    -> cone_follower.ConeFollower: centreline from the cone gates, pure pursuit, curvature
+       speed profile -> /auto_cmd (used by the state machine in RUN_AUTONOMOUS)
 
-The policy runs at 20 Hz like training. Each colour image is used as soon as it
-and its own depth image (same stamp) have arrived, with the odometry pose at the image's stamp,
-(otherwise cone size gives the range). Detections go into a short cone memory
-(cone_env.ConeMemory, ~2 s) in the odom frame and are re-expressed in the
-current base_link at every control step, exactly as in training: the policy
-sees cones where they are now, including ones that have left the camera's view.
+The follower runs at 20 Hz. Each colour image is used as soon as it and its own depth image
+(same stamp) have arrived, with the odometry pose at the image's stamp (otherwise cone size
+gives the range). Detections go into the cone memory (`memory_s`, default the follower's 5 s)
+in the odom frame and are re-expressed in the current base_link at every control step, so the
+follower sees cones where they are now, including ones that have left the camera's view. Its
+`latency` parameter (s) predicts the pose ahead before steering.
 
 Stale input stops the car (zero /auto_cmd every step, command history reset):
   - no image captured within `image_timeout` s (judged by the image stamp, not by when it was processed);
@@ -25,15 +26,10 @@ An image whose own pose never arrives is used with the latest pose only if that 
 `tf_fallback_max` s of the image stamp; otherwise it is dropped.
 Detector colour thresholds are parameters (defaults are tuned for the Gazebo cones).
 
-With model:=classical it drives with the classical cone follower instead (centreline from
-the cone gates, pure pursuit, curvature speed profile; saurcon_rl.cone_follower), on the
-same detections and cone memory; its `latency` parameter (s) predicts the pose ahead.
-
-Run with the RL virtual environment's Python (it needs torch):
-  .venv-rl/bin/python -m saurcon_rl.cone_policy_node --ros-args -p model:=<model.zip | classical>
+  ros2 run saurcon_plan cone_follower --ros-args -p use_sim_time:=true
+(or launch full_sim_saurcon.launch.py cone_follower:=true)
 """
 import math
-from pathlib import Path
 
 import numpy as np
 import rclpy
@@ -47,28 +43,19 @@ from rclpy.time import Time
 from sensor_msgs.msg import CameraInfo, Image
 from tf2_ros import Buffer, TransformException, TransformListener
 
-from saurcon_rl.cone_env import ConeMemory, encode, slew_steer
-from saurcon_rl.cone_mapper_node import tf_matrix
-from saurcon_rl.cones import ConeDetector
-from saurcon_rl.env import CTRL_DT, STEER_MAX, V_MAX, WHEELBASE
+from saurcon_plan.cone_follower import ConeFollower
+from saurcon_plan.cone_mapper_node import tf_matrix
+from saurcon_plan.cones import ConeDetector
+from saurcon_plan.memory import ConeMemory
+from saurcon_plan.vehicle import CTRL_DT, STEER_MAX, V_MAX, WHEELBASE, slew_steer
 
 
-class ConePolicyNode(Node):
+class ConeFollowerNode(Node):
     def __init__(self):
-        super().__init__('cone_policy')
-        model = self.declare_parameter('model', '').value
-        self.follower = self.policy = None
-        if model == 'classical':
-            # classical baseline: centreline from cone gates + pure pursuit (saurcon_rl.cone_follower)
-            from saurcon_rl.cone_follower import ConeFollower
-            self.follower = ConeFollower(latency=self.declare_parameter('latency', 0.05).value)
-            dbg = self.declare_parameter('debug_csv', '').value      # per-step follower state, for debugging
-            self.debug = open(dbg, 'w') if dbg else None
-        else:
-            from stable_baselines3 import PPO
-            if not model or not Path(model).exists():
-                raise FileNotFoundError(f'model parameter must point to a trained cone policy or be "classical" (got "{model}")')
-            self.policy = PPO.load(model, device='cpu')
+        super().__init__('cone_follower')
+        self.follower = ConeFollower(latency=self.declare_parameter('latency', 0.05).value)
+        dbg = self.declare_parameter('debug_csv', '').value      # per-step follower state, for debugging
+        self.debug = open(dbg, 'w') if dbg else None
         self.speed_limit = self.declare_parameter('speed_limit', V_MAX).value
         self.image_timeout = self.declare_parameter('image_timeout', 0.3).value
         self.hsv_lo = tuple(self.declare_parameter('hsv_lo', [15, 150, 110]).value)
@@ -82,7 +69,6 @@ class ConePolicyNode(Node):
         self.odom_timeout = float(self.declare_parameter('odom_timeout', 0.25).value)
         self.tf_timeout = float(self.declare_parameter('tf_timeout', 0.25).value)
         self.tf_fallback_max = float(self.declare_parameter('tf_fallback_max', 0.1).value)
-        self.steer_est = 0.0
         self.prev_action = np.array([-1.0, 0.0], np.float32)
         self.bridge = CvBridge()
         self.tf = Buffer(); self.tf_listener = TransformListener(self.tf, self)
@@ -91,14 +77,16 @@ class ConePolicyNode(Node):
         self.depth_max_age = self.declare_parameter('depth_max_age', 0.005).value   # s: same frame only
         self.depths, self.pending = [], []
         self.tf_wait = self.declare_parameter('tf_wait', 0.25).value   # s an image may wait for its pose
-        self.memory = ConeMemory()
+        # how long a cone is remembered after its last sighting (see ConeFollower.memory_s)
+        self.memory_s = float(self.declare_parameter('memory_s', self.follower.memory_s).value)
+        self.memory = ConeMemory(horizon=self.memory_s)
         self.create_subscription(Image, '/oak/rgb/image_raw', self.on_rgb, qos_profile_sensor_data)
         self.create_subscription(Image, '/oak/stereo/image_raw', self.on_depth, qos_profile_sensor_data)
         self.pub = self.create_publisher(Twist, '/auto_cmd', 10)
         self.create_timer(CTRL_DT, self.step)
         self.stats = {'images': 0, 'dets': 0, 'stale_steps': 0, 'rgb': 0, 'depth': 0, 'size_ranged': 0, 'ground_ranged': 0, 'tf_fallback': 0, 'tf_dropped': 0, 'tf_lag_ms': 0, 'no_depth': 0}
         self.create_timer(5.0, self.report)
-        self.get_logger().info(f'cone policy {model}, speed limit {self.speed_limit} m/s')
+        self.get_logger().info(f'classical cone follower, speed limit {self.speed_limit} m/s')
 
     def count(self, key):
         self.stats[key] += 1
@@ -216,16 +204,17 @@ class ConePolicyNode(Node):
 
     def reset_history(self, forget_cones=False):
         self.prev_action = np.array([-1.0, 0.0], np.float32)
-        self.steer_est = 0.0
-        if self.follower is not None:
-            self.follower.last, self.follower.lost_steps = (0.0, 0.0), 0
+        self.follower.last, self.follower.lost_steps = (0.0, 0.0), 0
         if forget_cones:
-            self.memory = ConeMemory()
+            self.memory = ConeMemory(horizon=self.memory_s)
 
     def inputs(self, now):
         """(odom -> base_link transform, lag) if every input is fresh, else (None, why)."""
         if self.last_image is not None and now < self.last_image - 1.0:
-            self.last_image = None                  # clock went backwards (simulation reset)
+            # Clock went backwards (simulation reset): odometry restarted too, and remembered cones
+            # are stamped in the "future", so they would never age out. Forget them.
+            self.last_image = None
+            self.reset_history(forget_cones=True)
         if self.last_image is None or now - self.last_image >= self.image_timeout:
             return None, 'no recent camera image'
         if self.odom_stamp is None or now - self.odom_stamp > self.odom_timeout:
@@ -254,27 +243,22 @@ class ConePolicyNode(Node):
             po[1] += self.v * lag * math.sin(yaw + self.yaw_rate * lag / 2)
             yaw += self.yaw_rate * lag
             self.stats['tf_lag_ms'] = max(self.stats.get('tf_lag_ms', 0), int(lag * 1000))
-            rel, ages = self.memory.relative(po[0], po[1], yaw, now)
-            if self.follower is not None:
-                action = self.follower.action(rel, self.v, self.yaw_rate)
-                if self.debug is not None:
-                    f = self.follower
-                    self.debug.write(f"{self.get_clock().now().nanoseconds * 1e-9:.3f};{po[0]:.3f};{po[1]:.3f};{yaw:.4f};"
-                                     f"{self.v:.3f};{self.yaw_rate:.3f};{int(f.fallback)};{action[0]:.3f};{action[1]:.3f};"
-                                     f"{f.target};{np.round(f.path, 2).tolist()};{np.round(rel, 2).tolist()}\n")
-            else:
-                obs = encode(rel, self.v, self.yaw_rate, self.steer_est, self.prev_action, ages)
-                action, _ = self.policy.predict(obs, deterministic=True)
+            rel, _ = self.memory.relative(po[0], po[1], yaw, now)
+            action = self.follower.action(rel, self.v, self.yaw_rate)
+            if self.debug is not None:
+                f = self.follower
+                self.debug.write(f"{self.get_clock().now().nanoseconds * 1e-9:.3f};{po[0]:.3f};{po[1]:.3f};{yaw:.4f};"
+                                 f"{self.v:.3f};{self.yaw_rate:.3f};{int(f.fallback)};{action[0]:.3f};{action[1]:.3f};"
+                                 f"{f.target};{np.round(f.path, 2).tolist()};{np.round(rel, 2).tolist()}\n")
             action = np.clip(action, -1, 1).astype(np.float32)
-            action[1] = slew_steer(float(self.prev_action[1]), float(action[1]), CTRL_DT)   # servo slew, as in training
+            action[1] = slew_steer(float(self.prev_action[1]), float(action[1]), CTRL_DT)   # servo slew
             v_cmd = min((float(action[0]) + 1) / 2 * V_MAX, self.speed_limit)
             steer_cmd = float(action[1]) * STEER_MAX
-            self.steer_est += (steer_cmd - self.steer_est) * min(1.0, CTRL_DT / 0.2)
             self.prev_action = action
             cmd.linear.x = v_cmd
             # Gazebo's AckermannSteering plugin takes a yaw rate and turns it into a steering
             # angle with its own ramped speed, not the commanded one. Use the measured speed
-            # (which tracks the ramp) so the plugin's angle equals the policy's; with the
+            # (which tracks the ramp) so the plugin's angle equals the follower's; with the
             # commanded speed it steers harder while accelerating and softer while braking.
             cmd.angular.z = max(self.v, 0.0) * math.tan(steer_cmd) / WHEELBASE
         else:
@@ -289,7 +273,7 @@ class ConePolicyNode(Node):
 
 def main():
     rclpy.init()
-    node = ConePolicyNode()
+    node = ConeFollowerNode()
     try:
         rclpy.spin(node)
     except (KeyboardInterrupt, ExternalShutdownException):

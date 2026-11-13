@@ -1,8 +1,10 @@
 """Classical cone follower: centreline from cone gates, pure pursuit, curvature speed profile.
 
-The baseline the cone-vision RL policies are measured against. Input is the same as the
-policy's: the cone memory (cone_env.ConeMemory) expressed in base_link (x forward, y left,
-origin at the rear axle), plus the measured speed. No map, no localization, no learning.
+SAURCON's driving planner for the cone track, and the baseline the cone-vision RL policies
+(trained in MuJoCo, saurcon_rl) are measured against. Input: the cone memory
+(saurcon_plan.memory.ConeMemory) expressed in base_link (x forward, y left, origin at the rear
+axle), plus the measured speed. No map, no localization, no learning. It runs on the car or in
+Gazebo through cone_follower_node, and in MuJoCo through saurcon_rl.cone_drive.
 
 1. Centreline. Delaunay-triangulate the remembered cones. An edge between the two cones of
    a gate (or between cones of neighbouring gates on opposite sides) is gate_width long; an
@@ -26,7 +28,7 @@ from dataclasses import dataclass, field
 import numpy as np
 from scipy.spatial import Delaunay
 
-from .env import STEER_MAX, V_MAX, WHEELBASE
+from .vehicle import STEER_MAX, V_MAX, WHEELBASE
 
 
 @dataclass
@@ -49,10 +51,18 @@ class ConeFollower:
     mids: np.ndarray = field(default_factory=lambda: np.zeros((0, 2)))
     target: tuple = None
     edge_dirs: np.ndarray = field(default_factory=lambda: np.zeros((0, 2)))
+    clearance: np.ndarray = None   # per midpoint: distance to the nearest cone
+    min_clearance: float = 0.6     # m; a centreline point is ~1.1 m (half a gate) from every cone
     fallback: bool = False         # this step's path came from one boundary
     last: tuple = (0.0, 0.0)       # last (speed, steering) command, held while the path is lost
     lost_steps: int = 0            # consecutive steps without a path
     stop_after: int = 20           # steps (1 s at 20 Hz) without a path -> stop
+    # How long the cone memory feeding the follower keeps a cone after its last sighting. The
+    # inner cones of a tight bend leave the +/-33 deg view well before the car passes them; at
+    # bend speed (~2 m/s) the RL policies' 2 s memory forgot them first, leaving no gates and
+    # only the outer boundary (feature warehouse, 3 m bend). The follower ignores cone ages,
+    # and odometry drifts millimetres over a few seconds, so it can remember longer.
+    memory_s: float = 5.0
 
     # -- geometry ---------------------------------------------------------------------------
     def midpoints(self, cones):
@@ -73,7 +83,11 @@ class ConeFollower:
             if self.min_gate <= d <= self.max_gate:
                 mids.append((cones[i] + cones[j]) / 2); dirs.append(v / d)
         self.edge_dirs = np.array(dirs).reshape(-1, 2)
-        return np.array(mids).reshape(-1, 2)
+        mids = np.array(mids).reshape(-1, 2)
+        # distance from each midpoint to the nearest cone
+        self.clearance = (np.hypot(*(mids[:, None, :] - cones[None, :, :]).transpose(2, 0, 1)).min(axis=1)
+                          if len(mids) else np.zeros(0))
+        return mids
 
     def chain(self, mids, start=(0.0, 0.0), heading=0.0):
         pts, cur, h = [np.array(start, float)], np.array(start, float), heading
@@ -88,11 +102,18 @@ class ConeFollower:
                 ang = abs((math.atan2(d[1], d[0]) - h + math.pi) % (2 * math.pi) - math.pi)
                 if ang > math.radians(70):
                     continue
-                # the edge must cross the direction of travel (a gate, or a diagonal to the next
-                # gate, >= 62 deg); an edge along one boundary between cones whose neighbours were
-                # missed runs with it and would put a midpoint on the boundary
+                # the edge must cross the track: within 50 deg of perpendicular to the chain's
+                # heading (a gate, or a diagonal to a nearby gate). An edge along one boundary
+                # (two cones of one side whose neighbours were missed) runs with the track and
+                # would put a midpoint on the boundary. Test against the heading, not against the
+                # direction to the midpoint: a boundary chord right beside the car is seen at a
+                # steep angle and passed that test (feature warehouse, 0.65 m gate spacing).
+                if abs(self.edge_dirs[k] @ (math.cos(h), math.sin(h))) > math.cos(math.radians(50)):
+                    continue
                 if abs(np.dot(self.edge_dirs[k], d / r)) > math.cos(math.radians(50)):
                     continue
+                if self.clearance is not None and self.clearance[k] < self.min_clearance:
+                    continue                # a centreline point is ~half a gate from every cone
                 cost = r + 1.5 * ang
                 if cost < best_cost:
                     best, best_cost = k, cost
@@ -133,12 +154,25 @@ class ConeFollower:
         if best is None:
             return np.zeros((0, 2))
         b = np.array(best)
-        seg = np.diff(b, axis=0); seg /= np.maximum(np.hypot(seg[:, 0], seg[:, 1]), 1e-6)[:, None]
-        normal = np.column_stack([-seg[:, 1], seg[:, 0]])            # left of the boundary direction
-        side = np.sign(np.cross(seg[0], -b[0])) or 1.0              # the car (origin) is on this side
-        offs = (b[:-1] + b[1:]) / 2 + side * normal * width / 2
-        offs = offs[offs[:, 0] > 0.1]
-        return np.vstack([[0.0, 0.0], offs]) if len(offs) else np.zeros((0, 2))
+        # Smooth the chain (3-point moving average) and offset it along normals from central
+        # differences: remembered cones are noisy and, with dense gates, closely spaced, so
+        # offsetting each short segment on its own made a zig-zag path that touched cones.
+        if len(b) >= 3:
+            b = np.vstack([b[:1], (b[:-2] + b[1:-1] + b[2:]) / 3, b[-1:]])
+        tan = np.gradient(b, axis=0)
+        tan /= np.maximum(np.hypot(tan[:, 0], tan[:, 1]), 1e-6)[:, None]
+        normal = np.column_stack([-tan[:, 1], tan[:, 0]])          # left of the boundary direction
+        side = np.sign(tan[0, 0] * -b[0, 1] - tan[0, 1] * -b[0, 0]) or 1.0   # the car (origin) is on this side
+        offs = b + side * normal * width / 2
+        # keep points ahead of the car that make forward progress along the boundary
+        keep, last = [], None
+        for p, t in zip(offs, tan):
+            if p[0] <= 0.1:
+                continue
+            if last is not None and np.dot(p - last, t) <= 0.05:
+                continue
+            keep.append(p); last = p
+        return np.vstack([[0.0, 0.0], keep]) if keep else np.zeros((0, 2))
 
     @staticmethod
     def along(path, dist):

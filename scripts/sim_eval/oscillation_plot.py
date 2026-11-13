@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src' / 'saurcon_rl'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src' / 'saurcon_plan'))
 from saurcon_rl.cone_env import MujocoConeEnv  # noqa: E402
 from saurcon_rl.env import STEER_MAX, load_tracks  # noqa: E402
 from saurcon_rl.train import race_start_s  # noqa: E402
