@@ -1,0 +1,1432 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="warehouse_racetrack">
+    
+    <!-- Physics -->
+    <physics name="10ms" type="ode">
+      <max_step_size>0.01</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+
+    <!-- Plugins -->
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+    </plugin>
+
+    <gravity>0 0 -9.8</gravity>
+
+    <!-- Scene settings -->
+    <scene>
+      <ambient>1.0 1.0 1.0 1.0</ambient>
+      <background>0.3 0.3 0.3 1.0</background>
+      <render_engine>ogre2</render_engine>
+    </scene>
+
+    <!-- Primary overhead light -->
+    <light type="directional" name="sun">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1.0 1.0 1.0 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <direction>0.0 0.0 -1</direction>
+      <intensity>3.0</intensity>
+    </light>
+
+    <!-- Fill light from front to prevent marker face shadows -->
+    <light type="directional" name="fill_front">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 2 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.0 0.0 0.0 1</specular>
+      <direction>0.0 1.0 -0.2</direction>
+      <intensity>2.0</intensity>
+    </light>
+
+    <!-- Fill light from back -->
+    <light type="directional" name="fill_back">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 2 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.0 0.0 0.0 1</specular>
+      <direction>0.0 -1.0 -0.2</direction>
+      <intensity>2.0</intensity>
+    </light>
+
+    <!-- Ground plane - provides clean flat collision surface for RC car -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>200 200</size>
+            </plane>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Distribution Warehouse from Gazebo Fuel -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Distribution_Warehouse</uri>
+      <name>warehouse</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+    <!-- Pallet Rack Hallways - Rows run North-South, 5 rows creating 4 aisles -->
+    
+    <!-- Row A at y=-10 (south edge, facing north) -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_a1</name>
+      <pose>-10 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_a2</name>
+      <pose>-6 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_a3</name>
+      <pose>-2 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_a4</name>
+      <pose>2 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_a5</name>
+      <pose>6 -10 0 0 0 0</pose>
+    </include>
+
+    <!-- Row B at y=-6 (facing south toward Row A, creates Aisle 1) -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_b1</name>
+      <pose>-10 -6 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_b2</name>
+      <pose>-6 -6 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_b3</name>
+      <pose>-2 -6 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_b4</name>
+      <pose>2 -6 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_b5</name>
+      <pose>6 -6 0 0 0 3.14159</pose>
+    </include>
+
+    <!-- Row C at y=-2 (facing north, creates Aisle 2) -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_c1</name>
+      <pose>-10 -2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_c2</name>
+      <pose>-6 -2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_c3</name>
+      <pose>-2 -2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_c4</name>
+      <pose>2 -2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_c5</name>
+      <pose>6 -2 0 0 0 0</pose>
+    </include>
+
+    <!-- Row D at y=2 (facing south toward Row C, creates Aisle 3 at y=0) -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_d1</name>
+      <pose>-10 2 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_d2</name>
+      <pose>-6 2 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_d3</name>
+      <pose>-2 2 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_d4</name>
+      <pose>2 2 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_d5</name>
+      <pose>6 2 0 0 0 3.14159</pose>
+    </include>
+
+    <!-- Row E at y=6 (north edge, facing south, creates Aisle 4) -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_e1</name>
+      <pose>-10 6 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_e2</name>
+      <pose>-6 6 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_e3</name>
+      <pose>-2 6 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_e4</name>
+      <pose>2 6 0 0 0 3.14159</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Rack</uri>
+      <name>rack_e5</name>
+      <pose>6 6 0 0 0 3.14159</pose>
+    </include>
+
+    <!-- 55 gallon drums on the floor under racks -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_1</name>
+      <pose>-10 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_2</name>
+      <pose>-6 -10 0 0 0 0.3</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_3</name>
+      <pose>-2 -6 0 0 0 0.5</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_4</name>
+      <pose>2 -6 0 0 0 0.8</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_5</name>
+      <pose>6 -2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_6</name>
+      <pose>-10 -2 0 0 0 1.2</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_7</name>
+      <pose>-6 2 0 0 0 0.7</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_8</name>
+      <pose>2 2 0 0 0 0.2</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_9</name>
+      <pose>-2 6 0 0 0 0.9</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_10</name>
+      <pose>6 6 0 0 0 1.5</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_11</name>
+      <pose>-10 6 0 0 0 0.4</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_12</name>
+      <pose>6 -10 0 0 0 2.1</pose>
+    </include>
+
+    <!-- Pallets under the racks -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_a1</name>
+      <pose>-10 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_a2</name>
+      <pose>-6 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_a3</name>
+      <pose>-2 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_a4</name>
+      <pose>2 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_b1</name>
+      <pose>-10 -6 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_b3</name>
+      <pose>-2 -6 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_b5</name>
+      <pose>6 -6 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_c2</name>
+      <pose>-6 -2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_c4</name>
+      <pose>2 -2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_d1</name>
+      <pose>-10 2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_d3</name>
+      <pose>-2 2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_d5</name>
+      <pose>6 2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_e2</name>
+      <pose>-6 6 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_e4</name>
+      <pose>2 6 0 0 0 0</pose>
+    </include>
+
+    <!-- ========== OUTSIDE SHELVING AREA (items spaced 2m+ apart) ========== -->
+    
+    <!-- ===== NORTH SIDE (y > 11) ===== -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dumpster_Large</uri>
+      <name>dumpster_1</name>
+      <pose>0 14 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Ladder_01</uri>
+      <name>ladder_1</name>
+      <pose>-4 13 0 0 0 0.5</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cable_Spool</uri>
+      <name>spool_n1</name>
+      <pose>4 13 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_n1</name>
+      <pose>-8 12 0 0 0 0.3</pose>
+    </include>
+
+    <!-- ===== SOUTH SIDE (y < -15) ===== -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Generator</uri>
+      <name>generator_1</name>
+      <pose>-9 -24 0 0 0 -1.54</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dumpster_Large</uri>
+      <name>dumpster_2</name>
+      <pose>8 -22 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_s1</name>
+      <pose>0 -15 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_s1</name>
+      <pose>-8 -15 0 0 0 1.5</pose>
+    </include>
+
+    <!-- ===== EAST SIDE (x > 11) - 10 items ===== -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Forklift</uri>
+      <name>forklift_1</name>
+      <pose>14 0 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Jack</uri>
+      <name>pallet_jack_e1</name>
+      <pose>12 -4 0 0 0 0.5</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Hand_Cart</uri>
+      <name>hand_cart_e1</name>
+      <pose>12 4 0 0 0 0.8</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Handtruck_01</uri>
+      <name>handtruck_e1</name>
+      <pose>14 -8 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Packing_Station</uri>
+      <name>packing_station_e1</name>
+      <pose>14 -3 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cable_Spool</uri>
+      <name>spool_e1</name>
+      <pose>16 4 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_e1</name>
+      <pose>12 8 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_e2</name>
+      <pose>14 6 0 0 0 0.5</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_e1</name>
+      <pose>16 -10 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_e3</name>
+      <pose>18 -10 0 0 0 0</pose>
+    </include>
+
+    <!-- ===== WEST SIDE (x < -15) - 10 items ===== -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Forklift</uri>
+      <name>forklift_2</name>
+      <pose>-16 0 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Jack</uri>
+      <name>pallet_jack_w1</name>
+      <pose>-16 -6 0 0 0 2.3</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Hand_Cart</uri>
+      <name>hand_cart_w1</name>
+      <pose>-16 6 0 0 0 1.2</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Handtruck_02</uri>
+      <name>handtruck_w1</name>
+      <pose>-18 -2 0 0 0 1.57</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Packing_Station</uri>
+      <name>packing_station_w1</name>
+      <pose>-18 -2 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cable_Spool</uri>
+      <name>spool_w1</name>
+      <pose>-15 -8 0 0 0 0.7</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_w1</name>
+      <pose>-16 -10 0 0 0 0.3</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_w2</name>
+      <pose>-18 8 0 0 0 0.8</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pallet_Standard</uri>
+      <name>pallet_w1</name>
+      <pose>-20 -4 0 0 0 0.1</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Ladder_01</uri>
+      <name>ladder_w1</name>
+      <pose>-20 2 0 0 0 2.0</pose>
+    </include>
+
+    <!-- Additional forklift -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Forklift</uri>
+      <name>forklift_3</name>
+      <pose>8 12 0 0 0 -1.57</pose>
+    </include>
+
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Forklift</uri>
+      <name>forklift_4</name>
+      <pose>13 -13 0 0 0 -0.76</pose>
+    </include>
+
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Forklift</uri>
+      <name>forklift_5</name>
+      <pose>-16 -16 0 0 0 0.76</pose>
+    </include>
+
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Packing_Station</uri>
+      <name>packing_station_w2</name>
+      <pose>-18 -8 0 0 0 0</pose>
+    </include>
+
+    <!-- Cluster of barrels and spools along y=-17 -->
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_s4</name>
+      <pose>-4.9 -15.8 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_s5</name>
+      <pose>-2.8 -16.4 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/55gal_Drum</uri>
+      <name>drum_s6</name>
+      <pose>0.4 -17.4 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cable_Spool</uri>
+      <name>spool_s1</name>
+      <pose>3.8 -16.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cable_Spool</uri>
+      <name>spool_s2</name>
+      <pose>5.2 -17.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <static>true</static>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cable_Spool</uri>
+      <name>spool_s3</name>
+      <pose>7.5 -16.4 0 0 0 0</pose>
+    </include>
+
+    <!-- ArUco Markers at 12" (0.3048m) height - positions from tag_locations.csv -->
+    <model name="aruco_0">
+      <static>true</static>
+      <pose>0 0 0.3048 0 0 3.14159</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_0.png</albedo_map><emissive_map>model://materials/textures/aruco_0.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_1">
+      <static>true</static>
+      <pose>3.5 0 0.3048 0 0 3.14159</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_1.png</albedo_map><emissive_map>model://materials/textures/aruco_1.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_2">
+      <static>true</static>
+      <pose>7 0 0.3048 0 0 3.14159</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_2.png</albedo_map><emissive_map>model://materials/textures/aruco_2.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_3">
+      <static>true</static>
+      <pose>9 2 0.3048 0 0 -1.5708</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_3.png</albedo_map><emissive_map>model://materials/textures/aruco_3.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_4">
+      <static>true</static>
+      <pose>7 4 0.3048 0 0 0</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_4.png</albedo_map><emissive_map>model://materials/textures/aruco_4.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_5">
+      <static>true</static>
+      <pose>3.5 4 0.3048 0 0 0</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_5.png</albedo_map><emissive_map>model://materials/textures/aruco_5.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_6">
+      <static>true</static>
+      <pose>0 4 0.3048 0 0 0</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_6.png</albedo_map><emissive_map>model://materials/textures/aruco_6.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_7">
+      <static>true</static>
+      <pose>-3.5 4 0.3048 0 0 0</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_7.png</albedo_map><emissive_map>model://materials/textures/aruco_7.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_8">
+      <static>true</static>
+      <pose>-7 4 0.3048 0 0 0</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_8.png</albedo_map><emissive_map>model://materials/textures/aruco_8.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_9">
+      <static>true</static>
+      <pose>-10.5 4 0.3048 0 0 0</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_9.png</albedo_map><emissive_map>model://materials/textures/aruco_9.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_10">
+      <static>true</static>
+      <pose>-12.5 2 0.3048 0 0 1.5708</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_10.png</albedo_map><emissive_map>model://materials/textures/aruco_10.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_11">
+      <static>true</static>
+      <pose>-10.5 0 0.3048 0 0 3.14159</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_11.png</albedo_map><emissive_map>model://materials/textures/aruco_11.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_12">
+      <static>true</static>
+      <pose>-7 0 0.3048 0 0 3.14159</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_12.png</albedo_map><emissive_map>model://materials/textures/aruco_12.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="aruco_13">
+      <static>true</static>
+      <pose>-3.5 0 0.3048 0 0 3.14159</pose>
+      <link name="marker_link">
+        <visual name="visual">
+          <geometry><box><size>0.001 0.1524 0.1524</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <emissive>1 1 1 1</emissive>
+            <pbr><metal><albedo_map>model://materials/textures/aruco_13.png</albedo_map><emissive_map>model://materials/textures/aruco_13.png</emissive_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- White backing blocks — block rear face of each ArUco marker -->
+    <model name="aruco_0_back">
+      <static>true</static>
+      <pose>0.005 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_1_back">
+      <static>true</static>
+      <pose>3.505 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_2_back">
+      <static>true</static>
+      <pose>7.005 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <!-- aruco_3: yaw=1.57, normal=+Y, back offset in +Y -->
+    <model name="aruco_3_back">
+      <static>true</static>
+      <pose>9 2.005 0.3048 0 0 1.57</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_4_back">
+      <static>true</static>
+      <pose>6.995 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_5_back">
+      <static>true</static>
+      <pose>3.495 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_6_back">
+      <static>true</static>
+      <pose>-0.005 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_7_back">
+      <static>true</static>
+      <pose>-3.505 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_8_back">
+      <static>true</static>
+      <pose>-7.005 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_9_back">
+      <static>true</static>
+      <pose>-10.505 4 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <!-- aruco_10: yaw=1.57, normal=+Y, back offset in +Y -->
+    <model name="aruco_10_back">
+      <static>true</static>
+      <pose>-12.5 1.995 0.3048 0 0 1.57</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_11_back">
+      <static>true</static>
+      <pose>-10.495 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_12_back">
+      <static>true</static>
+      <pose>-6.995 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <model name="aruco_13_back">
+      <static>true</static>
+      <pose>-3.495 0 0.3048 0 0 0</pose>
+      <link name="link"><visual name="visual">
+        <geometry><box><size>0.01 0.1524 0.1524</size></box></geometry>
+        <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+      </visual></link>
+    </model>
+
+    <!-- Include RC Ackermann Vehicle -->
+    <include>
+      <uri>model://rc_ackermann_vehicle</uri>
+      <name>rc_vehicle</name>
+      <pose>-1 0 0.05 0 0 0</pose>
+    </include>
+
+    <!-- BEGIN cone gates (generated by scripts/add_cone_gates.py; do not edit by hand) -->
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_11_a</name>
+      <pose>-10.5000 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_11_b</name>
+      <pose>-10.5000 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_12_a</name>
+      <pose>-7.0000 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_12_b</name>
+      <pose>-7.0000 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_13_a</name>
+      <pose>-3.5000 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_13_b</name>
+      <pose>-3.5000 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_0_a</name>
+      <pose>0.0000 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_0_b</name>
+      <pose>0.0000 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_1_a</name>
+      <pose>3.5000 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_1_b</name>
+      <pose>3.5000 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_2_a</name>
+      <pose>6.9992 0.6000 0 0 0 0.0013</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_2_b</name>
+      <pose>7.0008 -0.6000 0 0 0 0.0013</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_3_a</name>
+      <pose>8.4000 1.9992 0 0 0 1.5720</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_3_b</name>
+      <pose>9.6000 2.0008 0 0 0 1.5720</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_4_a</name>
+      <pose>7.0000 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_4_b</name>
+      <pose>7.0000 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_5_a</name>
+      <pose>3.5000 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_5_b</name>
+      <pose>3.5000 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_6_a</name>
+      <pose>-0.0000 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_6_b</name>
+      <pose>0.0000 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_7_a</name>
+      <pose>-3.5000 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_7_b</name>
+      <pose>-3.5000 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_8_a</name>
+      <pose>-7.0000 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_8_b</name>
+      <pose>-7.0000 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_9_a</name>
+      <pose>-10.4992 3.4000 0 0 0 -3.1403</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_9_b</name>
+      <pose>-10.5008 4.6000 0 0 0 -3.1403</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_10_a</name>
+      <pose>-11.9000 2.0008 0 0 0 -1.5695</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_10_b</name>
+      <pose>-13.1000 1.9992 0 0 0 -1.5695</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_11to12_1_a</name>
+      <pose>-9.3333 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_11to12_1_b</name>
+      <pose>-9.3333 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_11to12_2_a</name>
+      <pose>-8.1667 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_11to12_2_b</name>
+      <pose>-8.1667 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_12to13_1_a</name>
+      <pose>-5.8333 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_12to13_1_b</name>
+      <pose>-5.8333 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_12to13_2_a</name>
+      <pose>-4.6667 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_12to13_2_b</name>
+      <pose>-4.6667 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_13to0_1_a</name>
+      <pose>-2.3333 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_13to0_1_b</name>
+      <pose>-2.3333 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_13to0_2_a</name>
+      <pose>-1.1667 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_13to0_2_b</name>
+      <pose>-1.1667 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_0to1_1_a</name>
+      <pose>1.1667 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_0to1_1_b</name>
+      <pose>1.1667 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_0to1_2_a</name>
+      <pose>2.3333 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_0to1_2_b</name>
+      <pose>2.3333 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_1to2_1_a</name>
+      <pose>4.6667 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_1to2_1_b</name>
+      <pose>4.6667 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_1to2_2_a</name>
+      <pose>5.8333 0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_1to2_2_b</name>
+      <pose>5.8333 -0.6000 0 0 0 0.0000</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_2to3_1_a</name>
+      <pose>7.6998 0.7874 0 0 0 0.5240</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_2to3_1_b</name>
+      <pose>8.3002 -0.2515 0 0 0 0.5240</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_2to3_2_a</name>
+      <pose>8.2126 1.3002 0 0 0 1.0468</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_2to3_2_b</name>
+      <pose>9.2515 0.6998 0 0 0 1.0468</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_3to4_1_a</name>
+      <pose>8.2126 2.6998 0 0 0 2.0948</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_3to4_1_b</name>
+      <pose>9.2515 3.3002 0 0 0 2.0948</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_3to4_2_a</name>
+      <pose>7.6998 3.2126 0 0 0 2.6176</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_3to4_2_b</name>
+      <pose>8.3002 4.2515 0 0 0 2.6176</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_4to5_1_a</name>
+      <pose>5.8333 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_4to5_1_b</name>
+      <pose>5.8333 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_4to5_2_a</name>
+      <pose>4.6667 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_4to5_2_b</name>
+      <pose>4.6667 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_5to6_1_a</name>
+      <pose>2.3333 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_5to6_1_b</name>
+      <pose>2.3333 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_5to6_2_a</name>
+      <pose>1.1667 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_5to6_2_b</name>
+      <pose>1.1667 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_6to7_1_a</name>
+      <pose>-1.1667 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_6to7_1_b</name>
+      <pose>-1.1667 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_6to7_2_a</name>
+      <pose>-2.3333 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_6to7_2_b</name>
+      <pose>-2.3333 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_7to8_1_a</name>
+      <pose>-4.6667 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_7to8_1_b</name>
+      <pose>-4.6667 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_7to8_2_a</name>
+      <pose>-5.8333 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_7to8_2_b</name>
+      <pose>-5.8333 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_8to9_1_a</name>
+      <pose>-8.1667 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_8to9_1_b</name>
+      <pose>-8.1667 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_8to9_2_a</name>
+      <pose>-9.3333 3.4000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_8to9_2_b</name>
+      <pose>-9.3333 4.6000 0 0 0 3.1416</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_9to10_1_a</name>
+      <pose>-11.1998 3.2126 0 0 0 -2.6176</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_9to10_1_b</name>
+      <pose>-11.8002 4.2515 0 0 0 -2.6176</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_9to10_2_a</name>
+      <pose>-11.7126 2.6998 0 0 0 -2.0948</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_9to10_2_b</name>
+      <pose>-12.7515 3.3002 0 0 0 -2.0948</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_10to11_1_a</name>
+      <pose>-11.7126 1.3002 0 0 0 -1.0468</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_10to11_1_b</name>
+      <pose>-12.7515 0.6998 0 0 0 -1.0468</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_10to11_2_a</name>
+      <pose>-11.1998 0.7874 0 0 0 -0.5240</pose>
+    </include>
+    <include>
+      <uri>model://rc_cone</uri>
+      <name>cone_gate_10to11_2_b</name>
+      <pose>-11.8002 -0.2515 0 0 0 -0.5240</pose>
+    </include>
+    <!-- END cone gates -->
+  </world>
+</sdf>

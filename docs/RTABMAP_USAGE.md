@@ -47,8 +47,21 @@ wheel/gyro UKF run.
   (map frame, 50 Hz) and TF `map -> odom`; RTAB-Map's own `map -> odom`
   publishing is turned off.
 
+`map -> odom` is composed from the global pose and the `odom -> base_link`
+transform **at the same instant**: the global filter keeps one second of its poses
+and interpolates them to the stamp of the newest odometry transform
+(`src/saurcon_nav/src/map_odom.hpp`); if that stamp is outside the history, no
+correction is published that tick.
+
 Global consumers read `/saurcon/nav_state` or TF `map -> base_link`; controllers
-that need jump-free motion use `odom`. `/map` is the 2-D occupancy grid.
+that need jump-free motion use `odom`. `/map` is the 2-D occupancy grid (5 cm
+cells, depth out to `Grid/RangeMax` 4 m). `Grid/RayTracing` is on, so each depth
+ray clears the cells between the camera and what it hit, and the cells under the
+car's path are marked free (`Grid/Footprint*`, `GridGlobal/FootprintRadius`).
+Without ray tracing about half the track area stayed unknown after four laps; with
+it 11–14% does. It costs CPU: the cone node's camera rate fell from ~11 to ~9.5
+frames/s with RTAB-Map running. Validate on real stereo depth before relying on it
+on the car.
 `fuse_slam:=false` restores RTAB-Map publishing `map -> odom` itself with no
 global UKF. With ArUco (`use_aruco:=true`) there is one instance, fusing ArUco
 in the map frame as before.

@@ -19,7 +19,9 @@ a stereo pair that computes depth on the device, and an onboard IMU.
 
 Everything in this course can be done in **Gazebo Harmonic**. Two worlds are
 provided: `racetrack.world` (a 47.6 m stadium-shaped circuit in a warehouse) and
-`basement.world` (a 25.2 m oval). Both are lined with gates of 1:10 traffic cones.
+`basement.world` (a 25.2 m oval). Both are lined with gates of 1:10 traffic cones:
+2.2 m wide on the racetrack, with an extra gate between gates in each bend (108
+cones), and 1.2 m wide on the basement oval (72 cones).
 
 ## 2. The data flow
 
@@ -44,14 +46,25 @@ sim_saurcon_rc ─┤
                                                /ctrl_output ──► ESP32 / Gazebo car
 ```
 
+The **map-based** race policy above needs a global pose (RTAB-Map or ArUco). The
+**cone-vision** pipeline of chapter 9 needs neither: it drives from the camera and
+odometry alone, and RTAB-Map may run beside it only to build a map.
+
+```
+OAK-D RGB + depth ─► cone_policy_node: detector ─► cone memory (odom frame) ─► classical follower
+                                ▲ TF odom→base_link, /saurcon/odom_nav           or learned policy
+                                                                                      │
+                                                         /auto_cmd ◄──────────────────┘
+```
+
 | Package | Role | Chapter |
 |---|---|---|
 | `middle_earth` | Gazebo worlds, car and sensor models, cones | 1, 2 |
 | `saurcon_perception` | ArUco detection and marker-based localization (legacy) | 2 |
 | `saurcon_nav` | Unscented Kalman Filter, RTAB-Map launch | 3, 4 |
 | `saurcon_rc` | State machine, joystick handling, simulated ESP32 | 5 |
-| `saurcon_rl` | RL environment, training, policy node | 6 |
-| `scripts/sim_eval` | Scripted laps, logging, scoring, plots | 7 |
+| `saurcon_rl` | RL environments (bicycle, MuJoCo, Gazebo), training, policy nodes, cone detector, classical cone follower | 6, 8, 9 |
+| `scripts/sim_eval` | Scripted laps, cone races, logging, scoring, plots, race videos | 7, 9 |
 
 ## 3. Coordinate frames
 
@@ -83,10 +96,21 @@ ros2 launch saurcon_rc full_sim_saurcon.launch.py use_aruco:=false slam:=true \
 ros2 launch saurcon_rc full_sim_saurcon.launch.py use_aruco:=false slam:=true \
     mode:=localization initial_pose:="0 0 0 0 0 0" database_path:=$PWD/maps/race.db \
     policy_model:=rl_runs/ppo_v1/best_model.zip
+# Drive from the camera alone with the classical cone follower (no map needed)
+ros2 launch saurcon_rc full_sim_saurcon.launch.py use_aruco:=false \
+    cone_policy_model:=classical
+# Scripted 3-lap cone race with logs, chase camera and the follower's waypoints
+scripts/sim_eval/cone_race.sh classical my_run 3
 ```
 
 Useful launch arguments: `headless:=true` (no Gazebo window), `record:=false`
-(no rosbag), `world:=<file>`, `fuse_slam:=false` (let RTAB-Map own `map→odom`).
+(no rosbag), `world:=<file>`, `fuse_slam:=false` (let RTAB-Map own `map→odom`),
+`policy_map_origin:="x y yaw"` (world pose of an RTAB-Map frame started away from the
+spawn), `cone_mapping:=rtab|truth|both` (build a cone map), `cone_debug_csv:=<file>`
+(log the classical follower's state every step).
+
+The map policy only launches with a localization source (`use_aruco:=true`, or
+`slam:=true` with `fuse_slam:=true`); odometry-only combinations are refused.
 
 ### Debugging checklist
 

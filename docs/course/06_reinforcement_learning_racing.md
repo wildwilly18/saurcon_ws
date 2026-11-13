@@ -98,6 +98,14 @@ slower than the bound in the bends (2.9 vs 4.4 m/s; it was trained against grip 
 low as 8.5 m/s² and up to 0.3 s steering lag) but uses the ±0.44 m corridor to take
 wider lines into and out of them, accelerating earlier and braking later.
 
+*Track note.* These results are for the original racetrack, whose 1.2 m gates gave a
+±0.44 m corridor for the car's centre. The racetrack now has 2.2 m gates (chapter 9,
+section 8), so `track.py` derives a ±0.94 m corridor there (the basement oval is
+unchanged at ±0.44 m). The map-based policies have not been retrained on it; a wider
+corridor allows wider lines, so expect faster laps, and compare against the
+centreline bound, which does not depend on the width. Notebook 05's committed outputs
+are from the old layout.
+
 Those are fast-model numbers for the first policy. Its full-speed Gazebo race
 failed (section 6); results after the fix are in `src/saurcon_rl/README.md`.
 
@@ -130,6 +138,37 @@ diagnosis — "the machine was busy running notebooks" — was wrong, and was on
 caught by re-running on an idle machine and profiling the real-time factor over
 the run. Measure before explaining.
 
+## 7. Where the policy's pose comes from
+
+The policy's observation is built from a **global** pose: the track is stored in the
+Gazebo world frame, and `/saurcon/nav_state` is converted into it with the world
+pose of the frame it is published in (`map_origin`). Two localization modes publish
+in different frames, both named `map`:
+
+| Mode | `/saurcon/nav_state` frame | `map_origin` |
+|---|---|---|
+| ArUco (`use_aruco:=true`) | world (marker map) coordinates | `0 0 0` |
+| RTAB-Map, fused (`slam:=true fuse_slam:=true`) | RTAB-Map's map, starting where mapping started | `policy_map_origin`, default `-1.127 0 0` (racetrack spawn) |
+| `fuse_slam:=false`, visual odometry, or neither | odometry, which drifts | rejected at launch |
+
+A review found the launch file used the RTAB-Map origin in every mode, so under the
+default ArUco localization every position was shifted 1.127 m and every bend came
+early. A frame name does not tell you its origin; the launch file now chooses the
+origin from the mode and refuses combinations that would feed odometry to a policy
+that needs a map pose (`policy_map_origin()` in `full_sim_saurcon.launch.py`, tested
+in `src/saurcon_rc/test/test_policy_launch.py`). The node also stops if the state
+stops updating (chapter 5).
+
+## 8. Where this went next
+
+- **Driving without a map** (chapter 9): the same PPO setup trained on detected cones
+  instead of a stored centreline, including fine-tuning **in Gazebo** itself (the
+  answer to exercise 5 is in chapter 9, section 9) and a reward for smooth steering
+  (section 10).
+- **A classical baseline** (chapter 9, section 12): on the cone task a hand-written
+  follower beat every learned policy. Always build the baseline first; it tells you
+  what the learning has to beat and what it is for.
+
 ## How SAURCON does it
 
 | Concept | Where |
@@ -138,6 +177,7 @@ the run. Measure before explaining.
 | Environment, observation, reward | `src/saurcon_rl/saurcon_rl/env.py` |
 | PPO training, lap evaluation | `src/saurcon_rl/saurcon_rl/train.py` |
 | Policy on the car | `src/saurcon_rl/saurcon_rl/policy_node.py` |
+| Pose source and origin per launch mode | `src/saurcon_rc/launch/full_sim_saurcon.launch.py` (`policy_map_origin`) |
 | Full-loop race harness | `scripts/sim_eval/race_driver.py` |
 
 ## Exercises
@@ -146,4 +186,5 @@ the run. Measure before explaining.
 2. ★ Train with the smoothness penalty set to 0. What happens to steering in Gazebo?
 3. ★★ Remove domain randomization and retrain. Compare fast-env and Gazebo lap times.
 4. ★★ Change the reward to "−1 per step until the lap is complete". Why does learning stall?
-5. ★★★ Fine-tune the policy in the Gazebo full loop. Design the reset procedure without breaking the odometry filter (hint: what does teleporting the car do to `odom`?).
+5. ★★★ Fine-tune the policy in the Gazebo full loop. Design the reset procedure without breaking the odometry filter (hint: what does teleporting the car do to `odom`?). Compare your design with `gazebo_cone_env.py` (chapter 9, section 9).
+6. ★ Launch with `policy_model:=... use_aruco:=true` and with `slam:=true fuse_slam:=false`. What does each do, and why?

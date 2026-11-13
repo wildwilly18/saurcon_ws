@@ -20,6 +20,7 @@ SAURCON now has three simulators of the same car:
 | Bicycle model (`env.py`) | ~5,800 | kinematics, ramp limits, a friction-circle rule | fast experiments, pre-training |
 | MuJoCo (`mujoco_env.py`) | ~1,000 | rigid bodies, tyre contacts, weight transfer, slip | training the racing policy |
 | Gazebo (`full_sim`) | ~20 (real time, with sensors) | physics + camera, IMU, ROS 2, RTAB-Map, state machine | full-loop validation |
+| Gazebo, lock-step (`gazebo_cone_env.py`) | ~37 per server (headless, camera rendered) | Gazebo physics and camera, real detector, no ROS | fine-tuning the cone policy (chapter 9) |
 
 MuJoCo (Multi-Joint dynamics with Contact) is a physics engine built for control and
 learning: fast, deterministic, with smooth contact dynamics and analytical
@@ -146,6 +147,20 @@ sideslip above 25° at speed, or roll — rather than by a rule.
 
 Results of MuJoCo training and the Gazebo validation are recorded in
 `src/saurcon_rl/README.md`.
+
+The cone environment (`MujocoConeEnv`, chapter 9) adds two things the real car
+imposes: a **steering slew limit** of 8 rad/s, the MG90S servo's speed, applied to the
+action before it reaches the knuckles, and the smooth-driving penalty of chapter 9,
+section 10. Model
+the actuator you will have, or the policy learns to use one you do not.
+
+**Looking like the real car.** The car's *visual* geoms were restyled after
+photographs of the real vehicle (open tray with the battery, deck on standoffs,
+compute box, the OAK-D in its cradle, MG90S servo, red bumper truss, three-spoke
+wheels). They are visual only (`contype=0`, no mass), so the physics (5.4 kg) is
+unchanged. Two checks belong with any such change: render the onboard camera and
+count pixels belonging to the car (must be 0, or the detector sees its own bumper),
+and run the detector on an empty floor (must find no cones).
 
 **Going faster.** MJX runs MuJoCo in JAX on a GPU with thousands of environments in
 parallel. It requires the environment to be written in JAX (no Python loops per

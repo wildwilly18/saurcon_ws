@@ -45,8 +45,22 @@ Every run in `scripts/sim_eval/runsim.sh`:
 **Case studies.** A failed launch left a second Gazebo running; its topics merged
 with the next run. A test that killed `ros2 run` left the actual node processes
 alive, doubling every TF message. A cleanup using `pkill -f <pattern>` killed the
-shell running it, because the shell's own command line matched. In each case the
-symptom was a plausible-looking but wrong result.
+shell running it, because the shell's own command line matched — and, later, a
+similar pattern also matched a *training run's* wrapper, ending a smooth-reward
+training run partway (chapter 9, section 10). Kill by recorded process ID or process
+group, never by pattern. Child processes that must not outlive their parent (the
+Gazebo servers of `gazebo_cone_env.py`) are started with `PR_SET_PDEATHSIG`. In each
+case the symptom was a plausible-looking but wrong result.
+
+## 3a. Testing safety logic without the robot
+
+Watchdogs and freshness checks run rarely and fail silently. Test them as functions
+of time with every collaborator faked: a clock you advance by hand, a TF buffer that
+returns a transform at a chosen stamp (or raises), a policy that always says "full
+speed", and a publisher that records commands
+(`src/saurcon_rl/test/test_input_watchdogs.py`). Each test states one property
+("expired odometry → zero command") and nothing is actuated. Check that a new test
+fails on the old code before trusting that it passes on the new.
 
 ## 4. Reporting
 
@@ -58,6 +72,11 @@ symptom was a plausible-looking but wrong result.
   cleaner than real stereo.
 - Keep raw logs and the exact command lines (`environment.txt`, `launch.log`,
   `log.csv`) with every result.
+- Report **reliability as a count**: the classical follower with RTAB-Map running was
+  first clean in 1 of 3 runs; reporting only the clean run's lap times would have
+  hidden the problem that led to two bug fixes.
+- When a bug in shared code is found, say which earlier results it affects (chapter 9,
+  failure 5: every earlier ROS-stack cone result was obtained with mispaired depth).
 
 ## Exercises
 
